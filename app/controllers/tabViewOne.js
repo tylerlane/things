@@ -12,6 +12,6 @@ function doClick(e) {
     alert($.label.text);
 }
 
-$.window.addEventListener("open",function(){
-	$.logo.init({ image: 'News-Leader Logo.png', width: 250, height: 250 });
-});
+// $.window.addEventListener("open",function(){
+	// $.logo.init({ image: 'News-Leader Logo.png', width: 250, height: 250 });
+// });

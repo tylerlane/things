@@ -3,8 +3,10 @@ function Controller() {
         alert($.label.text);
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
+    this.__controllerPath = "tabViewOne";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
     arguments[0] ? arguments[0]["$model"] : null;
+    arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
     var __defers = {};
@@ -41,13 +43,6 @@ function Controller() {
         Ti.API.info("in open button click event handler");
         var tabViewOneChildController = Alloy.createController("tabViewOneChild");
         tabViewOneChildController.openMainWindow($.tab_one);
-    });
-    $.window.addEventListener("open", function() {
-        $.logo.init({
-            image: "News-Leader Logo.png",
-            width: 250,
-            height: 250
-        });
     });
     __defers["$.__views.label!click!doClick"] && $.__views.label.addEventListener("click", doClick);
     _.extend($, exports);

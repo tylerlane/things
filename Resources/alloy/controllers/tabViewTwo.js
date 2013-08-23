@@ -1,30 +1,36 @@
 function Controller() {
+    function loadGenres(genres) {
+        for (var i = 0; genres.length > i; i++) {
+            var button = Ti.UI.createButton({
+                title: genres[i]["fields"]["name"],
+                buttonName: genres[i]["fields"]["name"],
+                width: "auto",
+                height: 100,
+                borderRadius: 10,
+                paddingLeft: 10,
+                paddingRight: 10
+            });
+            button.addEventListener("click", function(e) {
+                Ti.API.info(e.source.title + " button clicked");
+            });
+            view.add(button);
+        }
+    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
+    this.__controllerPath = "tabViewTwo";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
     arguments[0] ? arguments[0]["$model"] : null;
+    arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
-    $.__views.__alloyId5 = Ti.UI.createWindow({
+    $.__views.tab_two_win = Ti.UI.createWindow({
         backgroundColor: "white",
         title: "Tab View Two",
-        icon: Ti.UI.iPhone.SystemIcon.FAVORITES,
-        id: "__alloyId5"
+        id: "tab_two_win",
+        icon: Ti.UI.iPhone.SystemIcon.FAVORITES
     });
-    $.__views.textArea = Ti.UI.createTextArea({
-        id: "textArea",
-        borderWidth: "2",
-        borderColor: "#bbb",
-        borderRadius: "5",
-        color: "#888",
-        textAlign: "left",
-        value: "I am a textarea",
-        top: "60",
-        width: "300",
-        height: "500"
-    });
-    $.__views.__alloyId5.add($.__views.textArea);
     $.__views.tabViewTwo = Ti.UI.createTab({
-        window: $.__views.__alloyId5,
+        window: $.__views.tab_two_win,
         title: "Tab View Two",
         id: "tabViewTwo"
     });
@@ -34,6 +40,8 @@ function Controller() {
     var myRequest = Ti.Network.createHTTPClient({
         onload: function() {
             jsonObject = JSON.parse(this.responseText);
+            var genres = jsonObject;
+            loadGenres(genres);
         },
         onerror: function(e) {
             alert(e.error);
@@ -42,6 +50,20 @@ function Controller() {
     });
     myRequest.open("GET", "http://data.news-leader.com/things/genres");
     myRequest.send();
+    var scrollView = Ti.UI.createScrollView({
+        contentWidth: "auto",
+        contentHeight: "auto",
+        showVerticalScrollIndicator: true,
+        showHorizontalScrollIndicator: true,
+        height: "80%",
+        width: "80%"
+    });
+    var view = Ti.UI.createView({
+        borderRadius: 10,
+        top: 10
+    });
+    scrollView.add(view);
+    $.tab_two_win.add(scrollView);
     _.extend($, exports);
 }
 

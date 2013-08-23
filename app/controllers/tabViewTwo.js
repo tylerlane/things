@@ -3,7 +3,7 @@
             jsonObject = JSON.parse(this.responseText);
             var genres = jsonObject;
             // $.textArea.value= genres.length;
-            // loadGenres();
+            loadGenres(genres);
         },
     onerror: function(e) {
         alert(e.error);
@@ -13,14 +13,41 @@
 myRequest.open("GET", "http://data.news-leader.com/things/genres");
 myRequest.send();
 
-// function loadGenres()
-// {
-	// var text = "";
-	// for(var i = 0; i < genres.length; i++)
-	// {
-		// text = text + genres[i]["fields"]["name"] + "\r\n";
-		// $.textArea.value = text;
-	// }
-// 	
-// 	
-// }
+function loadGenres(genres)
+{
+	var text = "";
+	for(var i = 0; i < genres.length; i++)
+	{
+		var button = Ti.UI.createButton({
+			title: genres[i]["fields"]["name"],
+			buttonName: genres[i]["fields"]["name"],
+			width:'auto',
+			height:100,
+			borderRadius: 10,
+			paddingLeft: 10,
+			paddingRight:10
+			
+		});
+		button.addEventListener('click',function(e){
+			Ti.API.info(e.source.title + " button clicked");
+			
+		});
+		view.add(button);
+	}
+}
+
+var scrollView = Ti.UI.createScrollView({
+  contentWidth: 'auto',
+  contentHeight: 'auto',
+  showVerticalScrollIndicator: true,
+  showHorizontalScrollIndicator: true,
+  height: '80%',
+  width: '80%'
+});
+var view = Ti.UI.createView({
+  // backgroundColor:'#336699',
+  borderRadius: 10,
+  top: 10,
+ });
+scrollView.add(view);
+$.tab_two_win.add(scrollView);

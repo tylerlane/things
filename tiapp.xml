@@ -8,7 +8,7 @@
     <property name="acs-api-key-development" type="string">GUHmri9MeU9wvSTQIRizMr968xWdUqbl</property>
     <id>com.newsleader.things</id>
     <name>Things To Do</name>
-    <version>0.2</version>
+    <version>1.0</version>
     <publisher>tlane2</publisher>
     <url>http://www.news-leader.com</url>
     <description>Things to do in the Ozarks</description>

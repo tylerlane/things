@@ -22,20 +22,22 @@ exports.fadeAndRemove = function(from, duration, container, finishCallback) {
 };
 
 exports.fadeIn = function(to, duration, finishCallback) {
-    to && to.animate({
+    finishCallback ? to && to.animate({
         opacity: 1,
         duration: duration
-    }, function() {
-        finishCallback && finishCallback();
+    }, finishCallback) : to && to.animate({
+        opacity: 1,
+        duration: duration
     });
 };
 
 exports.fadeOut = function(to, duration, finishCallback) {
-    to && to.animate({
+    finishCallback ? to && to.animate({
         opacity: 0,
         duration: duration
-    }, function() {
-        finishCallback && finishCallback();
+    }, finishCallback) : to && to.animate({
+        opacity: 0,
+        duration: duration
     });
 };
 
@@ -105,7 +107,7 @@ exports.flash = function(view, delay, finishCallback) {
 
 exports.chainAnimate = function(view, animations, finishCallback) {
     function step() {
-        if (0 == animations.length) {
+        if (0 === animations.length) {
             view = animations = null;
             finishCallback && finishCallback();
             return;

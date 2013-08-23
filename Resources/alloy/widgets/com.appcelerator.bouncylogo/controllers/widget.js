@@ -66,9 +66,12 @@ function Controller() {
         $.imageview.visible = 0;
     }
     new (require("alloy/widget"))("com.appcelerator.bouncylogo");
+    this.__widgetId = "com.appcelerator.bouncylogo";
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
+    this.__controllerPath = "widget";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
     arguments[0] ? arguments[0]["$model"] : null;
+    arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
     var __defers = {};
