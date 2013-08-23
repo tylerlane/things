@@ -6,6 +6,7 @@ function Controller() {
                 buttonName: genres[i]["fields"]["name"],
                 width: "auto",
                 height: 100,
+                top: 105 * i,
                 borderRadius: 10,
                 paddingLeft: 10,
                 paddingRight: 10

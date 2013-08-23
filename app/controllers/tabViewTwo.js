@@ -23,6 +23,7 @@ function loadGenres(genres)
 			buttonName: genres[i]["fields"]["name"],
 			width:'auto',
 			height:100,
+			top: i * 105,
 			borderRadius: 10,
 			paddingLeft: 10,
 			paddingRight:10
