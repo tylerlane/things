@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ti:app xmlns:ti="http://ti.appcelerator.org">
+    <property name="acs-oauth-secret-production" type="string">AqT4gsINPueSvCx1NBOapRXLbwHavDUm</property>
+    <property name="acs-oauth-key-production" type="string">BHTIXfO9fQ0TrTo8nrMgneSh9nKK0ySd</property>
+    <property name="acs-api-key-production" type="string">K2ZSvQ5ztyrP3fskNN2KNtgPoWxnhn0N</property>
+    <property name="acs-oauth-secret-development" type="string">HVxGSbGpDE85xhpfQ9GMZ77pDgbYpxdn</property>
+    <property name="acs-oauth-key-development" type="string">NS9Ya9yakbpzMz5KdxLILpmX58Ljz1Sx</property>
+    <property name="acs-api-key-development" type="string">GUHmri9MeU9wvSTQIRizMr968xWdUqbl</property>
+    <id>com.newsleader.things</id>
+    <name>Things To Do</name>
+    <version>0.2</version>
+    <publisher>tlane2</publisher>
+    <url>http://www.news-leader.com</url>
+    <description>Things to do in the Ozarks</description>
+    <copyright>2013 by tlane2</copyright>
+    <icon>News-Leader Logo.png</icon>
+    <persistent-wifi>false</persistent-wifi>
+    <prerendered-icon>false</prerendered-icon>
+    <statusbar-style>default</statusbar-style>
+    <statusbar-hidden>false</statusbar-hidden>
+    <fullscreen>false</fullscreen>
+    <navbar-hidden>false</navbar-hidden>
+    <analytics>true</analytics>
+    <guid>a633cadc-e031-4bac-ad53-be88e5c3b75c</guid>
+    <property name="ti.ui.defaultunit" type="string">system</property>
+    <iphone>
+        <orientations device="iphone">
+            <orientation>Ti.UI.PORTRAIT</orientation>
+            <orientation>Ti.UI.LANDSCAPE_LEFT</orientation>
+            <orientation>Ti.UI.LANDSCAPE_RIGHT</orientation>
+        </orientations>
+        <orientations device="ipad">
+            <orientation>Ti.UI.PORTRAIT</orientation>
+            <orientation>Ti.UI.UPSIDE_PORTRAIT</orientation>
+            <orientation>Ti.UI.LANDSCAPE_LEFT</orientation>
+            <orientation>Ti.UI.LANDSCAPE_RIGHT</orientation>
+        </orientations>
+    </iphone>
+    <android xmlns:android="http://schemas.android.com/apk/res/android"/>
+    <mobileweb>
+        <precache/>
+        <splash>
+            <enabled>true</enabled>
+            <inline-css-images>true</inline-css-images>
+        </splash>
+        <theme>default</theme>
+    </mobileweb>
+    <modules>
+        <module platform="commonjs">ti.cloud</module>
+    </modules>
+    <deployment-targets>
+        <target device="android">true</target>
+        <target device="blackberry">false</target>
+        <target device="ipad">true</target>
+        <target device="iphone">true</target>
+        <target device="mobileweb">true</target>
+        <target device="tizen">false</target>
+    </deployment-targets>
+    <sdk-version>3.1.1.GA</sdk-version>
+    <plugins>
+        <plugin version="1.0">ti.alloy</plugin>
+    </plugins>
+</ti:app>

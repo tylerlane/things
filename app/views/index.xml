@@ -1,0 +1,8 @@
+<Alloy>
+	<TabGroup>
+		<!-- tab included via require tag -->
+		<Require src="tabViewOne"></Require>
+		<!-- tab included via require tag -->
+		<Require src="tabViewTwo" ></Require>
+	</TabGroup>
+</Alloy>

@@ -1,0 +1,9 @@
+<Alloy>
+	<Tab id="tab_one" title="Tab View One">
+		<Window class="container" id="window">
+			<Widget src="com.appcelerator.bouncylogo" id="logo"/>
+			<Label id="label" onClick="doClick">Hello, World</Label>
+			<Button id="open_button">Open Child Window</Button>
+		</Window>
+	</Tab>
+</Alloy>
