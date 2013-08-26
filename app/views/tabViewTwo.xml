@@ -1,5 +1,5 @@
 <Alloy>
-	<Tab title="Genres" id="tab_two" icon="Ti.UI.iPhone.SystemIcon.SEARCH">
+	<Tab title="Genres" id="tab_two">
 		<Window title="Genres" id="tab_two_win" class="container" >
 		</Window>
 	</Tab>

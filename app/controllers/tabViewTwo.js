@@ -22,7 +22,7 @@ function loadGenres(genres)
 			title: genres[i]["fields"]["name"],
 			buttonName: genres[i]["fields"]["name"],
 			width:'auto',
-			height:100,
+			height:'auto',
 			top: i * 105,
 			borderRadius: 10,
 			paddingLeft: 10,
@@ -32,7 +32,6 @@ function loadGenres(genres)
 		button.addEventListener('click',function(e){
 			Ti.API.info(e.source.title + " button clicked");
 			var tabViewTwoChildController = Alloy.createController('tabViewTwoChild',{genre:e.source.title});
-	
 			tabViewTwoChildController.openMainWindow($.tab_two);
 			
 		});

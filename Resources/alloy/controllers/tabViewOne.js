@@ -26,10 +26,10 @@ function Controller() {
     });
     $.__views.window.add($.__views.open_button);
     $.__views.tab_one = Ti.UI.createTab({
-        icon: Ti.UI.iPhone.SystemIcon.HOME,
         window: $.__views.window,
         id: "tab_one",
-        title: "Home"
+        title: "Home",
+        icon: Ti.UI.iPhone.SystemIcon.HOME
     });
     $.__views.tab_one && $.addTopLevelView($.__views.tab_one);
     exports.destroy = function() {};

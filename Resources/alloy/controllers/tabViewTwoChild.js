@@ -1,4 +1,27 @@
 function Controller() {
+    function listEvents(events) {
+        for (var i = 0; events.length > i; i++) {
+            var button = Ti.UI.createButton({
+                title: events[i]["fields"]["name"],
+                buttonName: events[i]["fields"]["name"],
+                eventID: events[i]["pk"],
+                width: "auto",
+                height: "auto",
+                top: 105 * i,
+                borderRadius: 10,
+                paddingLeft: 10,
+                paddingRight: 10
+            });
+            button.addEventListener("click", function(e) {
+                Ti.API.info(e.source.title + " ( " + e.source.eventID + " ) button clicked");
+                var eventDetailController = Alloy.createController("EventDetail", {
+                    eventid: e.source.eventID
+                });
+                eventDetailController.openMainWindow($.tab_two);
+            });
+            view.add(button);
+        }
+    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "tabViewTwoChild";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
@@ -25,6 +48,34 @@ function Controller() {
     };
     var args = arguments[0] || {};
     $.child_window2_label.setText(args.genre || "No Genre clicked");
+    $.child_window2.title = "Genre: " + args.genre;
+    var myRequest = Ti.Network.createHTTPClient({
+        onload: function() {
+            jsonObject = JSON.parse(this.responseText);
+            var events = jsonObject;
+            listEvents(events);
+        },
+        onerror: function(e) {
+            alert(e.error);
+        },
+        timeout: 5e3
+    });
+    myRequest.open("GET", "http://data.news-leader.com/things/genre/" + args.genre);
+    myRequest.send();
+    var scrollView = Ti.UI.createScrollView({
+        contentWidth: "auto",
+        contentHeight: "auto",
+        showVerticalScrollIndicator: true,
+        showHorizontalScrollIndicator: true,
+        height: "80%",
+        width: "80%"
+    });
+    var view = Ti.UI.createView({
+        borderRadius: 10,
+        top: 10
+    });
+    scrollView.add(view);
+    $.child_window2.add(scrollView);
     _.extend($, exports);
 }
 

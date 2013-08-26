@@ -12,12 +12,12 @@ function Controller() {
         title: "Child Window"
     });
     $.__views.child_window && $.addTopLevelView($.__views.child_window);
-    $.__views.__alloyId3 = Ti.UI.createLabel({
+    $.__views.__alloyId2 = Ti.UI.createLabel({
         text: "Child Window Label",
         top: "20",
-        id: "__alloyId3"
+        id: "__alloyId2"
     });
-    $.__views.child_window.add($.__views.__alloyId3);
+    $.__views.child_window.add($.__views.__alloyId2);
     exports.destroy = function() {};
     _.extend($, $.__views);
     exports.openMainWindow = function(_tab) {

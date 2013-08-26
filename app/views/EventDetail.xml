@@ -1,0 +1,5 @@
+<Alloy>
+	<Window id="event_detail" title="Event Detail">
+		<TextArea id="event_text_area"></TextArea>
+	</Window>
+</Alloy>

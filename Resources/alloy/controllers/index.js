@@ -6,22 +6,22 @@ function Controller() {
     arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
-    $.__views.index = Ti.UI.createTabGroup({
-        id: "index"
+    $.__views.tabgroup = Ti.UI.createTabGroup({
+        id: "tabgroup"
     });
-    $.__views.__alloyId1 = Alloy.createController("tabViewOne", {
+    $.__views.__alloyId0 = Alloy.createController("tabViewOne", {
+        id: "__alloyId0"
+    });
+    $.__views.tabgroup.addTab($.__views.__alloyId0.getViewEx({
+        recurse: true
+    }));
+    $.__views.__alloyId1 = Alloy.createController("tabViewTwo", {
         id: "__alloyId1"
     });
-    $.__views.index.addTab($.__views.__alloyId1.getViewEx({
+    $.__views.tabgroup.addTab($.__views.__alloyId1.getViewEx({
         recurse: true
     }));
-    $.__views.__alloyId2 = Alloy.createController("tabViewTwo", {
-        id: "__alloyId2"
-    });
-    $.__views.index.addTab($.__views.__alloyId2.getViewEx({
-        recurse: true
-    }));
-    $.__views.index && $.addTopLevelView($.__views.index);
+    $.__views.tabgroup && $.addTopLevelView($.__views.tabgroup);
     exports.destroy = function() {};
     _.extend($, $.__views);
     $.index.open();

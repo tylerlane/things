@@ -1,1 +1,1 @@
-module.exports = [{"isClass":true,"priority":10000.0009,"key":"container","style":{backgroundColor:"white",}},{"isId":true,"priority":100000.001,"key":"tab_one","style":{icon:"Ti.UI.iPhone.SystemIcon.HOME",}}];
+module.exports = [{"isClass":true,"priority":10000.0011,"key":"container","style":{backgroundColor:"white",}},{"isId":true,"priority":100000.0012,"key":"tab_one","style":{}}];

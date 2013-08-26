@@ -5,7 +5,7 @@ function Controller() {
                 title: genres[i]["fields"]["name"],
                 buttonName: genres[i]["fields"]["name"],
                 width: "auto",
-                height: 100,
+                height: "auto",
                 top: 105 * i,
                 borderRadius: 10,
                 paddingLeft: 10,
@@ -36,8 +36,7 @@ function Controller() {
     $.__views.tab_two = Ti.UI.createTab({
         window: $.__views.tab_two_win,
         title: "Genres",
-        id: "tab_two",
-        icon: Ti.UI.iPhone.SystemIcon.SEARCH
+        id: "tab_two"
     });
     $.__views.tab_two && $.addTopLevelView($.__views.tab_two);
     exports.destroy = function() {};
