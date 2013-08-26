@@ -31,10 +31,14 @@ function loadGenres(genres)
 		});
 		button.addEventListener('click',function(e){
 			Ti.API.info(e.source.title + " button clicked");
+			var tabViewTwoChildController = Alloy.createController('tabViewTwoChild',{genre:e.source.title});
+	
+			tabViewTwoChildController.openMainWindow($.tab_two);
 			
 		});
 		view.add(button);
 	}
+
 }
 
 var scrollView = Ti.UI.createScrollView({

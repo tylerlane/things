@@ -15,10 +15,10 @@ function Controller() {
     $.__views.index.addTab($.__views.__alloyId1.getViewEx({
         recurse: true
     }));
-    $.__views.__alloyId3 = Alloy.createController("tabViewTwo", {
-        id: "__alloyId3"
+    $.__views.__alloyId2 = Alloy.createController("tabViewTwo", {
+        id: "__alloyId2"
     });
-    $.__views.index.addTab($.__views.__alloyId3.getViewEx({
+    $.__views.index.addTab($.__views.__alloyId2.getViewEx({
         recurse: true
     }));
     $.__views.index && $.addTopLevelView($.__views.index);

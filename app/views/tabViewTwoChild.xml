@@ -1,0 +1,5 @@
+<Alloy>
+  <Window id="child_window2" title="Child Window">
+    <Label  top="20" id="child_window2_label" >Child Window Two Label</Label>
+  </Window>
+</Alloy>

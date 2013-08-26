@@ -13,6 +13,10 @@ function Controller() {
             });
             button.addEventListener("click", function(e) {
                 Ti.API.info(e.source.title + " button clicked");
+                var tabViewTwoChildController = Alloy.createController("tabViewTwoChild", {
+                    genre: e.source.title
+                });
+                tabViewTwoChildController.openMainWindow($.tab_two);
             });
             view.add(button);
         }
@@ -26,16 +30,16 @@ function Controller() {
     var exports = {};
     $.__views.tab_two_win = Ti.UI.createWindow({
         backgroundColor: "white",
-        title: "Tab View Two",
-        id: "tab_two_win",
-        icon: Ti.UI.iPhone.SystemIcon.FAVORITES
+        title: "Genres",
+        id: "tab_two_win"
     });
-    $.__views.tabViewTwo = Ti.UI.createTab({
+    $.__views.tab_two = Ti.UI.createTab({
         window: $.__views.tab_two_win,
-        title: "Tab View Two",
-        id: "tabViewTwo"
+        title: "Genres",
+        id: "tab_two",
+        icon: Ti.UI.iPhone.SystemIcon.SEARCH
     });
-    $.__views.tabViewTwo && $.addTopLevelView($.__views.tabViewTwo);
+    $.__views.tab_two && $.addTopLevelView($.__views.tab_two);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var myRequest = Ti.Network.createHTTPClient({

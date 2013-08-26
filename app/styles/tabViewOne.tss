@@ -4,5 +4,5 @@
 
 
 "#tab_one": {
-	icon:"Ti.UI.iPhone.SystemIcon.SEARCH"
+	icon:"Ti.UI.iPhone.SystemIcon.HOME"
 }

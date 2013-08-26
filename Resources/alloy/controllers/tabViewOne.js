@@ -14,11 +14,6 @@ function Controller() {
         backgroundColor: "white",
         id: "window"
     });
-    $.__views.logo = Alloy.createWidget("com.appcelerator.bouncylogo", "widget", {
-        id: "logo",
-        __parentSymbol: $.__views.window
-    });
-    $.__views.logo.setParent($.__views.window);
     $.__views.label = Ti.UI.createLabel({
         text: "Hello, World",
         id: "label"
@@ -31,10 +26,10 @@ function Controller() {
     });
     $.__views.window.add($.__views.open_button);
     $.__views.tab_one = Ti.UI.createTab({
-        icon: "Ti.UI.iPhone.SystemIcon.SEARCH",
+        icon: Ti.UI.iPhone.SystemIcon.HOME,
         window: $.__views.window,
         id: "tab_one",
-        title: "Tab View One"
+        title: "Home"
     });
     $.__views.tab_one && $.addTopLevelView($.__views.tab_one);
     exports.destroy = function() {};

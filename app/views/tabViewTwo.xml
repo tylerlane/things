@@ -1,11 +1,6 @@
 <Alloy>
-	<Tab title="Tab View Two">
-		<Window title="Tab View Two" id="tab_two_win" class="container" icon="Ti.UI.iPhone.SystemIcon.FAVORITES">
-			<!-- <TextArea id="textArea"
-        	    borderWidth="2" borderColor="#bbb" borderRadius="5"
-            	color="#888" textAlign="left" value="I am a textarea"
-            	top="60" width="300" height="500" />
-	 -->
+	<Tab title="Genres" id="tab_two" icon="Ti.UI.iPhone.SystemIcon.SEARCH">
+		<Window title="Genres" id="tab_two_win" class="container" >
 		</Window>
 	</Tab>
 </Alloy>
