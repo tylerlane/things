@@ -1,5 +1,9 @@
 <Alloy>
-	<Window id="event_detail" title="Event Detail">
-		<TextArea id="event_text_area"></TextArea>
+	<Window id="event_detail_win" title="Event Detail">
+		   <Label id="label1" color="#900" shadowColor="#aaa" text="A simple label" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER"
+            		width="Ti.UI.SIZE" height="Ti.UI.SIZE" top="0" />
+			<Label id="label2" color="blue" textAlign="Ti.UI.TEXT_ALIGNMENT_LEFT" top="25">A long label with\na few line breaks\nand unicode (UTF8)\nsymbols such as\na white chess piece \u2655\nand the euro symbol \u20ac\nlooks like this!\n
+			</Label>
+		    <Label id="label3" color="black" top="500"></Label> 
 	</Window>
 </Alloy>

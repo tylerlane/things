@@ -14,9 +14,10 @@ function Controller() {
             button.addEventListener("click", function(e) {
                 Ti.API.info(e.source.title + " button clicked");
                 var tabViewTwoChildController = Alloy.createController("tabViewTwoChild", {
-                    genre: e.source.title
+                    genre: e.source.title,
+                    parentTab: $.tab_two
                 });
-                tabViewTwoChildController.openMainWindow($.tab_two);
+                $.tab_two.open(tabViewTwoChildController.getView());
             });
             view.add(button);
         }

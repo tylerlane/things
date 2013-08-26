@@ -28,8 +28,8 @@ function Controller() {
     $.__views.tab_one = Ti.UI.createTab({
         window: $.__views.window,
         id: "tab_one",
-        title: "Home",
-        icon: Ti.UI.iPhone.SystemIcon.HOME
+        title: "Search",
+        icon: Ti.UI.iPhone.SystemIcon.SEARCH
     });
     $.__views.tab_one && $.addTopLevelView($.__views.tab_one);
     exports.destroy = function() {};

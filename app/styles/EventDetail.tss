@@ -1,4 +1,4 @@
 
-".container" : {
-  
-}
+"#event_detail_win" : {
+	backgroundColor: "white"
+ }

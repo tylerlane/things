@@ -1,26 +1,40 @@
 function Controller() {
     function listEvents(events) {
+        var data = [];
         for (var i = 0; events.length > i; i++) {
-            var button = Ti.UI.createButton({
+            var row = {
                 title: events[i]["fields"]["name"],
-                buttonName: events[i]["fields"]["name"],
                 eventID: events[i]["pk"],
-                width: "auto",
-                height: "auto",
-                top: 105 * i,
-                borderRadius: 10,
-                paddingLeft: 10,
-                paddingRight: 10
-            });
-            button.addEventListener("click", function(e) {
-                Ti.API.info(e.source.title + " ( " + e.source.eventID + " ) button clicked");
-                var eventDetailController = Alloy.createController("EventDetail", {
-                    eventid: e.source.eventID
-                });
-                eventDetailController.openMainWindow($.tab_two);
-            });
-            view.add(button);
+                hasDetail: true,
+                color: "blue"
+            };
+            data.push(row);
         }
+        var tableview = Titanium.UI.createTableView({
+            data: data
+        });
+        tableview.addEventListener("click", function(e) {
+            showClickEventInfo(e);
+        });
+        tableview.addEventListener("longclick", function(e) {
+            showClickEventInfo(e, true);
+        });
+        view.add(tableview);
+    }
+    function showClickEventInfo(e, islongclick) {
+        var index = e.index;
+        var section = e.section;
+        var row = e.row;
+        var rowdata = e.rowData;
+        Ti.API.info("detail " + e.detail);
+        var msg = "row " + row + " index " + index + " section " + section + " row data " + rowdata;
+        islongclick && (msg = "LONGCLICK " + msg);
+        Ti.API.info(e.source.title + " ( " + e.source.eventID + " ) button clicked");
+        var eventDetailController = Alloy.createController("EventDetail", {
+            eventid: e.rowData.eventID,
+            parentTab: args.parentTab
+        });
+        args.parentTab.open(eventDetailController.getView());
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "tabViewTwoChild";
@@ -43,9 +57,8 @@ function Controller() {
     $.__views.child_window2.add($.__views.child_window2_label);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    exports.openMainWindow = function(_tab) {
-        _tab.open($.child_window2);
-    };
+    var args = arguments[0] || {};
+    $.parentController = args.parentTab;
     var args = arguments[0] || {};
     $.child_window2_label.setText(args.genre || "No Genre clicked");
     $.child_window2.title = "Genre: " + args.genre;
@@ -68,7 +81,7 @@ function Controller() {
         showVerticalScrollIndicator: true,
         showHorizontalScrollIndicator: true,
         height: "80%",
-        width: "80%"
+        width: "95%"
     });
     var view = Ti.UI.createView({
         borderRadius: 10,

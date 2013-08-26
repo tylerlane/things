@@ -1,6 +1,8 @@
-exports.openMainWindow = function(_tab){
-	_tab.open($.child_window2);
-};
+var args = arguments[0] || {};
+$.parentController = args.parentTab;
+// exports.openMainWindow = function(_tab){
+	// _tab.open($.child_window2);
+// };
 var args = arguments[0] || {};
 $.child_window2_label.setText(args.genre || 'No Genre clicked');
 $.child_window2.title = "Genre: " + args.genre;
@@ -22,29 +24,55 @@ myRequest.send();
 
 function listEvents(events)
 {
-	var text = "";
+	// create table view data object
+	var data = [];
 	for(var i = 0; i < events.length; i++)
 	{
-		var button = Ti.UI.createButton({
-			title: events[i]["fields"]["name"],
-			buttonName: events[i]["fields"]["name"],
-			eventID: events[i]["pk"],
-			width:'auto',
-			height:'auto',
-			top: i * 105,
-			borderRadius: 10,
-			paddingLeft: 10,
-			paddingRight:10
-			
-		});
-		button.addEventListener('click',function(e){
-			Ti.API.info(e.source.title + " ( " + e.source.eventID + " ) button clicked");
-			var eventDetailController = Alloy.createController('EventDetail',{eventid:e.source.eventID});
-			eventDetailController.openMainWindow($.tab_two);	
-		});
-		view.add(button);
+		var row = {title:events[i]["fields"]["name"],eventID:events[i]["pk"],hasDetail:true,color:'blue'};
+		data.push(row);
 	}
+	
+	// create table view
+	var tableview = Titanium.UI.createTableView({
+		data:data
+	});
+	// create table view event listener
+	tableview.addEventListener('click', function(e)
+	{
+		showClickEventInfo(e);
+	});
+	tableview.addEventListener('longclick', function(e)
+	{
+		showClickEventInfo(e, true);
+	});
+	view.add(tableview);
+	
+
 }
+
+
+
+function showClickEventInfo(e, islongclick) {
+	// event data
+	var index = e.index;
+	var section = e.section;
+	var row = e.row;
+	var rowdata = e.rowData;
+	Ti.API.info('detail ' + e.detail);
+	var msg = 'row ' + row + ' index ' + index + ' section ' + section  + ' row data ' + rowdata;
+	if (islongclick) {
+		msg = "LONGCLICK " + msg;
+	}
+	
+	Ti.API.info(e.source.title + " ( " + e.source.eventID + " ) button clicked");
+	// var eventDetailController = Alloy.createController('EventDetail',{eventid:e.source.eventID}).getView();
+	// eventDetailController.openMainWindow($.tab_two);
+	var eventDetailController = Alloy.createController('EventDetail',{eventid:e.rowData.eventID,parentTab: args.parentTab});
+	args.parentTab.open(eventDetailController.getView());
+	
+	// Titanium.UI.createAlertDialog({title:'Table View',message:msg}).show();
+}
+
 
 var scrollView = Ti.UI.createScrollView({
   contentWidth: 'auto',
@@ -52,7 +80,7 @@ var scrollView = Ti.UI.createScrollView({
   showVerticalScrollIndicator: true,
   showHorizontalScrollIndicator: true,
   height: '80%',
-  width: '80%'
+  width: '95%'
 });
 var view = Ti.UI.createView({
   // backgroundColor:'#336699',
