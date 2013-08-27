@@ -30,6 +30,7 @@ function Controller() {
         var msg = "row " + row + " index " + index + " section " + section + " row data " + rowdata;
         islongclick && (msg = "LONGCLICK " + msg);
         Ti.API.info(e.source.title + " ( " + e.source.eventID + " ) button clicked");
+        Ti.API.info(msg);
         var eventDetailController = Alloy.createController("EventDetail", {
             eventid: e.rowData.eventID,
             parentTab: args.parentTab

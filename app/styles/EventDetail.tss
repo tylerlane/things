@@ -1,4 +1,13 @@
 
 "#event_detail_win" : {
-	backgroundColor: "white"
+	backgroundColor: "#065365"
  }
+ 
+"#going" : {
+	backgroundColor: "#065365",
+	color: "white",
+}
+"#notinterested" : {
+	backgroundColor: "#065365",
+	color: "white",
+}

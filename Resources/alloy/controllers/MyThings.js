@@ -7,6 +7,7 @@ function Controller() {
     var $ = this;
     var exports = {};
     $.__views.window = Ti.UI.createWindow({
+        backgroundColor: "white",
         id: "window"
     });
     $.__views.label = Ti.UI.createLabel({
@@ -17,7 +18,8 @@ function Controller() {
     $.__views.tab_one = Ti.UI.createTab({
         window: $.__views.window,
         id: "tab_one",
-        title: "My Things"
+        title: "My Things",
+        icon: Titanium.UI.iPhone.SystemIcon.Favorites
     });
     $.__views.tab_one && $.addTopLevelView($.__views.tab_one);
     exports.destroy = function() {};

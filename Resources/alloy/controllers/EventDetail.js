@@ -18,14 +18,14 @@ function Controller() {
     var $ = this;
     var exports = {};
     $.__views.event_detail_win = Ti.UI.createWindow({
-        backgroundColor: "white",
+        backgroundColor: "#065365",
         id: "event_detail_win",
         title: "Event Detail"
     });
     $.__views.event_detail_win && $.addTopLevelView($.__views.event_detail_win);
     $.__views.label1 = Ti.UI.createLabel({
         id: "label1",
-        color: "#900",
+        color: "white",
         shadowColor: "#aaa",
         text: "A simple label",
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
@@ -35,17 +35,33 @@ function Controller() {
     });
     $.__views.event_detail_win.add($.__views.label1);
     $.__views.label2 = Ti.UI.createLabel({
-        text: "A long label with\na few line breaks\nand unicode (UTF8)\nsymbols such as\na white chess piece ♕\nand the euro symbol €\nlooks like this!\n",
+        text: "",
         id: "label2",
-        color: "blue",
+        color: "white",
         textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT,
         top: "25"
     });
     $.__views.event_detail_win.add($.__views.label2);
+    $.__views.going = Ti.UI.createButton({
+        backgroundColor: "#065365",
+        color: "white",
+        title: "I'm Going!",
+        id: "going",
+        left: "10"
+    });
+    $.__views.event_detail_win.add($.__views.going);
+    $.__views.notinterested = Ti.UI.createButton({
+        backgroundColor: "#065365",
+        color: "white",
+        title: "Not Interested",
+        id: "notinterested",
+        left: "150"
+    });
+    $.__views.event_detail_win.add($.__views.notinterested);
     $.__views.label3 = Ti.UI.createLabel({
         id: "label3",
         color: "black",
-        top: "500"
+        top: "300"
     });
     $.__views.event_detail_win.add($.__views.label3);
     exports.destroy = function() {};

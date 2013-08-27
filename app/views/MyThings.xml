@@ -1,5 +1,5 @@
 <Alloy>
-	<Tab id="tab_one" title="My Things">
+	<Tab id="tab_one" title="My Things" icon="Titanium.UI.iPhone.SystemIcon.Favorites">
 		<Window class="container" id="window">
 			<Label id="label" >My Things</Label>
 			<!-- <Button id="open_button">Open Child Window</Button> -->

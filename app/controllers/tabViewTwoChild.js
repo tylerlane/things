@@ -65,6 +65,7 @@ function showClickEventInfo(e, islongclick) {
 	}
 	
 	Ti.API.info(e.source.title + " ( " + e.source.eventID + " ) button clicked");
+	Ti.API.info(msg);
 	// var eventDetailController = Alloy.createController('EventDetail',{eventid:e.source.eventID}).getView();
 	// eventDetailController.openMainWindow($.tab_two);
 	var eventDetailController = Alloy.createController('EventDetail',{eventid:e.rowData.eventID,parentTab: args.parentTab});
