@@ -1,9 +1,10 @@
 <Alloy>
 	<Window id="event_detail_win" title="Event Detail">
-		   <Label id="label1" color="white" shadowColor="#aaa" text="A simple label" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER"
-            		width="Ti.UI.SIZE" height="Ti.UI.SIZE" top="0" />
-			<Label id="label2" color="white" textAlign="Ti.UI.TEXT_ALIGNMENT_LEFT" top="25">			</Label>
-			<Button id="going" left="10">I'm Going!</Button><Button id="notinterested" left="150">Not Interested</Button>
-		    <Label id="label3" color="black" top="300"></Label> 
+		<Label id="label1" text="A simple label" />
+		<Label id="label2" ></Label>
+		<!-- <Button id="going" onClick="EventGoingClick" title="Going"></Button> -->
+		<ImageView id="going" />
+		<Button id="notinterested">Not Interested</Button>
+		<Label id="label3"></Label>
 	</Window>
 </Alloy>

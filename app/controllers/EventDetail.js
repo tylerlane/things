@@ -40,3 +40,7 @@ function eventDetail(event_detail)
 	$.label2.setText(event_detail["fields"]["description"]);
 	// $.label3.setText(event_detail);
 }
+
+function EventGoingClick(e){
+	Ti.API.info("I'm going button has been clicked");
+}

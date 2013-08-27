@@ -1,3 +1,7 @@
 "#child_window2": {
 	backgroundColor: "white"
 }
+"#tableview": {
+	font:{fontSize:18},
+}
+

@@ -34,7 +34,8 @@ function listEvents(events)
 	
 	// create table view
 	var tableview = Titanium.UI.createTableView({
-		data:data
+		data:data,
+		id:"tableview"
 	});
 	// create table view event listener
 	tableview.addEventListener('click', function(e)
