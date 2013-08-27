@@ -4,7 +4,7 @@ $.parentController = args.parentTab;
 	// _tab.open($.child_window2);
 // };
 var args = arguments[0] || {};
-$.child_window2_label.setText(args.genre || 'No Genre clicked');
+// $.child_window2_label.setText(args.genre || 'No Genre clicked');
 $.child_window2.title = "Genre: " + args.genre;
 var myRequest = Ti.Network.createHTTPClient({
     onload: function(e) {

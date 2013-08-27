@@ -1,5 +1,5 @@
 <Alloy>
   <Window id="child_window" title="Child Window">
-    <Label  top="20" >Child Window Label</Label>
+    <!-- <Label  top="20" >Child Window Label</Label> -->
   </Window>
 </Alloy>

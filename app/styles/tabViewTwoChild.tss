@@ -3,5 +3,6 @@
 }
 "#tableview": {
 	font:{fontSize:18},
+	top:0
 }
 
