@@ -3,3 +3,5 @@ build/
 build.log
 Resources/
 Resources/*
+Resources/alloy
+Resources/alloy/*
