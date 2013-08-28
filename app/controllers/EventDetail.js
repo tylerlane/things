@@ -7,7 +7,7 @@ $.parentController = args.parentTab;
 	// $.tab_group.activeTab.open($.event_detail);
 // };
 
-$.event_detail_win.setTitle( "Event Detail: " + args.eventid ); 
+$.event_detail_win.setTitle( args.eventid ); 
 
 var myRequest = Ti.Network.createHTTPClient({
     onload: function(e) {

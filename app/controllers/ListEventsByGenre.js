@@ -5,7 +5,7 @@ $.parentController = args.parentTab;
 // };
 var args = arguments[0] || {};
 // $.child_window2_label.setText(args.genre || 'No Genre clicked');
-$.child_window2.title = "Genre: " + args.genre;
+$.child_window2.title = args.genre;
 var myRequest = Ti.Network.createHTTPClient({
     onload: function(e) {
             jsonObject = JSON.parse(this.responseText);
