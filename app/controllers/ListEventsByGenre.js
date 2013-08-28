@@ -44,7 +44,7 @@ function listEvents(events) {
 		id : "tableview",
 		objName : 'tableview',
 		// style: Titanium.UI.iPhone.TableViewStyle.GROUPED,
-		separatorStyle: Titanium.UI.iPhone.TableViewSeparatorStyle.NONE
+		// separatorStyle: Titanium.UI.iPhone.TableViewSeparatorStyle.NONE
 	});
 	Ti.API.info("CustomData: " + CustomData);
 	var data = [];
@@ -99,11 +99,11 @@ function listEvents(events) {
 				fontSize : 20,
 				fontWeight : 'bold'
 			},
-			width : '150',
+			width : '200',
 			textAlign : 'left',
 			top : 2,
 			left : 110,
-			height : 20
+			height : 'auto'
 		});
 		var when = Ti.UI.createLabel({
 		   text: "Where: ",
