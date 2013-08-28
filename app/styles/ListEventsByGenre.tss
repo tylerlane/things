@@ -1,8 +1,11 @@
 "#child_window2": {
-	backgroundColor: "white"
+	backgroundImage: "background.png"
 }
 "#tableview": {
 	font:{fontSize:18},
 	top:0
 }
 
+".EventListing": {
+	
+}

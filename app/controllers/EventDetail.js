@@ -7,8 +7,6 @@ $.parentController = args.parentTab;
 	// $.tab_group.activeTab.open($.event_detail);
 // };
 
-$.event_detail_win.setTitle( args.eventid ); 
-
 var myRequest = Ti.Network.createHTTPClient({
     onload: function(e) {
             jsonObject = JSON.parse(this.responseText);
@@ -35,6 +33,7 @@ function eventDetail(event_detail)
              // sets height
         });
     $.event_detail_win.add(image);
+    $.event_detail_win.setTitle(event_detail["fields"]["name"] ); 
     Ti.API.info("Adding image to view1. url is " + image.getImage());
 	$.label1.setText(event_detail["fields"]["name"]);
 	$.label2.setText(event_detail["fields"]["description"]);
