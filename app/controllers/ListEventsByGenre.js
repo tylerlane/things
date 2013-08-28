@@ -99,7 +99,7 @@ function listEvents(events) {
 				fontSize : 20,
 				fontWeight : 'bold'
 			},
-			width : '200',
+			width : 'auto',
 			textAlign : 'left',
 			top : 2,
 			left : 110,
