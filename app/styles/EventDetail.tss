@@ -1,6 +1,6 @@
 "#event_detail_win": {
-	// backgroundColor: "#065365",
-	backgroundImage: "background.png"
+	barColor: "#065365",
+	backgroundImage: "background.png",
  }
  
 "#going": {

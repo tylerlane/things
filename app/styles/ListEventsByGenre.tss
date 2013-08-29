@@ -1,9 +1,11 @@
 "#child_window2": {
-	backgroundImage: "background.png"
+	barColor: "#065365",
+	backgroundImage: "background.png",
 }
 "#tableview": {
 	font:{fontSize:18},
-	top:0
+	top:0,
+	translucent: true
 }
 
 ".EventListing": {

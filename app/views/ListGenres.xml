@@ -1,0 +1,6 @@
+<Alloy>
+	<Tab title="Browse" id="tab_two">
+		<Window title="Browse" id="tab_two_win" class="container">
+		</Window>
+	</Tab>
+</Alloy>

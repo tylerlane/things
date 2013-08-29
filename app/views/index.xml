@@ -2,7 +2,7 @@
 	<TabGroup>
 		<!-- tab included via require tag -->
 		<!-- Genres -->
-		<Require src="tabViewTwo" ></Require>
+		<Require src="ListGenres" ></Require>
 		<!-- Search -->
 		<Require src="tabViewOne"></Require>
 		<!-- My Things -->
