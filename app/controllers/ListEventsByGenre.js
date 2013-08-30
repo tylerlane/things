@@ -39,32 +39,18 @@ function listEvents(events) {
         Ti.API.info("temp row: " + temp_row);
         CustomData.push(temp_row);
     }
-    // var search = Titanium.UI.createSearchBar({
-        // barColor : '#385292',
-        // showCancel : false,
-        // hintText : 'search'
-    // });
-    // search.addEventListener('change', function(e) {
-        //e.value;// search string as user types
-        //Ti.API.info("Search: " + e.value);
-    // });
-    // search.addEventListener('return', function(e) {
-        // search.blur();
-    // });
-    // search.addEventListener('cancel', function(e) {
-        // search.blur();
-    // });
 
-    // create table view
+    // // create table view
     var tableview = Titanium.UI.createTableView({
         id : "tableview",
         objName : 'tableview',
-        translucent:true,
+
         // search : search,
         // filterAttribute : title,
         // style: Titanium.UI.iPhone.TableViewStyle.GROUPED,
         // separatorStyle: Titanium.UI.iPhone.TableViewSeparatorStyle.NONE
     });
+
     Ti.API.info("CustomData: " + CustomData);
     var data = [];
     // for (var i = CustomData.length - 1; i <= 0; i--)
@@ -72,13 +58,14 @@ function listEvents(events) {
         // Ti.API.info("CustomData[i]" + CustomData[i]);
         var row = Titanium.UI.createTableViewRow({
             eventID : CustomData[i]["eventID"],
-            height : 150,
+            minHeight : 150,
             pic : NaN,
             address : NaN,
             hasDetail : NaN,
             resized : false,
+            // backgroundColor: "#2a6970",
         });
-
+        
         //setting up the di
         var pic = Titanium.UI.createImageView({
             image : CustomData[i].pic,
@@ -170,13 +157,18 @@ function listEvents(events) {
             font : {
                 fontSize : 10,
             },
+            bubbleParent: false,
+            
         });
         going_button.addEventListener('click', function(e) {
             Ti.API.info("going button in event listing clicked");
+            //reversing the button colors if you hit i'm going.
+            e.source.setBackgroundColor("#065365");
+            
         });
 
         var maybe_button = Ti.UI.createButton({
-            title : "Maybe?",
+            title : "I'm Interested",
             width : "auto",
             height : "15",
             bottom : 0,
@@ -185,6 +177,7 @@ function listEvents(events) {
                 fontSize : 10,
             },
             color : "#065365",
+            bubbleParent: false
         });
         maybe_button.addEventListener('click', function(e) {
             Ti.API.info("maybe button in event listing clicked");
@@ -201,7 +194,7 @@ function listEvents(events) {
         // row.add(trend);
         // row.hasDetail = CustomData[i].hasDetail;
 
-        //row.className = 'EventListing';
+        row.className = 'EventListing';
         //send the row we made to our data
         data.push(row);
         tableview.setData(data);

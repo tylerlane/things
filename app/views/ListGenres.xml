@@ -1,6 +1,7 @@
 <Alloy>
-	<Tab title="Browse" id="tab_two">
+	<Tab title="Browse" id="tab_two" icon="multiple.png">
 		<Window title="Browse" id="tab_two_win" class="container">
+			
 		</Window>
 	</Tab>
 </Alloy>

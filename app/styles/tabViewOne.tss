@@ -1,8 +1,8 @@
 ".container": {
-	backgroundColor: "white"
+	barColor: "#065365",
+	backgroundImage: "background.png",
 }
 
 
 "#tab_one": {
-	// icon:"Ti.UI.iPhone.SystemIcon.HOME"
 }

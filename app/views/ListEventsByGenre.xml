@@ -1,5 +1,7 @@
 <Alloy>
   <Window id="child_window2" title="Events">
-    
+  		<!-- <TableView id="tableview" objname="tableview">
+  			<Widget id="ptr" src="nl.fokkezb.pullToRefresh" onRelease="myLoader" />
+  		</TableView> -->
   </Window>
 </Alloy>

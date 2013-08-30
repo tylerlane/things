@@ -1,7 +1,5 @@
 ".container": {
 	//backgroundColor: "white",
 	barColor: "#065365",
-	titleimage: "titlebar.png",
 	backgroundImage: "background.png",
-	
 }

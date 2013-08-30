@@ -5,9 +5,9 @@
 "#tableview": {
 	font:{fontSize:18},
 	top:0,
-	translucent: true
+	
 }
 
 ".EventListing": {
-	
+	backgroundColor: "#2a6970",	
 }

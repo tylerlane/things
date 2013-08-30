@@ -1,4 +1,9 @@
 
-".container" : {
-	backgroundColor: "white",
+".container": {
+	barColor: "#065365",
+	backgroundImage: "background.png",
+}
+
+"#label":{
+	color: "white",
 }

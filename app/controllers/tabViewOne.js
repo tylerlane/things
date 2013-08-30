@@ -8,6 +8,7 @@ $.open_button.addEventListener("click",function(){
 	
 });
 
+
 function doClick(e) {  
     alert($.label.text);
 }

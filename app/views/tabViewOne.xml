@@ -1,6 +1,6 @@
 <Alloy>
-	<Tab id="tab_one" title="Search" icon="Ti.UI.iPhone.SystemIcon.SEARCH">
-		<Window class="container" id="window">
+	<Tab id="tab_one" title="Search" icon="search.png">
+		<Window class="container" id="window" title="Search">
 			<Label id="label" onClick="doClick">Hello, World</Label>
 			<Button id="open_button">Open Child Window</Button>
 		</Window>
