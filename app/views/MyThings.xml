@@ -1,7 +1,7 @@
 <Alloy>
 	<Tab id="tab_one" title="My Things" icon="calendar.png">
-		<Window class="container" id="window" title="My Things">
-			<Label id="label" >My Things</Label>
+		<Window class="container" id="my_things_win" title="My Things">
+			<!-- <Label id="label" >My Things</Label> -->
 			<!-- <Button id="open_button">Open Child Window</Button> -->
 		</Window>
 	</Tab>
