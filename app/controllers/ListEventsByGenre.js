@@ -1,78 +1,11 @@
-//settings args and titles etc
 var args = arguments[0] || {};
 $.parentController = args.parentTab;
+// exports.openMainWindow = function(_tab){
+// _tab.open($.child_window2);
+// };
+var args = arguments[0] || {};
+// $.child_window2_label.setText(args.genre || 'No Genre clicked');
 $.child_window2.title = args.genre;
-//require alloy
-var alloy = require('alloy');
-//open our db object
-var db = Ti.Database.open("Things");
-db.execute("CREATE TABLE IF NOT EXISTS my_events(id INTEGER PRIMARY KEY UNIQUE, event_name TEXT, event_date TEXT,status TEXT);");
-db.close();
-var db = Ti.Database.open("Things");
-
-if(Ti.Platform.name != "android" )
-{
-    //apparently apple will reject apps backing up unnecessary files so setting the local db to not be backed up.
-    db.file.setRemoteBackup(false);    
-}
-
-
-//customizing the title bar button
-var menubutton = Ti.UI.createButton({
-        title:'Filter',
-        id: "menubutton",
-        objName: "menubutton",
-        image: "filter.png",
-        style: Titanium.UI.iPhone.SystemButtonStyle.PLAIN, 
-});
-var filterView =  Titanium.UI.createView({
-    width:205,
-    height:57,
-    backgroundImage:"bubble.png",
-    top:0,
-    right:3,
-});
-var filterLabel =  Titanium.UI.createLabel({
-    text:'Continue reading',
-    color:'#fff',
-    width:205,
-    height:34,
-    top:16,
-    font:{
-        fontFamily:'Helvetica Neue',
-        fontSize:13,
-        fontWeight:'bold'
-    },
-    textAlign:'center'
-    });
- 
-filterView.add(filterLabel);
-$.child_window2.add(filterView);
-//animation stuff
-var anim_out = Titanium.UI.createAnimation();
-anim_out.opacity=0;
-anim_out.duration = 250;
-Ti.API.info( "menu button created" + menubutton );
-//setting the button on the current window
-$.child_window2.setRightNavButton(menubutton);
-//adding a call back
-menubutton.addEventListener('click', function(e)
-{
-   Ti.API.info( "menu button clicked");
-   var zindex = filterview.getZIndex();
-   if( zindex == "undefined" || zindex !="100" )
-   {
-       filterview.setZIndex(100);
-   }
-   else
-   {
-       filterview.setZIndex(0);
-   }
-   filterView.animate(anim_out);
-});
-
-// 
-
 var myRequest = Ti.Network.createHTTPClient({
     onload : function(e) {
         jsonObject = JSON.parse(this.responseText);
@@ -98,9 +31,9 @@ function listEvents(events) {
             address : events[i]["fields"]["contact_address"],
             eventID : events[i]["pk"],
             excitement : events[i]["fields"]["excitement"],
-            short_description : events[i]["fields"]["short_description"],
-            date: events[i]["fields"]["date"],
-            cost: events[i]["fields"]["cost_description"],
+            description : events[i]["fields"]["description"],
+            hasDetail : true,
+            color : 'blue',
             resized : false
         };
         Ti.API.info("temp row: " + temp_row);
@@ -111,10 +44,10 @@ function listEvents(events) {
     var tableview = Titanium.UI.createTableView({
         id : "tableview",
         objName : 'tableview',
-        maxRowHeight: 175,
-        height: Ti.UI.Size,
+
         // search : search,
         // filterAttribute : title,
+        // style: Titanium.UI.iPhone.TableViewStyle.GROUPED,
         // separatorStyle: Titanium.UI.iPhone.TableViewSeparatorStyle.NONE
     });
 
@@ -125,229 +58,137 @@ function listEvents(events) {
         // Ti.API.info("CustomData[i]" + CustomData[i]);
         var row = Titanium.UI.createTableViewRow({
             eventID : CustomData[i]["eventID"],
-            // maxHeight : 200,
+            minHeight : 150,
             pic : NaN,
             address : NaN,
             hasDetail : NaN,
             resized : false,
-            layout: "horizontal",
-            height: Ti.UI.SIZE,
-            backgroundImage: "tableRowBackground.png",
             // backgroundColor: "#2a6970",
         });
         
         //setting up the di
         var pic = Titanium.UI.createImageView({
             image : CustomData[i].pic,
-            backgoundColor: "white",
-            width : 100,
-            //height : 95,
-            hires: true,
-            preventDefaultImage:true,
-            left : 2,
+            // width : 100,
+            // height : 150,
+            left : 4,
             top : 2
         });
         Ti.API.info(pic + " " + pic.image);
         pic.addEventListener('error', function(e) {
             Ti.API.info(e.source.image + " did not load!");
         });
+        var resize = false;
         pic.addEventListener('load', function(e) {
             Ti.API.info(e.source.image + " loaded properly!");
-            // if (!e.source.resized) {
-                // //get the blob of the image
-                // var blob = e.source.toImage();
-                // 
-                // var thumbnail = blob.imageAsThumbnail("100", "3", "5");
-                // e.source.setImage(thumbnail);
-                // Ti.API.info("generating thumbnail 100x100 (hopefully!)");
-                // e.source.resized = true;
-            // }
+            //height and width of platform
+            Ti.API.info("Width: " + Ti.Platform.displayCaps.platformWidth);
+            Ti.API.info("Height: " + Ti.Platform.displayCaps.platformHeight);
+            //height and width of the row it's in
+            Ti.API.info("Parent Width/Height: " + e.source.getParent().getWidth() + " / " + e.source.getParent().getHeight());
+            Ti.API.info("Parent Size: " + e.source.getParent().getSize());
+            if (!e.source.resized) {
+                //get the blob of the image
+                var blob = e.source.toImage();
+
+                var thumbnail = blob.imageAsThumbnail("100", "3", "5");
+                e.source.setImage(thumbnail);
+                Ti.API.info("generating thumbnail 100x100 (hopefully!)");
+                e.source.resized = true;
+            }
+
         });
-        var event_view = Ti.UI.createView({
-            layout: "vertical",
-            //top: 2,
-            right: 0,
-            left: 2,
-            height: Ti.UI.SIZE,
-            width: 210,
-                   
-        });
-        
         var title = Titanium.UI.createLabel({
             text : CustomData[i].title,
             font : {
                 fontSize : 20,
                 fontWeight : 'bold'
             },
-            maxHeight: 100,
             width : 'auto',
             textAlign : 'left',
-            // top : 2,
-            // left : 110,
-            // height : 'auto'
+            top : 2,
+            left : 110,
+            height : 'auto'
         });
-        event_view.add(title);
-        
-        var where = Ti.UI.createLabel({
-            text : "Where: " + CustomData[i].address,
-            left: 0,
+        var when = Ti.UI.createLabel({
+            text : "Where: ",
             font : {
                 fontSize : 10,
-                // fontWeight : 'bold',
+                fontWeight : 'bold',
             },
-            width : Ti.UI.SIZE,
+            width : 'auto',
             textAlign : 'left',
-            height : Ti.UI.SIZE
+            bottom : 20,
+            left : 110,
+            height : 10
+
         });
-        event_view.add(where);
-         var when = Titanium.UI.createLabel({
-            // text: CustomData[i].date,
-            text: "When: ",
-            font: {
-                fontSize : 10,
-                // fontWeight : 'bold'
-            },
-            width : Ti.UI.SIZE,
-            textAlign : 'left',
-            left: 0,
-        });
-        event_view.add(when);
-        var cost = Ti.UI.createLabel({
-            text : "Cost: " + CustomData[i].cost,
-            left: 0,
-            font : {
-                fontSize : 10,
-                // fontWeight : 'bold',
-            },
-            width : Ti.UI.SIZE,
-            textAlign : 'left',
-            height : Ti.UI.SIZE
-        });
-        event_view.add(cost);
-        
         var description = Ti.UI.createLabel({
-            text : CustomData[i].short_description,
+            text : CustomData[i].description,
             font : {
                 fontSize : 10,
                 // fontWeight: 'bold',
             },
-            // width : 175,
-            maxHeight: "45%",
-            minHeight: Ti.UI.SIZE,
+            width : 175,
+            height : 75,
             textAlign : 'left',
-            left: 0,
-            top: 0,
-            // bottom : 50,
-            // left : 110,
+            bottom : 50,
+            left : 110,
         });
-        event_view.add(description);
-        //buttons!
-        button_view = Ti.UI.createView({
-            layout: "horizontal",
-            width: Ti.UI.SIZE,
-            top: 3,
-            bottom:0
+        // Ti.API.info("address = " + CustomData[i].address);
+        var address = Titanium.UI.createLabel({
+            text : CustomData[i].address,
+            font : {
+                fontSize : 10,
+                fontStyle : 'italic'
+            },
+            width : 'auto',
+            textAlign : 'left',
+            bottom : 20,
+            left : 150,
+            height : 10
         });
         var going_button = Ti.UI.createButton({
-            eventID : CustomData[i]["eventID"],
-            eventTitle: CustomData[i]["title"],
             title : "I'm Going!",
-            width : "45%",
+            width : "auto",
             height : "15",
-            // bottom : 0,
-            // left : 115,
+            bottom : 0,
+            left : 115,
             font : {
                 fontSize : 10,
             },
             bubbleParent: false,
-            style: 'none',
-            borderWidth: 1,
-            borderColor: 'black',
-            borderRadius: 5,
-            color: "#065365",
-            backgroundColor: "white"
-        });
-        
-        going_button.addEventListener('click', function(e) {
-            // Ti.API.info("going button in event listing clicked");
             
-            var check_query = "SELECT * from my_events where id = '" + e.source.eventID + "'";
-            Ti.API.info( "check_query = " + check_query);
-            var check_rs = db.execute( check_query );
-            if( check_rs.isValidRow() )
-            {
-                // Ti.API.info("event already exists in my events");
-                var query = "DELETE FROM my_events where id='"+ e.source.eventID +"'";
-                db.execute(query);
-                //reversing the button colors if you hit i'm going.
-                e.source.setBackgroundColor("white");
-                e.source.setColor("#065365");
-            }
-            else
-            {
-                //if the event is not already in the db, then we add it.    
-                var query = "INSERT INTO my_events(id,event_name,event_date,status)VALUES('" +  e.source.eventID +"','" + e.source.eventTitle + "', '9-31-13 5:00pm','going');";
-                // Ti.API.info( "query = " + query);
-                db.execute(query);
-                //reversing the button colors if you hit i'm going.
-                e.source.setBackgroundColor("#065365");
-                e.source.setColor("white");
-            }
-            check_rs.close();
         });
-        button_view.add(going_button);
+        going_button.addEventListener('click', function(e) {
+            Ti.API.info("going button in event listing clicked");
+            //reversing the button colors if you hit i'm going.
+            e.source.setBackgroundColor("#065365");
+            
+        });
+
         var maybe_button = Ti.UI.createButton({
             title : "I'm Interested",
-            eventID: CustomData[i]["eventID"],
-            eventTitle: CustomData[i]["title"],
-            style: 'none',
-            borderWidth: 1,
-            borderColor: 'black',
-            borderRadius: 5,
-            color: "#065365",
+            width : "auto",
             height : "15",
-            left: 5,
-            width: "45%",
+            bottom : 0,
+            left : 200,
             font : {
                 fontSize : 10,
             },
-            bubbleParent: false,
-            style: 'none',
-            backgroundColor: "white"
+            color : "#065365",
+            bubbleParent: false
         });
         maybe_button.addEventListener('click', function(e) {
             Ti.API.info("maybe button in event listing clicked");
-            var check_query = "SELECT * from my_events where id = '" + e.source.eventID + "'";
-            
-            Ti.API.info( "check_query = " + check_query);
-            var check_rs = db.execute( check_query );
-            if( check_rs.isValidRow() )
-            {
-                Ti.API.info("event already exists in my events");
-                var query = "DELETE FROM my_events where id='"+ e.source.eventID +"'";
-                db.execute(query);
-            }
-            else
-            {
-                //if the event is not already in the db, then we add it.    
-                var query = "INSERT INTO my_events(id,event_name,event_date,status)VALUES('" +  e.source.eventID +"','" + e.source.eventTitle + "', '9-31-13 5:00pm','interested');";
-                Ti.API.info( "query = " + query);
-                db.execute(query);
-            }
-            check_rs.close();
-            
         });
-        button_view.add(maybe_button);
-        event_view.add(button_view);
         row.add(pic);
-        row.add(event_view);
-        // row.add(title);
-        // row.add(where);
-        // row.add(address);
-        // row.add(description);
-        // row.add(going_button);
-        // row.add(maybe_button);
-        //row.add(when);
+        row.add(title);
+        row.add(when);
+        row.add(address);
+        row.add(description);
+        row.add(going_button);
+        row.add(maybe_button);
 
         // row.add(percent);
         // row.add(trend);
@@ -367,22 +208,32 @@ function listEvents(events) {
         showClickEventInfo(e, true);
     });
     view.add(tableview);
+    // var debugLabel = Ti.UI.createLabel({
+    // width:'auto',
+    // textAlign:'center',
+    // text:data,
+    // bottom:0
+    // });
+    // view.add(debugLabel);
+
 }
 
 function showClickEventInfo(e, islongclick) {
     // event data
-    // var index = e.index;
-    // var section = e.section;
-    // var row = e.row;
-    // var rowdata = e.rowData;
-    // Ti.API.info('detail ' + e.detail);
-    // var msg = 'row ' + row + ' index ' + index + ' section ' + section + ' row data ' + rowdata;
-    // if (islongclick) {
-        // msg = "LONGCLICK " + msg;
-    // }
-    // 
-    // Ti.API.info(e.rowData.title + " ( " + e.rowData.eventID + " ) button clicked");
-    //launching the event detail page
+    var index = e.index;
+    var section = e.section;
+    var row = e.row;
+    var rowdata = e.rowData;
+    Ti.API.info('detail ' + e.detail);
+    var msg = 'row ' + row + ' index ' + index + ' section ' + section + ' row data ' + rowdata;
+    if (islongclick) {
+        msg = "LONGCLICK " + msg;
+    }
+
+    Ti.API.info(e.rowData.title + " ( " + e.rowData.eventID + " ) button clicked");
+    Ti.API.info(msg);
+    // var eventDetailController = Alloy.createController('EventDetail',{eventid:e.rowData.eventID}).getView();
+    // eventDetailController.openMainWindow($.tab_two);
     var eventDetailController = Alloy.createController('EventDetail', {
         eventid : e.rowData.eventID,
         parentTab : args.parentTab
