@@ -88,7 +88,7 @@ $.tab_one.addEventListener('focus', function(e) {
                 color : "white",
                 width : "65%",
                 font : {
-                    fontSize : 12,
+                    fontSize : 14,
                     fontFamily : "Tall Dark and Handsome Condensed",
                     fontWeight : "bold"
                 }
@@ -99,10 +99,10 @@ $.tab_one.addEventListener('focus', function(e) {
                 text : mythings_rs.fieldByName('event_date'),
                 right : 0,
                 color : "white",
-                width : "30%",
+                width : "35%",
                 textAlign : Ti.UI.TEXT_ALIGNMENT_RIGHT,
                 font : {
-                    fontSize : 12,
+                    fontSize : 14,
                     fontFamily : "Tall Dark and Handsome Condensed",
                     fontWeight : "bold"
                 }
@@ -129,9 +129,9 @@ $.tab_one.addEventListener('focus', function(e) {
             text : "No Events set to \"I'm Going\"",
             left : 0,
             color : "white",
-            width : "65%",
+            width : "100%",
             font : {
-                fontSize : 12,
+                fontSize : 14,
                 fontFamily : "Tall Dark and Handsome Condensed",
                 fontWeight : "bold"
             }
@@ -166,7 +166,7 @@ $.tab_one.addEventListener('focus', function(e) {
                 color : "white",
                 width : "65%",
                 font : {
-                    fontSize : 12,
+                    fontSize : 14,
                     fontFamily : "Tall Dark and Handsome Condensed",
                     fontWeight : "bold"
                 }
@@ -177,10 +177,10 @@ $.tab_one.addEventListener('focus', function(e) {
                 text : mythings_rs.fieldByName('event_date'),
                 right : 0,
                 color : "white",
-                width : "30%",
+                width : "35%",
                 textAlign : Ti.UI.TEXT_ALIGNMENT_RIGHT,
                 font : {
-                    fontSize : 12,
+                    fontSize : 14,
                     fontFamily : "Tall Dark and Handsome Condensed",
                     fontWeight : "bold"
                 }
@@ -208,9 +208,9 @@ $.tab_one.addEventListener('focus', function(e) {
             text : "No Events set to \"I'm Interesed\"",
             left : 0,
             color : "white",
-            width : "65%",
+            width : "100%",
             font : {
-                fontSize : 12,
+                fontSize : 14,
                 fontFamily : "Tall Dark and Handsome Condensed",
                 fontWeight : "bold"
             }
@@ -278,7 +278,7 @@ interested_wrapper.addEventListener("click", function(e) {
         eventid : e.source.eventID,
         parentTab : $.tab_one
     });
-    $.tab_two.open(eventDetailController.getView());
+    $.tab_one.open(eventDetailController.getView());
 });
 scrollView.add(view);
 $.my_things_win.add(scrollView); 

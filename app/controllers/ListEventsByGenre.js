@@ -27,13 +27,16 @@ var menubutton = Ti.UI.createButton({
 });
 var filterView =  Titanium.UI.createView({
     width:205,
-    height:57,
-    backgroundImage:"bubble.png",
+    height:200,
+    backgroundImage:"bubble_big.png",
     top:0,
     right:3,
+    opacity:0,
+    zIndex:100,
+    layout:"vertical",
 });
 var filterLabel =  Titanium.UI.createLabel({
-    text:'Continue reading',
+    text:'Filter events',
     color:'#fff',
     width:205,
     height:34,
@@ -45,13 +48,31 @@ var filterLabel =  Titanium.UI.createLabel({
     },
     textAlign:'center'
     });
- 
 filterView.add(filterLabel);
+var picker = Ti.UI.createPicker({
+    width: Ti.UI.FILL,
+    height: Ti.UI.SIZE
+});
+
+var data = [];
+data[0]=Ti.UI.createPickerRow({title:'Any time'});
+data[1]=Ti.UI.createPickerRow({title:'Morning'});
+data[2]=Ti.UI.createPickerRow({title:'Afternoon'});
+data[3]=Ti.UI.createPickerRow({title:'Evening'});
+
+picker.add(data);
+picker.selectionIndicator = true;
+filterView.add(picker);
+picker.setSelectedRow(0,0,true);
 $.child_window2.add(filterView);
 //animation stuff
 var anim_out = Titanium.UI.createAnimation();
 anim_out.opacity=0;
 anim_out.duration = 250;
+var anim_in = Ti.UI.createAnimation();
+anim_in.opacity=1;
+anim_in.duration = 250;
+var animated = "out";
 Ti.API.info( "menu button created" + menubutton );
 //setting the button on the current window
 $.child_window2.setRightNavButton(menubutton);
@@ -59,16 +80,16 @@ $.child_window2.setRightNavButton(menubutton);
 menubutton.addEventListener('click', function(e)
 {
    Ti.API.info( "menu button clicked");
-   var zindex = filterview.getZIndex();
-   if( zindex == "undefined" || zindex !="100" )
+   if( animated != "in" )
    {
-       filterview.setZIndex(100);
+       filterView.animate(anim_in);
+       animated = "in";
    }
    else
    {
-       filterview.setZIndex(0);
+       filterView.animate(anim_out);
+       animated = "out";
    }
-   filterView.animate(anim_out);
 });
 
 // 
@@ -153,15 +174,7 @@ function listEvents(events) {
         });
         pic.addEventListener('load', function(e) {
             Ti.API.info(e.source.image + " loaded properly!");
-            // if (!e.source.resized) {
-                // //get the blob of the image
-                // var blob = e.source.toImage();
-                // 
-                // var thumbnail = blob.imageAsThumbnail("100", "3", "5");
-                // e.source.setImage(thumbnail);
-                // Ti.API.info("generating thumbnail 100x100 (hopefully!)");
-                // e.source.resized = true;
-            // }
+
         });
         var event_view = Ti.UI.createView({
             layout: "vertical",
