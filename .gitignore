@@ -1,7 +1,26 @@
 # Build folder and log file
 build/
 build.log
+Resources
 Resources/
 Resources/*
 Resources/alloy
 Resources/alloy/*
+plugins/ti.alloy/plugin.pyc
+.DS_Store
+Resources/alloy/styles/tabViewTwo.js
+Resources/alloy/styles/tabViewOneChild.js
+Resources/alloy/styles/tabViewOneChild.js
+Resources/alloy/styles/index.js
+Resources/alloy/styles/MyThings.js
+Resources/alloy/styles/EventDetail.js
+Resources/alloy/styles/EventDetail.js
+Resources/alloy/controllers/tabViewTwo.js
+Resources/alloy/controllers/tabViewTwo.js
+Resources/alloy/styles/EventDetail.js
+Resources/alloy/styles/MyThings.js
+Resources/alloy.js
+Resources/alloy/animation.js
+Resources/alloy/controllers/EventDetail.js
+Resources/alloy/controllers/MyThings.js
+Resources/alloy/controllers/index.js
