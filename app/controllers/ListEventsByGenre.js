@@ -291,6 +291,11 @@ tableview.addEventListener('click',function(e){
            time[0] = e.source.itemid;
            time[1] = e.source.title;
        }
+       var data = [
+            {title:'When? ' + when[1], itemid:"when", hasChild:true, selectedColor:'#fff',font:{fontSize:12,fontWeight:"bold"}},
+            {title:'Where? ' + where[1], itemid: "where", hasChild:true,  selectedColor:'#fff',font:{fontSize:12,fontWeight:"bold"}},
+            {title:'What time? ' + time[1], itemid:"time", hasChild:true, selectedColor:'#fff',font:{fontSize:12,fontWeight:"bold"}},
+        ];
        tableview.setData(data);
    }
 });
