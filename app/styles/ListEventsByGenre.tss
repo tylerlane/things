@@ -11,3 +11,9 @@
 ".EventListing": {
 	backgroundColor: "#2a6970",	
 }
+".listheader": {
+	font:{
+		fontSize:12,
+		fontFamily: "Helvetica Neue",
+		}
+}

@@ -6,9 +6,7 @@ $.child_window2.title = args.genre;
 var alloy = require('alloy');
 //open our db object
 var db = Ti.Database.open("Things");
-db.execute("CREATE TABLE IF NOT EXISTS my_events(id INTEGER PRIMARY KEY UNIQUE, event_name TEXT, event_date TEXT,status TEXT);");
-db.close();
-var db = Ti.Database.open("Things");
+//db.execute("CREATE TABLE IF NOT EXISTS my_events(id INTEGER PRIMARY KEY UNIQUE, event_name TEXT, event_date TEXT,status TEXT);");
 
 if(Ti.Platform.name != "android" )
 {
@@ -17,7 +15,7 @@ if(Ti.Platform.name != "android" )
 }
 
 
-//customizing the title bar button
+/* This is the section to handle filter of resuls */
 var menubutton = Ti.UI.createButton({
         title:'Filter',
         id: "menubutton",
@@ -34,6 +32,7 @@ var filterView =  Titanium.UI.createView({
     opacity:0,
     zIndex:100,
     layout:"vertical",
+    borderRadius: 5
 });
 var filterLabel =  Titanium.UI.createLabel({
     text:'Filter events',
@@ -49,22 +48,169 @@ var filterLabel =  Titanium.UI.createLabel({
     textAlign:'center'
     });
 filterView.add(filterLabel);
-var picker = Ti.UI.createPicker({
-    width: Ti.UI.FILL,
-    height: Ti.UI.SIZE
+//list view for the tooltip window
+var listView = Ti.UI.createListView({
+    style: Titanium.UI.iPhone.ListViewStyle.GROUPED,
+    width:185,
+    height: 185,
+    borderRadius: 5,
+    // top:16,
 });
+var sections = [];
+var DateSection = Ti.UI.createListSection({
+        headerTitle: "Dates",
+        className: "listheader",
+        width: 195,
+        font:{
+            fontFamily: "Helvetica Neue",
+            fontSize:10,
+        }
+    });
+var dateDataSet = [
+    { properties: { 
+        title: "Next seven days",
+        itemid: "next_7_days",
+        accessoryType: Titanium.UI.LIST_ACCESSORY_TYPE_CHECKMARK,
+        height: 20,
+        font:{
+            fontFamily: "Helvetica Neue",
+            fontSize:10,
+            },
+        }},
+    { properties: { 
+        title: "Today",
+        itemid: "today",
+        height: 20,
+        font:{
+            fontFamily: "Helvetica Neue",
+            fontSize:10,
+            },
+        }},
+    { properties: { 
+        title: "Tomorrow",
+        itemid: "tomorrow",
+        height: 20,
+        font:{
+            fontFamily: "Helvetica Neue",
+            fontSize:10,
+            },
+        }},
+    { properties: { 
+        title: "Next three days",
+        itemid: "next_3_days",
+        height: 20,
+        font:{
+            fontFamily: "Helvetica Neue",
+            fontSize:10,
+            },
+        }},
+];
+DateSection.setItems(dateDataSet);
+sections.push(DateSection);
 
-var data = [];
-data[0]=Ti.UI.createPickerRow({title:'Any time'});
-data[1]=Ti.UI.createPickerRow({title:'Morning'});
-data[2]=Ti.UI.createPickerRow({title:'Afternoon'});
-data[3]=Ti.UI.createPickerRow({title:'Evening'});
-
-picker.add(data);
-picker.selectionIndicator = true;
-filterView.add(picker);
-picker.setSelectedRow(0,0,true);
+var WhereSection = Ti.UI.createListSection({
+        headerTitle: "Where",
+        height: 25,
+        width: 195,
+        font:{
+            fontFamily: "Helvetica Neue",
+            fontSize:10,
+        }
+});
+var whereDataSet = [
+    { properties: { 
+        title: "Anywhere",
+        itemid: "anywhere",
+        accessoryType: Titanium.UI.LIST_ACCESSORY_TYPE_CHECKMARK,
+        height: 20,
+        font:{
+            fontFamily: "Helvetica Neue",
+            fontSize:10,
+            },
+        }},
+    { properties: { 
+        title: "Within a half mile",
+        itemid: "within_half_mile",
+        height: 20,
+        font:{
+            fontFamily: "Helvetica Neue",
+            fontSize:10,
+            },
+        }},
+    { properties: { 
+        title: "Within one mile",
+        itemid: "within_1_mile",
+        height: 20,
+        font:{
+            fontFamily: "Helvetica Neue",
+            fontSize:10,
+            },
+        }},
+    { properties: { 
+        title: "Within five miles",
+        itemid: "within_5_miles",
+        height: 20,
+        font:{
+            fontFamily: "Helvetica Neue",
+            fontSize:10,
+            },
+        }},
+];
+WhereSection.setItems(whereDataSet);
+sections.push(WhereSection);
+var WhenSection = Ti.UI.createListSection({
+        headerTitle: "When",
+        width: 195,
+        font:{
+            fontFamily: "Helvetica Neue",
+            fontSize:10,
+        }
+});
+var whenDataSet = [
+    { properties: { 
+        title: "Any time",
+        itemid: "any_time",
+        accessoryType: Titanium.UI.LIST_ACCESSORY_TYPE_CHECKMARK,
+        height: 20,
+        font:{
+            fontFamily: "Helvetica Neue",
+            fontSize:10,
+            },
+        }},
+     { properties: { 
+        title: "Morning",
+        itemid: "morning",
+        height: 20,
+        font:{
+            fontFamily: "Helvetica Neue",
+            fontSize:10,
+            },
+        }},
+     { properties: { 
+        title: "Afternoon",
+        itemid: "afternoon",
+        height: 20,
+        font:{
+            fontFamily: "Helvetica Neue",
+            fontSize:10,
+            },
+        }},
+     { properties: { 
+        title: "Evening",
+        itemid: "evening",
+        height: 20,
+        font:{
+            fontFamily: "Helvetica Neue",
+            fontSize:10,
+            },
+        }},
+];
+WhenSection.setItems(whenDataSet);
+sections.push(WhenSection);
+listView.sections = sections;
+filterView.add(listView);
 $.child_window2.add(filterView);
+/* end of filtering section */
 //animation stuff
 var anim_out = Titanium.UI.createAnimation();
 anim_out.opacity=0;
@@ -299,7 +445,7 @@ function listEvents(events) {
             else
             {
                 //if the event is not already in the db, then we add it.    
-                var query = "INSERT INTO my_events(id,event_name,event_date,status)VALUES('" +  e.source.eventID +"','" + e.source.eventTitle + "', '9-31-13 5:00pm','going');";
+                var query = "INSERT INTO my_events(id,event_name,event_date,status)VALUES('" +  e.source.eventID +"','" + e.source.eventTitle + "', '9-30-13 5:00pm','going');";
                 // Ti.API.info( "query = " + query);
                 db.execute(query);
                 //reversing the button colors if you hit i'm going.
@@ -343,7 +489,7 @@ function listEvents(events) {
             else
             {
                 //if the event is not already in the db, then we add it.    
-                var query = "INSERT INTO my_events(id,event_name,event_date,status)VALUES('" +  e.source.eventID +"','" + e.source.eventTitle + "', '9-31-13 5:00pm','interested');";
+                var query = "INSERT INTO my_events(id,event_name,event_date,status)VALUES('" +  e.source.eventID +"','" + e.source.eventTitle + "', '9-30-13 5:00pm','interested');";
                 Ti.API.info( "query = " + query);
                 db.execute(query);
             }

@@ -96,7 +96,7 @@ $.tab_one.addEventListener('focus', function(e) {
             reminder_view.add(reminder_label_text);
             var reminder_label_text = Ti.UI.createLabel({
                 eventID : mythings_rs.fieldByName('id'),
-                text : mythings_rs.fieldByName('event_date'),
+                text : Date.parse(mythings_rs.fieldByName('event_date')).toString("MMM d, yyyy"),
                 right : 0,
                 color : "white",
                 width : "35%",
@@ -174,7 +174,7 @@ $.tab_one.addEventListener('focus', function(e) {
             interested_view.add(interested_label_text);
             var interested_label_text = Ti.UI.createLabel({
                 eventID : mythings_rs.fieldByName('id'),
-                text : mythings_rs.fieldByName('event_date'),
+                text : Date.parse(mythings_rs.fieldByName('event_date')).toString("MMM d, yyyy"),
                 right : 0,
                 color : "white",
                 width : "35%",

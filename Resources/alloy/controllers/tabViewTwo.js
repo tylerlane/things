@@ -13,7 +13,7 @@ function Controller() {
             });
             button.addEventListener("click", function(e) {
                 Ti.API.info(e.source.title + " button clicked");
-                var tabViewTwoChildController = Alloy.createController("tabViewTwoChild", {
+                var tabViewTwoChildController = Alloy.createController("ListEventsByGenre", {
                     genre: e.source.title,
                     parentTab: $.tab_two
                 });

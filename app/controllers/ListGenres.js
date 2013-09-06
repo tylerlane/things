@@ -1,4 +1,5 @@
 var alloy = require('alloy');
+require('datejs/date');
 //open our db object
 var db = Ti.Database.open("Things");
 db.execute("CREATE TABLE IF NOT EXISTS my_events(id INTEGER PRIMARY KEY UNIQUE, event_name TEXT, event_date TEXT,status TEXT);");
@@ -230,9 +231,11 @@ $.tab_two_win.addEventListener("focus", function(e){
                 });
                 Ti.API.info( "adding label text to reminder_view");
                 reminder_view.add(reminder_label_text);
+                // Ti.API.info( "Date: " + Date.parse("9-30-13 5:00pm").toString("MMM ddd d, yy") );
                 var reminder_label_date = Ti.UI.createLabel({
                     eventID : check_rs.fieldByName('id'),
-                    text : check_rs.fieldByName('event_date'),
+                    //text : check_rs.fieldByName('event_date'),
+                    text: Date.parse(check_rs.fieldByName('event_date')).toString("MMM d, yyyy"),
                     right : 0,
                     color : "white",
                     width : "30%",

@@ -11,8 +11,10 @@ function Controller() {
     var exports = {};
     var __defers = {};
     $.__views.window = Ti.UI.createWindow({
-        backgroundColor: "white",
-        id: "window"
+        barColor: "#065365",
+        backgroundImage: "background.png",
+        id: "window",
+        title: "Search"
     });
     $.__views.label = Ti.UI.createLabel({
         text: "Hello, World",
@@ -29,7 +31,7 @@ function Controller() {
         window: $.__views.window,
         id: "tab_one",
         title: "Search",
-        icon: Ti.UI.iPhone.SystemIcon.SEARCH
+        icon: "search.png"
     });
     $.__views.tab_one && $.addTopLevelView($.__views.tab_one);
     exports.destroy = function() {};

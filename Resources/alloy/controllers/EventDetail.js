@@ -6,9 +6,13 @@ function Controller() {
             top: 75
         });
         $.event_detail_win.add(image);
+        $.event_detail_win.setTitle(event_detail["fields"]["name"]);
         Ti.API.info("Adding image to view1. url is " + image.getImage());
         $.label1.setText(event_detail["fields"]["name"]);
         $.label2.setText(event_detail["fields"]["description"]);
+    }
+    function EventGoingClick() {
+        Ti.API.info("I'm going button has been clicked");
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "EventDetail";
@@ -17,58 +21,60 @@ function Controller() {
     arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
+    var __defers = {};
     $.__views.event_detail_win = Ti.UI.createWindow({
-        backgroundColor: "#065365",
+        barColor: "#065365",
+        backgroundImage: "background.png",
         id: "event_detail_win",
         title: "Event Detail"
     });
     $.__views.event_detail_win && $.addTopLevelView($.__views.event_detail_win);
     $.__views.label1 = Ti.UI.createLabel({
-        id: "label1",
+        top: 10,
+        font: {
+            fontSize: 36
+        },
+        textAlign: "Ti.UI.TEXT_ALIGNMENT_LEFT",
+        left: 5,
+        width: "Ti.UI.SIZE",
+        height: "Ti.UI.SIZE",
         color: "white",
-        shadowColor: "#aaa",
-        text: "A simple label",
-        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
-        width: Ti.UI.SIZE,
-        height: Ti.UI.SIZE,
-        top: "0"
+        shadowColor: "#A0A0A0",
+        id: "label1",
+        text: "A simple label"
     });
     $.__views.event_detail_win.add($.__views.label1);
     $.__views.label2 = Ti.UI.createLabel({
-        text: "",
-        id: "label2",
         color: "white",
-        textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT,
-        top: "25"
+        textAlign: "Ti.UI.TEXT_ALIGNMENT_LEFT",
+        top: "25",
+        id: "label2"
     });
     $.__views.event_detail_win.add($.__views.label2);
     $.__views.going = Ti.UI.createButton({
-        backgroundColor: "#065365",
-        color: "white",
-        title: "I'm Going!",
+        left: "10",
+        backgroundImage: "going.png",
         id: "going",
-        left: "10"
+        title: "Going"
     });
     $.__views.event_detail_win.add($.__views.going);
+    EventGoingClick ? $.__views.going.addEventListener("click", EventGoingClick) : __defers["$.__views.going!click!EventGoingClick"] = true;
     $.__views.notinterested = Ti.UI.createButton({
-        backgroundColor: "#065365",
-        color: "white",
+        left: "150",
         title: "Not Interested",
-        id: "notinterested",
-        left: "150"
+        id: "notinterested"
     });
     $.__views.event_detail_win.add($.__views.notinterested);
     $.__views.label3 = Ti.UI.createLabel({
-        id: "label3",
         color: "black",
-        top: "300"
+        top: "300",
+        id: "label3"
     });
     $.__views.event_detail_win.add($.__views.label3);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var args = arguments[0] || {};
     $.parentController = args.parentTab;
-    $.event_detail_win.setTitle("Event Detail: " + args.eventid);
     var myRequest = Ti.Network.createHTTPClient({
         onload: function() {
             jsonObject = JSON.parse(this.responseText);
@@ -82,6 +88,7 @@ function Controller() {
     });
     myRequest.open("GET", "http://data.news-leader.com/things/event/" + args.eventid);
     myRequest.send();
+    __defers["$.__views.going!click!EventGoingClick"] && $.__views.going.addEventListener("click", EventGoingClick);
     _.extend($, exports);
 }
 
