@@ -14,7 +14,7 @@ var myRequest = Ti.Network.createHTTPClient({
         jsonObject = JSON.parse(this.responseText);
         genres = jsonObject;
         // $.textArea.value= genres.length;
-        Ti.API.info( "fetched the genres: " + genres );
+        // Ti.API.info( "fetched the genres: " + genres );
         loadGenres(genres);
         
     },
@@ -47,22 +47,26 @@ function loadGenres(genres) {
     };
     var genres_view = Ti.UI.createView({
         width : "100%",
-        height : "auto",
+        height : Ti.UI.SIZE,
         // left: 50,
         top : 5,
-        // borderWidth: 3,
+        bottom:5,
+        // borderWidth: 1,
         // borderColor: "orange"
     });
-    
+    // genres_view.addEventListener("click", function(e){
+        // Ti.API.info( "click in the genres view");
+    // }); 
     for (var i = 0; i < genres.length; i++) {
         var buttonview = Ti.UI.createView({
             layout : 'vertical',
             top : genres[i]["fields"]["app_layout"].split(",")[0],
             left : genres[i]["fields"]["app_layout"].split(",")[1],
             width : Ti.UI.SIZE,
-            height : "auto",
+            height : Ti.UI.SIZE,
             // borderWidth: 1,
             // borderColor: ( i % 2==0 ) ? 'blue' : 'red',
+            title : genres[i]["fields"]["name"],
         });
         // Ti.API.info( "creating button view for: " + genres[i]["fields"]["name"] );
         var button = Ti.UI.createImageView({
@@ -74,15 +78,15 @@ function loadGenres(genres) {
             image : "http://data-media.news-leader.com/" + genres[i]["fields"]["photo"],
         });
         // Ti.API.info( "creating button for: " + genres[i]["fields"]["name"] );
-        button.addEventListener('click', function(e) {
-            Ti.API.info(e.source.title + " button clicked");
+        buttonview.addEventListener('click', function(e) {
+            // Ti.API.info(e.source.title + " button clicked");
             var ListEventsByGenreController = Alloy.createController('ListEventsByGenre', {
                 genre : e.source.title,
                 parentTab : $.tab_two
             });
             $.tab_two.open(ListEventsByGenreController.getView());
         });
-        // Ti.API.info( "creating event listener for button for: " + genres[i]["fields"]["name"] );
+        //Ti.API.info( "creating event listener for button for: " + genres[i]["fields"]["name"] );
         buttonview.add(button);
         // Ti.API.info( "adding button to the buttonview for: " + genres[i]["fields"]["name"] );
 
@@ -103,7 +107,7 @@ function loadGenres(genres) {
 
     }
     logo_view.add(genres_view);
-    Ti.API.info( "Adding genres_view to logo_view" );
+    // Ti.API.info( "Adding genres_view to logo_view" );
 
 }
 
@@ -117,7 +121,9 @@ var scrollView = Ti.UI.createScrollView({
 });
 var view = Ti.UI.createView({
     top : 0,
-    // borderWidth: 3,
+    height: "auto",
+    width: "auto",
+    // borderWidth: 1,
     // borderColor: 'yellow'
 });
 var logo_view = Ti.UI.createView({
@@ -149,20 +155,20 @@ $.tab_two_win.add(scrollView);
 $.tab_two_win.addEventListener("focus", function(e){
     // put in code to check for reminders here.
     var check_query = "SELECT * FROM my_events where status='going'";
-    Ti.API.info( "check_query: " + check_query );
+    ////Ti.API.info( "check_query: " + check_query );
     var check_rs = db.execute(check_query);
-    Ti.API.info("check_rs: " + check_rs);
+    //Ti.API.info("check_rs: " + check_rs);
     var num_reminders = check_rs.getRowCount();
-    Ti.API.info( "num_reminders: " + num_reminders.toString() );
+    //Ti.API.info( "num_reminders: " + num_reminders.toString() );
     if( Ti.App.Properties.getBool("show_reminders")) {
         if(check_rs.getRowCount() >= 1)
         {
             if( reminder_container.children != undefined )
             {
-                Ti.API.info( "reminders are set. "  + reminders );
+                // Ti.API.info( "reminders are set. "  + reminders );
                 if (reminder_container && reminder_container.children != undefined)
                 {   
-                    Ti.API.info( "reminder_wrapper has children." );
+                    // Ti.API.info( "reminder_wrapper has children." );
                     // Save childrens       
                     var removeData = [];
                     for (i = reminder_container.children.length; i > 0; i--){
@@ -177,14 +183,14 @@ $.tab_two_win.addEventListener("focus", function(e){
                 }
                 
             }
-            Ti.API.info( "reminders are undefined" );
+            // Ti.API.info( "reminders are undefined" );
             var reminders = Ti.UI.createImageView({
                 image : "reminders.png",
                 width : 310,
                 top : 5,
                 title : "reminders"
             });
-            Ti.API.info( "adding reminders to logo view");
+            // Ti.API.info( "adding reminders to logo view");
             reminder_container.add(reminders);
             var reminder_wrapper = Ti.UI.createView({
                layout: "vertical",
@@ -197,8 +203,8 @@ $.tab_two_win.addEventListener("focus", function(e){
             //logo_view.add(reminder_wrapper);
         
             reminder_wrapper.addEventListener("click", function(e) {
-                    Ti.API.info("click event received in reminder listing");
-                    Ti.API.info("source title = " + e.source.title);
+                    // Ti.API.info("click event received in reminder listing");
+                    // Ti.API.info("source title = " + e.source.title);
                     var eventDetailController = Alloy.createController('EventDetail', {
                         eventid : e.source.eventID,
                         parentTab : $.tab_two
@@ -206,7 +212,7 @@ $.tab_two_win.addEventListener("focus", function(e){
                     $.tab_two.open(eventDetailController.getView());
                 });
             while (check_rs.isValidRow()) {
-                Ti.API.info( "looping through check_rs");
+                // Ti.API.info( "looping through check_rs");
                 var reminder_view = Ti.UI.createView({
                     layout : "horizontal",
                     width : Ti.UI.FILL,
@@ -229,7 +235,7 @@ $.tab_two_win.addEventListener("focus", function(e){
                         fontWeight : "bold"
                     }
                 });
-                Ti.API.info( "adding label text to reminder_view");
+                // Ti.API.info( "adding label text to reminder_view");
                 reminder_view.add(reminder_label_text);
                 // Ti.API.info( "Date: " + Date.parse("9-30-13 5:00pm").toString("MMM ddd d, yy") );
                 var reminder_label_date = Ti.UI.createLabel({
@@ -246,26 +252,24 @@ $.tab_two_win.addEventListener("focus", function(e){
                         fontWeight : "bold"
                     }
                 });
-                Ti.API.info( "adding label text to reminder_view");
+                // Ti.API.info( "adding label text to reminder_view");
                 reminder_view.add(reminder_label_date);
-                Ti.API.info( "looping to next result in the set.");
+                // Ti.API.info( "looping to next result in the set.");
                 check_rs.next();
-                Ti.API.info( "adding reminder_view to reminder_wrapper");
+                // Ti.API.info( "adding reminder_view to reminder_wrapper");
                 reminder_wrapper.add(reminder_view);
-                Ti.API.info( "reminder_wrapper = " + reminder_wrapper);
-                
+                // Ti.API.info( "reminder_wrapper = " + reminder_wrapper);
             }
-            
             reminder_container.add(reminder_wrapper);
             //close result set and db
             check_rs.close();
         }
         else
         {
-            Ti.API.info( "reminders are set. "  + reminders );
+            // Ti.API.info( "reminders are set. "  + reminders );
             if (reminder_container && reminder_container.children != undefined)
             {   
-                Ti.API.info( "reminder_wrapper has children." );
+                // Ti.API.info( "reminder_wrapper has children." );
                 // Save childrens       
                 var removeData = [];
                 for (i = reminder_container.children.length; i > 0; i--){
@@ -282,10 +286,10 @@ $.tab_two_win.addEventListener("focus", function(e){
     }
     else
     {
-        Ti.API.info( "reminders are set. "  + reminders );
+        // Ti.API.info( "reminders are set. "  + reminders );
         if (reminder_container && reminder_container.children != undefined)
         {   
-            Ti.API.info( "reminder_wrapper has children." );
+            // Ti.API.info( "reminder_wrapper has children." );
             // Save childrens       
             var removeData = [];
             for (i = reminder_container.children.length; i > 0; i--){

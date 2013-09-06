@@ -49,166 +49,252 @@ var filterLabel =  Titanium.UI.createLabel({
     });
 filterView.add(filterLabel);
 //list view for the tooltip window
-var listView = Ti.UI.createListView({
-    style: Titanium.UI.iPhone.ListViewStyle.GROUPED,
-    width:185,
-    height: 185,
-    borderRadius: 5,
-    // top:16,
-});
-var sections = [];
-var DateSection = Ti.UI.createListSection({
-        headerTitle: "Dates",
-        className: "listheader",
-        width: 195,
-        font:{
-            fontFamily: "Helvetica Neue",
-            fontSize:10,
-        }
-    });
-var dateDataSet = [
-    { properties: { 
-        title: "Next seven days",
-        itemid: "next_7_days",
-        accessoryType: Titanium.UI.LIST_ACCESSORY_TYPE_CHECKMARK,
-        height: 20,
-        font:{
-            fontFamily: "Helvetica Neue",
-            fontSize:10,
-            },
-        }},
-    { properties: { 
-        title: "Today",
-        itemid: "today",
-        height: 20,
-        font:{
-            fontFamily: "Helvetica Neue",
-            fontSize:10,
-            },
-        }},
-    { properties: { 
-        title: "Tomorrow",
-        itemid: "tomorrow",
-        height: 20,
-        font:{
-            fontFamily: "Helvetica Neue",
-            fontSize:10,
-            },
-        }},
-    { properties: { 
-        title: "Next three days",
-        itemid: "next_3_days",
-        height: 20,
-        font:{
-            fontFamily: "Helvetica Neue",
-            fontSize:10,
-            },
-        }},
-];
-DateSection.setItems(dateDataSet);
-sections.push(DateSection);
+// var listView = Ti.UI.createListView({
+    // style: Titanium.UI.iPhone.ListViewStyle.GROUPED,
+    // width:185,
+    // height: 185,
+    // borderRadius: 5,
+    // // top:16,
+// });
+// var sections = [];
+// var DateSection = Ti.UI.createListSection({
+        // headerTitle: "Dates",
+        // className: "listheader",
+        // width: 195,
+        // font:{
+            // fontFamily: "Helvetica Neue",
+            // fontSize:10,
+        // }
+    // });
+// var dateDataSet = [
+    // { properties: { 
+        // title: "Next seven days",
+        // itemid: "next_7_days",
+        // accessoryType: Titanium.UI.LIST_ACCESSORY_TYPE_CHECKMARK,
+        // height: 20,
+        // font:{
+            // fontFamily: "Helvetica Neue",
+            // fontSize:10,
+            // },
+        // }},
+    // { properties: { 
+        // title: "Today",
+        // itemid: "today",
+        // height: 20,
+        // font:{
+            // fontFamily: "Helvetica Neue",
+            // fontSize:10,
+            // },
+        // }},
+    // { properties: { 
+        // title: "Tomorrow",
+        // itemid: "tomorrow",
+        // height: 20,
+        // font:{
+            // fontFamily: "Helvetica Neue",
+            // fontSize:10,
+            // },
+        // }},
+    // { properties: { 
+        // title: "Next three days",
+        // itemid: "next_3_days",
+        // height: 20,
+        // font:{
+            // fontFamily: "Helvetica Neue",
+            // fontSize:10,
+            // },
+        // }},
+// ];
+// DateSection.setItems(dateDataSet);
+// sections.push(DateSection);
+// 
+// var WhereSection = Ti.UI.createListSection({
+        // headerTitle: "Where",
+        // height: 25,
+        // width: 195,
+        // font:{
+            // fontFamily: "Helvetica Neue",
+            // fontSize:10,
+        // }
+// });
+// var whereDataSet = [
+    // { properties: { 
+        // title: "Anywhere",
+        // itemid: "anywhere",
+        // accessoryType: Titanium.UI.LIST_ACCESSORY_TYPE_CHECKMARK,
+        // height: 20,
+        // font:{
+            // fontFamily: "Helvetica Neue",
+            // fontSize:10,
+            // },
+        // }},
+    // { properties: { 
+        // title: "Within a half mile",
+        // itemid: "within_half_mile",
+        // height: 20,
+        // font:{
+            // fontFamily: "Helvetica Neue",
+            // fontSize:10,
+            // },
+        // }},
+    // { properties: { 
+        // title: "Within one mile",
+        // itemid: "within_1_mile",
+        // height: 20,
+        // font:{
+            // fontFamily: "Helvetica Neue",
+            // fontSize:10,
+            // },
+        // }},
+    // { properties: { 
+        // title: "Within five miles",
+        // itemid: "within_5_miles",
+        // height: 20,
+        // font:{
+            // fontFamily: "Helvetica Neue",
+            // fontSize:10,
+            // },
+        // }},
+// ];
+// WhereSection.setItems(whereDataSet);
+// sections.push(WhereSection);
+// var WhenSection = Ti.UI.createListSection({
+        // headerTitle: "When",
+        // width: 195,
+        // font:{
+            // fontFamily: "Helvetica Neue",
+            // fontSize:10,
+        // }
+// });
+// var whenDataSet = [
+    // { properties: { 
+        // title: "Any time",
+        // itemid: "any_time",
+        // accessoryType: Titanium.UI.LIST_ACCESSORY_TYPE_CHECKMARK,
+        // height: 20,
+        // font:{
+            // fontFamily: "Helvetica Neue",
+            // fontSize:10,
+            // },
+        // }},
+     // { properties: { 
+        // title: "Morning",
+        // itemid: "morning",
+        // height: 20,
+        // font:{
+            // fontFamily: "Helvetica Neue",
+            // fontSize:10,
+            // },
+        // }},
+     // { properties: { 
+        // title: "Afternoon",
+        // itemid: "afternoon",
+        // height: 20,
+        // font:{
+            // fontFamily: "Helvetica Neue",
+            // fontSize:10,
+            // },
+        // }},
+     // { properties: { 
+        // title: "Evening",
+        // itemid: "evening",
+        // height: 20,
+        // font:{
+            // fontFamily: "Helvetica Neue",
+            // fontSize:10,
+            // },
+        // }},
+// ];
+// WhenSection.setItems(whenDataSet);
+// sections.push(WhenSection);
+// listView.sections = sections;
+// filterView.add(listView);
 
-var WhereSection = Ti.UI.createListSection({
-        headerTitle: "Where",
-        height: 25,
-        width: 195,
-        font:{
-            fontFamily: "Helvetica Neue",
-            fontSize:10,
-        }
-});
-var whereDataSet = [
-    { properties: { 
-        title: "Anywhere",
-        itemid: "anywhere",
-        accessoryType: Titanium.UI.LIST_ACCESSORY_TYPE_CHECKMARK,
-        height: 20,
-        font:{
-            fontFamily: "Helvetica Neue",
-            fontSize:10,
-            },
-        }},
-    { properties: { 
-        title: "Within a half mile",
-        itemid: "within_half_mile",
-        height: 20,
-        font:{
-            fontFamily: "Helvetica Neue",
-            fontSize:10,
-            },
-        }},
-    { properties: { 
-        title: "Within one mile",
-        itemid: "within_1_mile",
-        height: 20,
-        font:{
-            fontFamily: "Helvetica Neue",
-            fontSize:10,
-            },
-        }},
-    { properties: { 
-        title: "Within five miles",
-        itemid: "within_5_miles",
-        height: 20,
-        font:{
-            fontFamily: "Helvetica Neue",
-            fontSize:10,
-            },
-        }},
+var when = new Array();
+when[0] = "when_7_days";
+when[1] = "Next 7 Days";
+var where = new Array();
+where[0] = "where_anywhere";
+where[1] = "Anywhere";
+var time = new Array();
+time[0] = "time_anytime";
+time[1] = "Anytime";
+
+var data = [
+    {title:'When? ' + when[1], itemid:"when", hasChild:true, selectedColor:'#fff',font:{fontSize:12,fontWeight:"bold"}},
+    {title:'Where? ' + where[1], itemid: "where", hasChild:true,  selectedColor:'#fff',font:{fontSize:12,fontWeight:"bold"}},
+    {title:'What time? ' + time[1], itemid:"time", hasChild:true, selectedColor:'#fff',font:{fontSize:12,fontWeight:"bold"}},
 ];
-WhereSection.setItems(whereDataSet);
-sections.push(WhereSection);
-var WhenSection = Ti.UI.createListSection({
-        headerTitle: "When",
-        width: 195,
-        font:{
-            fontFamily: "Helvetica Neue",
-            fontSize:10,
-        }
+// create table view
+var tableview = Titanium.UI.createTableView({
+    data:data,
+    font:{fontSize:10},
+    height: Ti.UI.SIZE,
+    width: 180,
+    rowHeight:25,
+    borderRadius: 5,
 });
-var whenDataSet = [
-    { properties: { 
-        title: "Any time",
-        itemid: "any_time",
-        accessoryType: Titanium.UI.LIST_ACCESSORY_TYPE_CHECKMARK,
-        height: 20,
-        font:{
-            fontFamily: "Helvetica Neue",
-            fontSize:10,
-            },
-        }},
-     { properties: { 
-        title: "Morning",
-        itemid: "morning",
-        height: 20,
-        font:{
-            fontFamily: "Helvetica Neue",
-            fontSize:10,
-            },
-        }},
-     { properties: { 
-        title: "Afternoon",
-        itemid: "afternoon",
-        height: 20,
-        font:{
-            fontFamily: "Helvetica Neue",
-            fontSize:10,
-            },
-        }},
-     { properties: { 
-        title: "Evening",
-        itemid: "evening",
-        height: 20,
-        font:{
-            fontFamily: "Helvetica Neue",
-            fontSize:10,
-            },
-        }},
-];
-WhenSection.setItems(whenDataSet);
-sections.push(WhenSection);
-listView.sections = sections;
-filterView.add(listView);
+tableview.addEventListener('click',function(e){
+    //Ti.API.info( e.source.itemid + ' has been clicked');
+    //setting the checkmark
+    e.source.hasCheck = true;
+   if( e.source.itemid == "when" )
+   {
+       var when_data = [
+            {title:'Next 7 days', itemid:"when_7_days", hasCheck: ( when == "when_7_days") ? true : false, selectedColor:'#fff',font:{fontSize:12,fontWeight:"bold"}},
+            {title:'Today', itemid: "when_today", hasCheck: ( when == "when_today" ) ? true : false, selectedColor:'#fff',font:{fontSize:12,fontWeight:"bold"}},
+            {title:'Tomorrow', itemid:"when_tomorrow", hasCheck: ( when == "when_tomorrow"  ) ? true : false, selectedColor:'#fff',font:{fontSize:12,fontWeight:"bold"}},
+            {title:'Next 3 days', itemid:"when_3_days",hasCheck: ( e.source.itemid == "when_3_days" ) ? true : false, selectedColor:'#fff',font:{fontSize:12,fontWeight:"bold"}},
+            // {title:'Go Back', itemid:"go_back", selectedColor:'#fff',font:{fontSize:12,fontStyle:"italic"}},
+       ];
+       tableview.setData( when_data);
+   } 
+   else if( e.source.itemid == "where" )
+   {
+       var where_data = [
+            {title:'Within a half mile', itemid:"where_half_mile", hasCheck: ( where == "where_half_mile" ) ? true : false, selectedColor:'#fff',font:{fontSize:12,fontWeight:"bold"}},
+            {title:'Within 1 mile', itemid: "where_one_mile", hasCheck: ( where == "where_one_mile" ) ? true : false, selectedColor:'#fff',font:{fontSize:12,fontWeight:"bold"}},
+            {title:'Within 5 miles', itemid:"where_5_miles", hasCheck: ( where == "where_5_miles" ) ? true : false, selectedColor:'#fff',font:{fontSize:12,fontWeight:"bold"}},
+            {title:'Anywhere', itemid:"where_anywhere",hasCheck: ( where == "where_anywhere" ) ? true : false,selectedColor:'#fff',font:{fontSize:12,fontWeight:"bold"}},
+            // {title:'Go Back', itemid:"go_back", selectedColor:'#fff',font:{fontSize:12,fontStyle:"italic"}},
+       ];
+       tableview.setData( where_data );
+   }
+   else if(e.source.itemid == "time")
+   {
+       var time_data = [
+            {title:'Any time', itemid:"time_anytime", hasCheck: ( time == "time_anytime" ) ? true : false,selectedColor:'#fff',font:{fontSize:12,fontWeight:"bold"}},
+            {title:'Morning', itemid: "time_morning",  hasCheck: ( time == "time_morning" ) ? true : false,selectedColor:'#fff',font:{fontSize:12,fontWeight:"bold"}},
+            {title:'Afternoon', itemid:"time_afternoon", hasCheck: ( time == "time_afternoon") ? true : false,selectedColor:'#fff',font:{fontSize:12,fontWeight:"bold"}},
+            {title:'Evening', itemid:"time_evening",hasCheck: ( time == "time_evening" ) ? true : false,selectedColor:'#fff',font:{fontSize:12,fontWeight:"bold"}},
+            // {title:'Go Back', itemid:"go_back", selectedColor:'#fff',font:{fontSize:12,fontStyle:"italic"}},
+       ];
+       tableview.setData( time_data);
+   }
+   else{
+        //setting the table back to it's default data.'
+      
+       Ti.API.info( e.source.itemid + " has been clicked!");
+       var tmp = e.source.itemid.split("_")[0];
+       if(tmp == "when")
+       {
+           when[0] = e.source.itemid;
+           when[1] = e.source.title;
+       }
+       else if( tmp == "where" )
+       {
+           where[0] = e.source.itemid;
+           where[1] = e.source.title;
+       }
+       else if(tmp == "time")
+       {
+           time[0] = e.source.itemid;
+           time[1] = e.source.title;
+       }
+       tableview.setData(data);
+   }
+});
+filterView.add(tableview);
 $.child_window2.add(filterView);
 /* end of filtering section */
 //animation stuff
@@ -219,13 +305,13 @@ var anim_in = Ti.UI.createAnimation();
 anim_in.opacity=1;
 anim_in.duration = 250;
 var animated = "out";
-Ti.API.info( "menu button created" + menubutton );
+//Ti.API.info( "menu button created" + menubutton );
 //setting the button on the current window
 $.child_window2.setRightNavButton(menubutton);
 //adding a call back
 menubutton.addEventListener('click', function(e)
 {
-   Ti.API.info( "menu button clicked");
+   //Ti.API.info( "menu button clicked");
    if( animated != "in" )
    {
        filterView.animate(anim_in);
@@ -270,7 +356,7 @@ function listEvents(events) {
             cost: events[i]["fields"]["cost_description"],
             resized : false
         };
-        Ti.API.info("temp row: " + temp_row);
+        //Ti.API.info("temp row: " + temp_row);
         CustomData.push(temp_row);
     }
 
@@ -285,11 +371,11 @@ function listEvents(events) {
         // separatorStyle: Titanium.UI.iPhone.TableViewSeparatorStyle.NONE
     });
 
-    Ti.API.info("CustomData: " + CustomData);
+    //Ti.API.info("CustomData: " + CustomData);
     var data = [];
     // for (var i = CustomData.length - 1; i <= 0; i--)
     for (var i = 0; i < CustomData.length; i++) {
-        // Ti.API.info("CustomData[i]" + CustomData[i]);
+        // //Ti.API.info("CustomData[i]" + CustomData[i]);
         var row = Titanium.UI.createTableViewRow({
             eventID : CustomData[i]["eventID"],
             // maxHeight : 200,
@@ -314,12 +400,12 @@ function listEvents(events) {
             left : 2,
             top : 2
         });
-        Ti.API.info(pic + " " + pic.image);
+        //Ti.API.info(pic + " " + pic.image);
         pic.addEventListener('error', function(e) {
-            Ti.API.info(e.source.image + " did not load!");
+            //Ti.API.info(e.source.image + " did not load!");
         });
         pic.addEventListener('load', function(e) {
-            Ti.API.info(e.source.image + " loaded properly!");
+            //Ti.API.info(e.source.image + " loaded properly!");
 
         });
         var event_view = Ti.UI.createView({
@@ -428,14 +514,14 @@ function listEvents(events) {
         });
         
         going_button.addEventListener('click', function(e) {
-            // Ti.API.info("going button in event listing clicked");
+            // //Ti.API.info("going button in event listing clicked");
             
             var check_query = "SELECT * from my_events where id = '" + e.source.eventID + "'";
-            Ti.API.info( "check_query = " + check_query);
+            //Ti.API.info( "check_query = " + check_query);
             var check_rs = db.execute( check_query );
             if( check_rs.isValidRow() )
             {
-                // Ti.API.info("event already exists in my events");
+                // //Ti.API.info("event already exists in my events");
                 var query = "DELETE FROM my_events where id='"+ e.source.eventID +"'";
                 db.execute(query);
                 //reversing the button colors if you hit i'm going.
@@ -446,7 +532,7 @@ function listEvents(events) {
             {
                 //if the event is not already in the db, then we add it.    
                 var query = "INSERT INTO my_events(id,event_name,event_date,status)VALUES('" +  e.source.eventID +"','" + e.source.eventTitle + "', '9-30-13 5:00pm','going');";
-                // Ti.API.info( "query = " + query);
+                // //Ti.API.info( "query = " + query);
                 db.execute(query);
                 //reversing the button colors if you hit i'm going.
                 e.source.setBackgroundColor("#065365");
@@ -475,14 +561,14 @@ function listEvents(events) {
             backgroundColor: "white"
         });
         maybe_button.addEventListener('click', function(e) {
-            Ti.API.info("maybe button in event listing clicked");
+            //Ti.API.info("maybe button in event listing clicked");
             var check_query = "SELECT * from my_events where id = '" + e.source.eventID + "'";
             
-            Ti.API.info( "check_query = " + check_query);
+            //Ti.API.info( "check_query = " + check_query);
             var check_rs = db.execute( check_query );
             if( check_rs.isValidRow() )
             {
-                Ti.API.info("event already exists in my events");
+                //Ti.API.info("event already exists in my events");
                 var query = "DELETE FROM my_events where id='"+ e.source.eventID +"'";
                 db.execute(query);
             }
@@ -490,7 +576,7 @@ function listEvents(events) {
             {
                 //if the event is not already in the db, then we add it.    
                 var query = "INSERT INTO my_events(id,event_name,event_date,status)VALUES('" +  e.source.eventID +"','" + e.source.eventTitle + "', '9-30-13 5:00pm','interested');";
-                Ti.API.info( "query = " + query);
+                //Ti.API.info( "query = " + query);
                 db.execute(query);
             }
             check_rs.close();
@@ -534,13 +620,13 @@ function showClickEventInfo(e, islongclick) {
     // var section = e.section;
     // var row = e.row;
     // var rowdata = e.rowData;
-    // Ti.API.info('detail ' + e.detail);
+    // //Ti.API.info('detail ' + e.detail);
     // var msg = 'row ' + row + ' index ' + index + ' section ' + section + ' row data ' + rowdata;
     // if (islongclick) {
         // msg = "LONGCLICK " + msg;
     // }
     // 
-    // Ti.API.info(e.rowData.title + " ( " + e.rowData.eventID + " ) button clicked");
+    // //Ti.API.info(e.rowData.title + " ( " + e.rowData.eventID + " ) button clicked");
     //launching the event detail page
     var eventDetailController = Alloy.createController('EventDetail', {
         eventid : e.rowData.eventID,
