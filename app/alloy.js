@@ -10,4 +10,6 @@
 //
 // Alloy.Globals.someGlobalFunction = function(){};
 
-
+//Ti.Geolocation.purpose = "Recieve User Location";
+//setting the purpose flag
+Ti.Geolocation.purpose = "Show events near your location";

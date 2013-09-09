@@ -48,167 +48,6 @@ var filterLabel =  Titanium.UI.createLabel({
     textAlign:'center'
     });
 filterView.add(filterLabel);
-//list view for the tooltip window
-// var listView = Ti.UI.createListView({
-    // style: Titanium.UI.iPhone.ListViewStyle.GROUPED,
-    // width:185,
-    // height: 185,
-    // borderRadius: 5,
-    // // top:16,
-// });
-// var sections = [];
-// var DateSection = Ti.UI.createListSection({
-        // headerTitle: "Dates",
-        // className: "listheader",
-        // width: 195,
-        // font:{
-            // fontFamily: "Helvetica Neue",
-            // fontSize:10,
-        // }
-    // });
-// var dateDataSet = [
-    // { properties: { 
-        // title: "Next seven days",
-        // itemid: "next_7_days",
-        // accessoryType: Titanium.UI.LIST_ACCESSORY_TYPE_CHECKMARK,
-        // height: 20,
-        // font:{
-            // fontFamily: "Helvetica Neue",
-            // fontSize:10,
-            // },
-        // }},
-    // { properties: { 
-        // title: "Today",
-        // itemid: "today",
-        // height: 20,
-        // font:{
-            // fontFamily: "Helvetica Neue",
-            // fontSize:10,
-            // },
-        // }},
-    // { properties: { 
-        // title: "Tomorrow",
-        // itemid: "tomorrow",
-        // height: 20,
-        // font:{
-            // fontFamily: "Helvetica Neue",
-            // fontSize:10,
-            // },
-        // }},
-    // { properties: { 
-        // title: "Next three days",
-        // itemid: "next_3_days",
-        // height: 20,
-        // font:{
-            // fontFamily: "Helvetica Neue",
-            // fontSize:10,
-            // },
-        // }},
-// ];
-// DateSection.setItems(dateDataSet);
-// sections.push(DateSection);
-// 
-// var WhereSection = Ti.UI.createListSection({
-        // headerTitle: "Where",
-        // height: 25,
-        // width: 195,
-        // font:{
-            // fontFamily: "Helvetica Neue",
-            // fontSize:10,
-        // }
-// });
-// var whereDataSet = [
-    // { properties: { 
-        // title: "Anywhere",
-        // itemid: "anywhere",
-        // accessoryType: Titanium.UI.LIST_ACCESSORY_TYPE_CHECKMARK,
-        // height: 20,
-        // font:{
-            // fontFamily: "Helvetica Neue",
-            // fontSize:10,
-            // },
-        // }},
-    // { properties: { 
-        // title: "Within a half mile",
-        // itemid: "within_half_mile",
-        // height: 20,
-        // font:{
-            // fontFamily: "Helvetica Neue",
-            // fontSize:10,
-            // },
-        // }},
-    // { properties: { 
-        // title: "Within one mile",
-        // itemid: "within_1_mile",
-        // height: 20,
-        // font:{
-            // fontFamily: "Helvetica Neue",
-            // fontSize:10,
-            // },
-        // }},
-    // { properties: { 
-        // title: "Within five miles",
-        // itemid: "within_5_miles",
-        // height: 20,
-        // font:{
-            // fontFamily: "Helvetica Neue",
-            // fontSize:10,
-            // },
-        // }},
-// ];
-// WhereSection.setItems(whereDataSet);
-// sections.push(WhereSection);
-// var WhenSection = Ti.UI.createListSection({
-        // headerTitle: "When",
-        // width: 195,
-        // font:{
-            // fontFamily: "Helvetica Neue",
-            // fontSize:10,
-        // }
-// });
-// var whenDataSet = [
-    // { properties: { 
-        // title: "Any time",
-        // itemid: "any_time",
-        // accessoryType: Titanium.UI.LIST_ACCESSORY_TYPE_CHECKMARK,
-        // height: 20,
-        // font:{
-            // fontFamily: "Helvetica Neue",
-            // fontSize:10,
-            // },
-        // }},
-     // { properties: { 
-        // title: "Morning",
-        // itemid: "morning",
-        // height: 20,
-        // font:{
-            // fontFamily: "Helvetica Neue",
-            // fontSize:10,
-            // },
-        // }},
-     // { properties: { 
-        // title: "Afternoon",
-        // itemid: "afternoon",
-        // height: 20,
-        // font:{
-            // fontFamily: "Helvetica Neue",
-            // fontSize:10,
-            // },
-        // }},
-     // { properties: { 
-        // title: "Evening",
-        // itemid: "evening",
-        // height: 20,
-        // font:{
-            // fontFamily: "Helvetica Neue",
-            // fontSize:10,
-            // },
-        // }},
-// ];
-// WhenSection.setItems(whenDataSet);
-// sections.push(WhenSection);
-// listView.sections = sections;
-// filterView.add(listView);
 
 var when = new Array();
 when[0] = "when_7_days";
@@ -300,6 +139,119 @@ tableview.addEventListener('click',function(e){
    }
 });
 filterView.add(tableview);
+var filter_button_view = Ti.UI.createView({
+    layout: "horizontal",
+    left: 10,
+    top: 10,
+    width: Ti.UI.FILL,
+    height: Ti.UI.SIZE
+});
+var reset_button = Ti.UI.createButton({
+    title: "Reset",
+    width : "35%",
+    height : "15",
+    // bottom : 0,
+    // left : 115,
+    font : {
+        fontSize : 10,
+    },
+    bubbleParent: false,
+    style: 'none',
+    borderWidth: 1,
+    borderColor: 'black',
+    borderRadius: 5,
+    color: "#065365",
+    backgroundColor: "white"
+});
+reset_button.addEventListener("click",function(e){
+    Ti.API.info(" Reset button pressed. resetting the when/where/time vars and the tableview");
+    when[0] = "when_7_days";
+    when[1] = "Next 7 Days";
+    where[0] = "where_anywhere";
+    where[1] = "Anywhere";
+    time[0] = "time_anytime";
+    time[1] = "Anytime";
+    //building the data for the table.
+    var data = [
+        {title:'When? ' + when[1], itemid:"when", hasChild:true, selectedColor:'#fff',font:{fontSize:12,fontWeight:"bold"}},
+        {title:'Where? ' + where[1], itemid: "where", hasChild:true,  selectedColor:'#fff',font:{fontSize:12,fontWeight:"bold"}},
+        {title:'What time? ' + time[1], itemid:"time", hasChild:true, selectedColor:'#fff',font:{fontSize:12,fontWeight:"bold"}},
+    ];
+    tableview.setData(data);
+});
+
+var filter_button = Ti.UI.createButton({
+    title: "Filter",
+    width : "35%",
+    height : "15",
+    // bottom : 0,
+    left : 10,
+    font : {
+        fontSize : 10,
+    },
+    bubbleParent: false,
+    style: 'none',
+    borderWidth: 1,
+    borderColor: 'black',
+    borderRadius: 5,
+    color: "#065365",
+    backgroundColor: "white" 
+});
+filter_button.addEventListener("click",function(e){
+    Ti.API.info("Filter button pressed");
+    Ti.API.info("WHEN: " + when[0] + " ; WHERE: " + where[0] + " ; TIME: " + time[0]);
+    //if where has anything other than the default we need pull GPS coords
+    if( where[0] != "where_anywhere" )
+    {
+        Titanium.Geolocation.accuracy = Titanium.Geolocation.ACCURACY_BEST;
+ 
+        //
+        //  SET DISTANCE FILTER.  THIS DICTATES HOW OFTEN AN EVENT FIRES BASED ON THE DISTANCE THE DEVICE MOVES
+        //  THIS VALUE IS IN METERS
+        //
+        Titanium.Geolocation.distanceFilter = 10;
+         
+        //
+        // GET CURRENT POSITION - THIS FIRES ONCE
+        //
+        Titanium.Geolocation.getCurrentPosition(function(e){
+            if (e.error)
+            {
+                alert('HFL cannot get your current location');
+                return;
+            }
+            var longitude = e.coords.longitude;
+            var latitude = e.coords.latitude;
+            var altitude = e.coords.altitude;
+            var heading = e.coords.heading;
+            var accuracy = e.coords.accuracy;
+            var speed = e.coords.speed;
+            var timestamp = e.coords.timestamp;
+            var altitudeAccuracy = e.coords.altitudeAccuracy;
+            
+            Ti.API.info( "Lat: " + latitude + " ; long: " + longitude );
+            Ti.API.info( "accuracy: " + accuracy );
+        });
+    }
+    //now we can build the request url for the data server
+    var myRequest = Ti.Network.createHTTPClient({
+        onload : function(e) {
+            jsonObject = JSON.parse(this.responseText);
+            var events = jsonObject;
+            // $.textArea.value= genres.length;
+            listEvents(events);
+        },
+        onerror : function(e) {
+            alert(e.error);
+        },
+        timeout : 5000
+    });
+    myRequest.open("GET", "http://data.news-leader.com/things/genre/" + args.genre);
+    myRequest.send();  
+});
+filter_button_view.add(reset_button);
+filter_button_view.add(filter_button);
+filterView.add(filter_button_view);
 $.child_window2.add(filterView);
 /* end of filtering section */
 //animation stuff
@@ -309,6 +261,7 @@ anim_out.duration = 250;
 var anim_in = Ti.UI.createAnimation();
 anim_in.opacity=1;
 anim_in.duration = 250;
+//var to hold the animation state.
 var animated = "out";
 //Ti.API.info( "menu button created" + menubutton );
 //setting the button on the current window
