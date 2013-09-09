@@ -24,3 +24,5 @@ Resources/alloy/animation.js
 Resources/alloy/controllers/EventDetail.js
 Resources/alloy/controllers/MyThings.js
 Resources/alloy/controllers/index.js
+
+Resources/app.js
