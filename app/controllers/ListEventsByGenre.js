@@ -198,8 +198,23 @@ var filter_button = Ti.UI.createButton({
     backgroundColor: "white" 
 });
 filter_button.addEventListener("click",function(e){
+    var url = ""; 
     Ti.API.info("Filter button pressed");
     Ti.API.info("WHEN: " + when[0] + " ; WHERE: " + where[0] + " ; TIME: " + time[0]);
+    //now we can build the request url for the data server
+    var myRequest = Ti.Network.createHTTPClient({
+        onload : function(e) {
+            jsonObject = JSON.parse(this.responseText);
+            var events = jsonObject;
+            // $.textArea.value= genres.length;
+            listEvents(events);
+        },
+        onerror : function(e) {
+            alert(e.error);
+        },
+        timeout : 5000
+    });
+    url =  "http://data.news-leader.com/things/events/search?genre=" + args.genre + "&when=" + encodeURIComponent(when[0]) + "&time=" + encodeURIComponent(time[0]) + "&where=" + encodeURIComponent(where[0]);
     //if where has anything other than the default we need pull GPS coords
     if( where[0] != "where_anywhere" )
     {
@@ -214,14 +229,18 @@ filter_button.addEventListener("click",function(e){
         //
         // GET CURRENT POSITION - THIS FIRES ONCE
         //
+        //setting lat and lng outside of the callback so ic an access the them outside of it.
+        var longitude;
+        var latitude;
+        // Ti.API.info( "Lat: " + latitude + " ; long: " + longitude );
         Titanium.Geolocation.getCurrentPosition(function(e){
             if (e.error)
             {
                 alert('HFL cannot get your current location');
                 return;
             }
-            var longitude = e.coords.longitude;
-            var latitude = e.coords.latitude;
+            longitude = e.coords.longitude;
+            latitude = e.coords.latitude;
             var altitude = e.coords.altitude;
             var heading = e.coords.heading;
             var accuracy = e.coords.accuracy;
@@ -230,23 +249,18 @@ filter_button.addEventListener("click",function(e){
             var altitudeAccuracy = e.coords.altitudeAccuracy;
             
             Ti.API.info( "Lat: " + latitude + " ; long: " + longitude );
+            url = url + "&lat=" + encodeURIComponent( latitude );
+            url = url + "&lng=" + encodeURIComponent( longitude );
+            Ti.API.info( "url = " + url );
             Ti.API.info( "accuracy: " + accuracy );
+            //return {"latitude":latitude,"longitude":longitude};
+            
         });
+        // // Ti.API.info( "Coords = " + coords );
+        // Ti.API.info( "Lat: " + latitude + " ; long: " + longitude );
     }
-    //now we can build the request url for the data server
-    var myRequest = Ti.Network.createHTTPClient({
-        onload : function(e) {
-            jsonObject = JSON.parse(this.responseText);
-            var events = jsonObject;
-            // $.textArea.value= genres.length;
-            listEvents(events);
-        },
-        onerror : function(e) {
-            alert(e.error);
-        },
-        timeout : 5000
-    });
-    myRequest.open("GET", "http://data.news-leader.com/things/genre/" + args.genre);
+    Ti.API.info("URL: " + url );
+    myRequest.open("GET", url );
     myRequest.send();  
 });
 filter_button_view.add(reset_button);
@@ -310,7 +324,7 @@ function listEvents(events) {
             eventID : events[i]["pk"],
             excitement : events[i]["fields"]["excitement"],
             short_description : events[i]["fields"]["short_description"],
-            date: events[i]["fields"]["date"],
+            start_time : events[i]["fields"]["start_time"],
             cost: events[i]["fields"]["cost_description"],
             resized : false
         };
@@ -405,7 +419,7 @@ function listEvents(events) {
         event_view.add(where);
          var when = Titanium.UI.createLabel({
             // text: CustomData[i].date,
-            text: "When: ",
+            text: "When: " + Date.parse(CustomData[i].start_time).toString("MMM d, yyyy h:s tt"),
             font: {
                 fontSize : 10,
                 // fontWeight : 'bold'
@@ -454,6 +468,7 @@ function listEvents(events) {
         var going_button = Ti.UI.createButton({
             eventID : CustomData[i]["eventID"],
             eventTitle: CustomData[i]["title"],
+            eventDate: CustomData[i]["start_time"],
             title : "I'm Going!",
             width : "45%",
             height : "15",
@@ -489,7 +504,7 @@ function listEvents(events) {
             else
             {
                 //if the event is not already in the db, then we add it.    
-                var query = "INSERT INTO my_events(id,event_name,event_date,status)VALUES('" +  e.source.eventID +"','" + e.source.eventTitle + "', '9-30-13 5:00pm','going');";
+                var query = "INSERT INTO my_events(id,event_name,event_date,status)VALUES('" +  e.source.eventID +"','" + e.source.eventTitle + "', '" + e.source.eventDate + "','going');";
                 // //Ti.API.info( "query = " + query);
                 db.execute(query);
                 //reversing the button colors if you hit i'm going.
@@ -503,6 +518,7 @@ function listEvents(events) {
             title : "I'm Interested",
             eventID: CustomData[i]["eventID"],
             eventTitle: CustomData[i]["title"],
+            eventDate: CustomData[i]["start_time"],
             style: 'none',
             borderWidth: 1,
             borderColor: 'black',
