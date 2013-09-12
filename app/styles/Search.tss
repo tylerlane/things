@@ -3,6 +3,21 @@
 	backgroundImage: "background.png",
 }
 
+".Name_label": {
+	Color: "white",
+	font : {
+        fontSize : 20,
+        fontWeight : 'bold',
+        fontFamily : "Tall Dark and Handsome Condensed",
+    },
+}
 
-"#tab_one": {
+".search_label":{
+	font: {
+		fontSize: 25,
+		fontWeight: "bold",
+		fontFamily : "Tall Dark and Handsome Condensed",
+	},
+	color: "White",
+	
 }

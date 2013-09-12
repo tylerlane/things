@@ -1,8 +1,16 @@
 <Alloy>
 	<Tab id="tab_one" title="Search" icon="search.png">
 		<Window class="container" id="window" title="Search">
-			<Label id="label" onClick="doClick">Hello, World</Label>
-			<Button id="open_button">Open Child Window</Button>
+			<ScrollView id="scrollView" showVerticalScrollIndicator="true" showHorizontalScrollIndicator="false" height="100%" width="100%">
+	            <View id="view" layout="vertical" borderRaduis="10" top="10" height="Ti.UI.SIZE" width="Ti.UI.FILL" >
+	            	<Label id="search_label" color="white">Search for Events</Label>
+					<View id="name_view" layout="horizontal" width="Ti.UI.FILL" height="Ti.UI.SIZE">
+						<Label id="Name_label" left="5" color="white">Event Name:</Label>
+						<TextField id="name_textfield" borderStyle="Ti.UI.INPUT_BORDERSTYLE_ROUNDED" right="10" width="Ti.UI.FILL">
+					</View>
+					<Button id="search_button" top="5">Search</Button>
+	            </View>
+        	</ScrollView>
 		</Window>
 	</Tab>
 </Alloy>

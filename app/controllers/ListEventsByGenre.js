@@ -1,7 +1,11 @@
 //settings args and titles etc
 var args = arguments[0] || {};
 $.parentController = args.parentTab;
-$.child_window2.title = args.genre;
+if( args.genre != "undefined" )
+{
+    $.child_window2.title = args.genre;    
+}
+
 //require alloy
 var alloy = require('alloy');
 //open our db object
@@ -315,7 +319,30 @@ var myRequest = Ti.Network.createHTTPClient({
     },
     timeout : 5000
 });
-myRequest.open("GET", "http://data.news-leader.com/things/genre/" + args.genre);
+var url = "";
+if( args.name != undefined)
+{
+    //else it's a search'
+    url = "http://data.news-leader.com/things/events/search?";
+    //?genre=" + args.genre + "&when=" + encodeURIComponent(when[0]) + "&time=" + encodeURIComponent(time[0]) + "&where=" + encodeURIComponent(where[0]);
+    if( args.genre != undefined )
+    {
+        url = url + "genre=" + encodeURIComponent(args.genre) + "&";
+    }
+    if( args.name != undefined || ar )
+    {
+        url = url + "name=" + encodeURIComponent(args.name) + "&";
+    }
+    
+}
+else
+{   
+    url = "http://data.news-leader.com/things/genre/" + encodeURIComponent(args.genre);
+    //getting the events by genre
+    myRequest.open("GET", "http://data.news-leader.com/things/genre/" + args.genre); 
+}
+Ti.API.info( "URL being fetched: " + url );
+myRequest.open("GET", url);   
 myRequest.send();
 
 function listEvents(events) {
@@ -426,7 +453,7 @@ function listEvents(events) {
             event_view.add(where);
              var when = Titanium.UI.createLabel({
                 // text: CustomData[i].date,
-                text: "When: " + Date.parse(CustomData[i].start_time).toString("MMM d, yyyy h:s tt"),
+                text: "When: " + Date.parse(CustomData[i].start_time).toString("MMM d, yyyy hh:ss tt"),
                 font: {
                     fontSize : 10,
                     // fontWeight : 'bold'
@@ -567,18 +594,7 @@ function listEvents(events) {
             event_view.add(button_view);
             row.add(pic);
             row.add(event_view);
-            // row.add(title);
-            // row.add(where);
-            // row.add(address);
-            // row.add(description);
-            // row.add(going_button);
-            // row.add(maybe_button);
-            //row.add(when);
-    
-            // row.add(percent);
-            // row.add(trend);
-            // row.hasDetail = CustomData[i].hasDetail;
-    
+            //  
             row.className = 'EventListing';
             //send the row we made to our data
             data.push(row);
@@ -615,18 +631,6 @@ function listEvents(events) {
 }
 
 function showClickEventInfo(e, islongclick) {
-    // event data
-    // var index = e.index;
-    // var section = e.section;
-    // var row = e.row;
-    // var rowdata = e.rowData;
-    // //Ti.API.info('detail ' + e.detail);
-    // var msg = 'row ' + row + ' index ' + index + ' section ' + section + ' row data ' + rowdata;
-    // if (islongclick) {
-        // msg = "LONGCLICK " + msg;
-    // }
-    // 
-    // //Ti.API.info(e.rowData.title + " ( " + e.rowData.eventID + " ) button clicked");
     //launching the event detail page
     var eventDetailController = Alloy.createController('EventDetail', {
         eventid : e.rowData.eventID,
