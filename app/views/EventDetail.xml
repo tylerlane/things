@@ -1,10 +1,4 @@
 <Alloy>
 	<Window id="event_detail_win" title="Event Detail">
-		<Label id="label1" text="A simple label" />
-		<Label id="label2" ></Label>
-		<Button id="going" onClick="EventGoingClick" title="Going"></Button> -->
-		<!-- <ImageView id="going" /> -->
-		<Button id="notinterested">Not Interested</Button>
-		<Label id="label3"></Label>
 	</Window>
 </Alloy>
