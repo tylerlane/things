@@ -4,7 +4,7 @@
 		<!-- Genres -->
 		<Require src="ListGenres" ></Require>
 		<!-- Search -->
-		<Require src="tabViewOne"></Require>
+		<Require src="Search"></Require>
 		<!-- My Things -->
 		<Require src="MyThings"></Require>
 		

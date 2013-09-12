@@ -73,6 +73,13 @@ var tableview = Titanium.UI.createTableView({
     rowHeight:25,
     borderRadius: 5,
 });
+//storage for our gps coords
+function dataStorage() {
+    this.lat;
+    this.lon;
+}
+var g = new dataStorage();
+
 tableview.addEventListener('click',function(e){
     //Ti.API.info( e.source.itemid + ' has been clicked');
     //setting the checkmark
@@ -90,6 +97,38 @@ tableview.addEventListener('click',function(e){
    } 
    else if( e.source.itemid == "where" )
    {
+       if( where !=" wehere_anywhere")
+       {
+           Titanium.Geolocation.accuracy = Titanium.Geolocation.ACCURACY_BEST;
+ 
+            //
+            //  SET DISTANCE FILTER.  THIS DICTATES HOW OFTEN AN EVENT FIRES BASED ON THE DISTANCE THE DEVICE MOVES
+            //  THIS VALUE IS IN METERS
+            //
+            Titanium.Geolocation.distanceFilter = 10;
+             
+            //
+            // GET CURRENT POSITION - THIS FIRES ONCE
+            //
+            
+            Titanium.Geolocation.getCurrentPosition(function(e){
+                if (e.error)
+                {
+                    alert('HFL cannot get your current location');
+                    return;
+                }
+                g.lon = e.coords.longitude;
+                g.lat = e.coords.latitude;
+                var altitude = e.coords.altitude;
+                var heading = e.coords.heading;
+                var accuracy = e.coords.accuracy;
+                var speed = e.coords.speed;
+                var timestamp = e.coords.timestamp;
+                var altitudeAccuracy = e.coords.altitudeAccuracy;
+                
+                Ti.API.info( "INSIDE the callback function. Lat: " + g.lat + " ; long: " + g.lon );
+            });
+       }
        var where_data = [
             {title:'Within a half mile', itemid:"where_half_mile", hasCheck: ( where == "where_half_mile" ) ? true : false, selectedColor:'#fff',font:{fontSize:12,fontWeight:"bold"}},
             {title:'Within 1 mile', itemid: "where_one_mile", hasCheck: ( where == "where_one_mile" ) ? true : false, selectedColor:'#fff',font:{fontSize:12,fontWeight:"bold"}},
@@ -141,7 +180,7 @@ tableview.addEventListener('click',function(e){
 filterView.add(tableview);
 var filter_button_view = Ti.UI.createView({
     layout: "horizontal",
-    left: 10,
+    left: 30,
     top: 10,
     width: Ti.UI.FILL,
     height: Ti.UI.SIZE
@@ -203,52 +242,10 @@ filter_button.addEventListener("click",function(e){
     Ti.API.info("WHEN: " + when[0] + " ; WHERE: " + where[0] + " ; TIME: " + time[0]);
     url =  "http://data.news-leader.com/things/events/search?genre=" + args.genre + "&when=" + encodeURIComponent(when[0]) + "&time=" + encodeURIComponent(time[0]) + "&where=" + encodeURIComponent(where[0]);
     //if where has anything other than the default we need pull GPS coords
-    function dataStorage() {
-        this.lat;
-        this.lon;
-    }
-     
-    var g = new dataStorage();
     if( where[0] != "where_anywhere" )
     {
-        Titanium.Geolocation.accuracy = Titanium.Geolocation.ACCURACY_BEST;
- 
-        //
-        //  SET DISTANCE FILTER.  THIS DICTATES HOW OFTEN AN EVENT FIRES BASED ON THE DISTANCE THE DEVICE MOVES
-        //  THIS VALUE IS IN METERS
-        //
-        Titanium.Geolocation.distanceFilter = 10;
-         
-        //
-        // GET CURRENT POSITION - THIS FIRES ONCE
-        //
-        //setting lat and lng outside of the callback so ic an access the them outside of it.
-        var longitude;
-        var latitude;
-        // Ti.API.info( "Lat: " + latitude + " ; long: " + longitude );
         
-        Titanium.Geolocation.getCurrentPosition(function(e){
-            if (e.error)
-            {
-                alert('HFL cannot get your current location');
-                return;
-            }
-            g.lon = e.coords.longitude;
-            g.lat = e.coords.latitude;
-            var altitude = e.coords.altitude;
-            var heading = e.coords.heading;
-            var accuracy = e.coords.accuracy;
-            var speed = e.coords.speed;
-            var timestamp = e.coords.timestamp;
-            var altitudeAccuracy = e.coords.altitudeAccuracy;
-            
-            Ti.API.info( "Lat: " + g.lat + " ; long: " + g.lon );
-            //             
-            // Ti.API.info( "url = " + url );
-            // Ti.API.info( "accuracy: " + accuracy );
-            //return {"latitude":latitude,"longitude":longitude};
-            
-        });
+        Ti.API.info( "Outside of the call back function. Lat: " + g.lat + " ; long: " + g.lon );
         url = url + "&lat=" + encodeURIComponent( g.lat );
         url = url + "&lng=" + encodeURIComponent( g.lon );
         // // Ti.API.info( "Coords = " + coords );

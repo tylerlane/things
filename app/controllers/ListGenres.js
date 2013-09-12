@@ -80,11 +80,22 @@ function loadGenres(genres) {
         // Ti.API.info( "creating button for: " + genres[i]["fields"]["name"] );
         buttonview.addEventListener('click', function(e) {
             // Ti.API.info(e.source.title + " button clicked");
-            var ListEventsByGenreController = Alloy.createController('ListEventsByGenre', {
-                genre : e.source.title,
-                parentTab : $.tab_two
-            });
-            $.tab_two.open(ListEventsByGenreController.getView());
+            if( e.source.title != "Dining" )
+            {
+                var ListEventsByGenreController = Alloy.createController('ListEventsByGenre', {
+                    genre : e.source.title,
+                    parentTab : $.tab_two
+                });
+                $.tab_two.open(ListEventsByGenreController.getView());    
+            }
+            else
+            {
+                var DiningController = Alloy.createController('Dining', {
+                    genre : e.source.title,
+                    parentTab : $.tab_two
+                });
+                $.tab_two.open(DiningController.getView());
+            }
         });
         //Ti.API.info( "creating event listener for button for: " + genres[i]["fields"]["name"] );
         buttonview.add(button);
