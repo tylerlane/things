@@ -46,7 +46,7 @@ var filterLabel =  Titanium.UI.createLabel({
     top:16,
     font:{
         fontFamily:'Helvetica Neue',
-        fontSize:13,
+        fontSize:16,
         fontWeight:'bold'
     },
     textAlign:'center'
@@ -196,7 +196,7 @@ var reset_button = Ti.UI.createButton({
     // bottom : 0,
     // left : 115,
     font : {
-        fontSize : 10,
+        fontSize : 12,
     },
     bubbleParent: false,
     style: 'none',
@@ -230,7 +230,7 @@ var filter_button = Ti.UI.createButton({
     // bottom : 0,
     left : 10,
     font : {
-        fontSize : 10,
+        fontSize : 12,
     },
     bubbleParent: false,
     style: 'none',
@@ -443,7 +443,7 @@ function listEvents(events) {
                 text : "Where: " + CustomData[i].address,
                 left: 0,
                 font : {
-                    fontSize : 10,
+                    fontSize : 12,
                     // fontWeight : 'bold',
                 },
                 width : Ti.UI.SIZE,
@@ -455,7 +455,7 @@ function listEvents(events) {
                 // text: CustomData[i].date,
                 text: "When: " + Date.parse(CustomData[i].start_time).toString("MMM d, yyyy hh:ss tt"),
                 font: {
-                    fontSize : 10,
+                    fontSize : 12,
                     // fontWeight : 'bold'
                 },
                 width : Ti.UI.SIZE,
@@ -467,7 +467,7 @@ function listEvents(events) {
                 text : "Cost: " + CustomData[i].cost,
                 left: 0,
                 font : {
-                    fontSize : 10,
+                    fontSize : 12,
                     // fontWeight : 'bold',
                 },
                 width : Ti.UI.SIZE,
@@ -479,7 +479,7 @@ function listEvents(events) {
             var description = Ti.UI.createLabel({
                 text : CustomData[i].short_description,
                 font : {
-                    fontSize : 10,
+                    fontSize : 12,
                     // fontWeight: 'bold',
                 },
                 // width : 175,
@@ -509,7 +509,7 @@ function listEvents(events) {
                 // bottom : 0,
                 // left : 115,
                 font : {
-                    fontSize : 10,
+                    fontSize : 12,
                 },
                 bubbleParent: false,
                 style: 'none',
@@ -562,7 +562,7 @@ function listEvents(events) {
                 left: 5,
                 width: "45%",
                 font : {
-                    fontSize : 10,
+                    fontSize : 12,
                 },
                 bubbleParent: false,
                 style: 'none',

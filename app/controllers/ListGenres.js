@@ -105,7 +105,7 @@ function loadGenres(genres) {
             text : genres[i]["fields"]["name"],
             color : "white",
             font : {
-                fontSize: 12,
+                fontSize: 14,
                 fontFamily: "Tall Dark and Handsome Condensed",
                 fontWeight: "bold"
             }
@@ -148,6 +148,7 @@ var logo = Ti.UI.createImageView({
     image : "NL-Events-logo.png",
     width : 310,
     title : "logo",
+    hires: true
 });
 logo_view.add(logo);
 var reminder_container = Ti.UI.createView({
@@ -241,7 +242,7 @@ $.tab_two_win.addEventListener("focus", function(e){
                     color : "white",
                     width : "65%",
                     font : {
-                        fontSize : 12,
+                        fontSize : 14,
                         fontFamily : "Tall Dark and Handsome Condensed",
                         fontWeight : "bold"
                     }
@@ -258,7 +259,7 @@ $.tab_two_win.addEventListener("focus", function(e){
                     width : "30%",
                     textAlign : Ti.UI.TEXT_ALIGNMENT_RIGHT,
                     font : {
-                        fontSize : 12,
+                        fontSize : 14,
                         fontFamily : "Tall Dark and Handsome Condensed",
                         fontWeight : "bold"
                     }
