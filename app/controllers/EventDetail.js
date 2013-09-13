@@ -68,8 +68,8 @@ function eventDetail(event_detail) {
     });
     view.add(label);
     var picture_view = Ti.UI.createView({
-        //backgroundColor : "#065365",
-        backgroundColor: "#c0c0c0",
+        backgroundColor : "#065365",
+        // backgroundColor: "#c0c0c0",
         width : Ti.UI.FILL,
         height : 150,
         layout : "horizontal",
@@ -86,54 +86,119 @@ function eventDetail(event_detail) {
         left : 10,
         top : 8,
         // backgroundColor : "white",
-        borderRadius: 3,
+        borderRadius : 3,
     });
     picture_view.add(image);
     var text_view = Ti.UI.createView({
         layout : "vertical",
         width : Ti.UI.FILL,
-        height: Ti.UI.FILL,
-        right: 5,
+        height : Ti.UI.SIZE,
+        right : 5,
         left : 10,
         // backgroundColor: "yellow",
         // borderColor : "yellow",
         // borderWidth : 1,
+        // zIndex : 100,
     });
     picture_view.add(text_view);
-    var foo = Ti.UI.createLabel({
-        title: "when",
-        // color: "yellow",
-        height: Ti.UI.SIZE,
-        width: Ti.UI.SIZE,
-        top: 5,
-        left: 5,
+    var when = Ti.UI.createLabel({
+        text : "WHEN",
+        color : "yellow",
+        // backgroundColor: "green",
+        height : Ti.UI.SIZE,
+        width : Ti.UI.FILL,
+        top : 5,
+        left : 5,
+        font : {
+            fontSize : 12,
+            fontFamily : "Helvetica",
+            fontWeight : "bold"
+        },
+        // borderColor : "orange",
+        // borderWidth : 1,
+    });
+    text_view.add(when);
+
+    var when_text = Ti.UI.createLabel({
+        text : Date.parse(event_detail['fields']["start_date"] + " " + event_detail['fields']["start_time"]).toString("M/d/yy hh:ss tt"),
         font : {
             fontSize : 10,
             fontFamily : "Helvetica",
             fontWeight : "bold"
         },
-        borderColor : "orange",
-        borderWidth : 1,
+        left : 5,
+        top : -3,
+        height : Ti.UI.SIZE,
+        width : Ti.UI.Fill,
+        color : "white"
+        // borderColor : "orange",
+        // borderWidth : 1,
     });
-    text_view.add(foo);
-    Ti.API.info( text_view.children);
-    // Ti.API.info( Date.parse(event_detail['fields']["start_date"] + " " + event_detail['fields']["start_time"]).toString("MMM d, yyyy hh:ss tt") );
-    var when_text = Ti.UI.createLabel({
-        title : Date.parse(event_detail['fields']["start_date"] + " " + event_detail['fields']["start_time"]).toString("MMM d, yyyy hh:ss tt"),
+    text_view.add(when_text);
+    //adding our text_view tot he pictureview
+    var where = Ti.UI.createLabel({
+        text : "WHERE",
+        font : {
+            fontSize : 12,
+            fontFamily : "Helvetica",
+            fontWeight : "bold"
+        },
+        top : 0,
+        left : 5,
+        height : Ti.UI.SIZE,
+        width : Ti.UI.FILL,
+        color : "yellow",
+    });
+    text_view.add(where);
+    var where_text = Ti.UI.createLabel({
+        text : event_detail["fields"]["contact_address"],
         font : {
             fontSize : 10,
             fontFamily : "Helvetica",
-            // fontWeight : "bold"
+            fontWeight : "bold"
         },
-        height: Ti.UI.SIZE,
-        width: Ti.UI.SIZE,
-        borderColor : "orange",
-        borderWidth : 1,
+        left : 5,
+        top : -3,
+        height : Ti.UI.SIZE,
+        width : Ti.UI.Fill,
+        color : "white"
+        // borderColor : "orange",
+        // borderWidth : 1,
     });
-    text_view.add(when_text);
-    Ti.API.info( text_view.children);
-    //adding our text_view tot he pictureview
+    text_view.add(where_text);
+
+    var cost = Ti.UI.createLabel({
+        text : "COST",
+        font : {
+            fontSize : 12,
+            fontFamily : "Helvetica",
+            fontWeight : "bold"
+        },
+        top : 0,
+        left : 5,
+        height : Ti.UI.SIZE,
+        width : Ti.UI.FILL,
+        color : "yellow",
+    });
+    text_view.add(cost);
     
+    var cost_text = Ti.UI.createLabel({
+       text: event_detail["fields"]["cost_description"],
+       font : {
+            fontSize : 10,
+            fontFamily : "Helvetica",
+            fontWeight : "bold"
+        },
+        left : 5,
+        top : -3,
+        height : Ti.UI.SIZE,
+        width : Ti.UI.Fill,
+        color : "white"
+        // borderColor : "orange",
+        // borderWidth : 1, 
+    });
+    text_view.add(cost_text);
+
 }
 
 function EventGoingClick(e) {
