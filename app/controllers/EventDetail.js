@@ -17,16 +17,16 @@ var scrollView = Ti.UI.createScrollView({
     contentHeight : "auto",
     showVerticalScrollIndicator : true,
     showHorizontalScrollIndicator : false,
-    height : '100%',
-    width : '100%'
+    height : Ti.UI.FILL,
+    width : Ti.UI.FILL,
 });
 var view = Ti.UI.createView({
     top : 0,
-    height : "auto",
-    width : "auto",
-    layout : "vertical"
-    // borderWidth: 1,
-    // borderColor: 'yellow'
+    height : Ti.UI.FILL,
+    width : Ti.UI.FILL,
+    layout : "vertical",
+    borderWidth: 1,
+    borderColor: 'green'
 });
 
 scrollView.add(view);
@@ -50,11 +50,11 @@ myRequest.send();
 function eventDetail(event_detail) {
     // Ti.API.info("title: " + event_detail["fields"]["name"]);
     var label = Ti.UI.createLabel({
-        text : event_detail["fields"]["name"].toUpperCase(),
+        text : event_detail["fields"]["name"],
         color : "white",
         font : {
-            fontSize : 20,
-            fontFamily : "Helvetica",
+            fontSize : 24,
+            // fontFamily : "Helvetica",
             fontWeight : "bold"
         },
         top : 5,
@@ -63,18 +63,25 @@ function eventDetail(event_detail) {
     view.add(label);
     var outer_wrapper_view = Ti.UI.createView({
         layout: "vertical",
-        height: Ti.UI.FILL,
+        // height: Ti.UI.FILL,
+        height: 400,
         width: Ti.UI.FILL,
+        top: 5,
+        bottom:5,
+        left:5,
+        right: 5,
+        borderRadius: 5, 
         // borderColor: "blue",
         // borderWidth: 1,
-        height : 150,
         backgroundColor : "#065365",
+        // borderColor:"yellow",
+        // borderWidth:1,
 
     });
     view.add(outer_wrapper_view);
     var picture_view = Ti.UI.createView({
         width : Ti.UI.FILL,
-        layout : "horizontal",
+        layout : "vertical",
         // borderColor: "orange",
         // borderWidth: 1,
         height: Ti.UI.SIZE,
@@ -83,13 +90,14 @@ function eventDetail(event_detail) {
     var image = Ti.UI.createImageView({// creates thumb
         image : "http://data-media.news-leader.com/" + event_detail["fields"]["main_photo"], // sets image to smaller version of image
         //largeImage:shots[i].image_url,
-        //height:125, // sets height
-        width : 125, // sets width
-        left : 10,
+        height:175, // sets height
+        //width : 125, // sets width
+        // left : 10,
         top : 8,
         hires: true,
-        backgroundColor : "white",
-        borderRadius : 3,
+        // backgroundColor : "#61929d",
+        backgroundColor: "white",
+        borderRadius : 5,
         // borderColor: "green",
         // borderWidth: 1
     });
@@ -99,7 +107,7 @@ function eventDetail(event_detail) {
         width : Ti.UI.FILL,
         height : Ti.UI.SIZE,
         right : 5,
-        left : 10,
+        left : 80,
         // backgroundColor: "yellow",
         // borderColor : "yellow",
         // borderWidth : 1,
@@ -115,7 +123,7 @@ function eventDetail(event_detail) {
         top : 5,
         left : 5,
         font : {
-            fontSize : 12,
+            fontSize : 16,
             fontFamily : "Helvetica",
             fontWeight : "bold"
         },
@@ -127,7 +135,7 @@ function eventDetail(event_detail) {
     var when_text = Ti.UI.createLabel({
         text : Date.parse(event_detail['fields']["start_date"] + " " + event_detail['fields']["start_time"]).toString("M/d/yy hh:ss tt"),
         font : {
-            fontSize : 10,
+            fontSize : 16,
             fontFamily : "Helvetica",
             fontWeight : "bold"
         },
@@ -144,7 +152,7 @@ function eventDetail(event_detail) {
     var where = Ti.UI.createLabel({
         text : "WHERE",
         font : {
-            fontSize : 12,
+            fontSize : 16,
             fontFamily : "Helvetica",
             fontWeight : "bold"
         },
@@ -158,14 +166,14 @@ function eventDetail(event_detail) {
     var where_text = Ti.UI.createLabel({
         text : event_detail["fields"]["contact_address"],
         font : {
-            fontSize : 10,
+            fontSize : 16,
             fontFamily : "Helvetica",
             fontWeight : "bold"
         },
         left : 5,
         top : -3,
         height : Ti.UI.SIZE,
-        width : Ti.UI.Fill,
+        width : Ti.UI.FILL,
         color : "white"
         // borderColor : "orange",
         // borderWidth : 1,
@@ -175,7 +183,7 @@ function eventDetail(event_detail) {
     var cost = Ti.UI.createLabel({
         text : "COST",
         font : {
-            fontSize : 12,
+            fontSize : 16,
             fontFamily : "Helvetica",
             fontWeight : "bold"
         },
@@ -190,7 +198,7 @@ function eventDetail(event_detail) {
     var cost_text = Ti.UI.createLabel({
        text: event_detail["fields"]["cost_description"],
        font : {
-            fontSize : 10,
+            fontSize : 16,
             fontFamily : "Helvetica",
             fontWeight : "bold"
         },
@@ -217,11 +225,11 @@ function eventDetail(event_detail) {
         eventDate: event_detail["fields"]["start_date"] + " " + event_detail["fields"]['start_time'],
         title : "I'm Going!",
         width : "45%",
-        height : "25",
+        height : "30",
         // bottom : 0,
         // left : 115,
         font : {
-            fontSize : 15,
+            fontSize : 16,
         },
         bubbleParent: false,
         style: 'none',
@@ -270,11 +278,11 @@ function eventDetail(event_detail) {
         borderColor: 'black',
         borderRadius: 5,
         color: "#065365",
-        height : "25",
+        height : "30",
         left: 5,
         width: "45%",
         font : {
-            fontSize : 15,
+            fontSize : 16,
         },
         bubbleParent: false,
         style: 'none',
@@ -304,6 +312,15 @@ function eventDetail(event_detail) {
     });
     button_view.add(maybe_button);
     outer_wrapper_view.add(button_view);
+    var description_view = Ti.UI.createView({
+       width: Ti.UI.FILL,
+       height: Ti.UI.SIZE,
+       layout: "horizontal",
+       top:5,
+       bottom:5,
+       left:5,
+       bottom:5 
+    });
     
     var description_text = Ti.UI.createLabel({
         text: event_detail["fields"]["description"],
@@ -312,10 +329,13 @@ function eventDetail(event_detail) {
         left: 10,
         right: 10,
         font:{
-            fontSize: 10,
+            fontSize: 16,
             fontFamily: "Helvetica",
         },
         color: "white",
+        borderColor:"blue",
+        borderWidth:1
     });
-    view.add(description_text);
+    description_view.add(description_text);
+    view.add(description_view);
 }
