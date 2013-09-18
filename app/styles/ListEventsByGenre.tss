@@ -2,10 +2,11 @@
 	barColor: "#065365",
 	backgroundImage: "background.png",
 	top:20,
-	fullscreen: true,
-	includeOpaqueBars: true,
-	translucent: false,
-	extendEdges:[Ti.UI.EXTEND_EDGE_BOTTOM, Ti.UI.EXTEND_EDGE_TOP],
+	// fullscreen: true,
+	// includeOpaqueBars: true,
+	// translucent: false,
+	// extendEdges:[Ti.UI.EXTEND_EDGE_BOTTOM, Ti.UI.EXTEND_EDGE_TOP],
+	extendEdges:[Ti.UI.EXTEND_EDGE_TOP, Ti.UI.EXTEND_EDGE_BOTTOM]
 }
 "#tableview": {
 	font:{fontSize:18},

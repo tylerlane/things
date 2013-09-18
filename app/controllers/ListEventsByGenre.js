@@ -652,7 +652,7 @@ var scrollView = Ti.UI.createScrollView({
 var view = Ti.UI.createView({
     // backgroundColor:'#336699',
     borderRadius : 0,
-    top : 0,
+    top : 20,
 });
 
 

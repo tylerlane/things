@@ -3,10 +3,11 @@
 	barColor: "#065365",
 	backgroundImage: "background.png",
 	top:25,
-	fullscreen: false,
-	includeOpaqueBars: true,
-	translucent: false,
-	extendEdges:[Ti.UI.EXTEND_EDGE_BOTTOM, Ti.UI.EXTEND_EDGE_TOP],
+	// fullscreen: false,
+	// includeOpaqueBars: true,
+	// translucent: false,
+	// extendEdges:[Ti.UI.EXTEND_EDGE_BOTTOM, Ti.UI.EXTEND_EDGE_TOP],
+	extendEdges:[Ti.UI.EXTEND_EDGE_TOP, Ti.UI.EXTEND_EDGE_BOTTOM]
 }
 
 "#label":{

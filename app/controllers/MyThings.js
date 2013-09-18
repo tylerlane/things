@@ -284,10 +284,11 @@ interested_wrapper.addEventListener("click", function(e) {
     $.tab_one.open(eventDetailController.getView());
 });
 var feedback  = Ti.UI.createLabel({
-    text: "Let us know how you like this app",
+    text: "Let us know how you like this app!",
     bottom: 5,
     font:{
-        fontSize: 16
+        fontSize: 16,
+        fontWeight: "bold"
     },
     color: "white"
 });

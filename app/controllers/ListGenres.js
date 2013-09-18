@@ -139,7 +139,7 @@ var view = Ti.UI.createView({
 });
 var logo_view = Ti.UI.createView({
     layout : "vertical",
-    top : 0,
+    top : 20,
     height : "auto",
     // borderWidth: 3,
     // borderColor: 'red'

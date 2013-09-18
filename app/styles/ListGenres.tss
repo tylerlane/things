@@ -2,10 +2,11 @@
 	//backgroundColor: "white",
 	barColor: "#065365",
 	backgroundImage: "background.png",
-	top:30,
-	fullscreen: true,
-	includeOpaqueBars: true,
-	translucent: false,
-	extendEdges:[Ti.UI.EXTEND_EDGE_BOTTOM, Ti.UI.EXTEND_EDGE_TOP],
-	tintColor: "#387584" 
+	// top:30,
+	// fullscreen: true,
+	// includeOpaqueBars: true,
+	// translucent: false,
+	// extendEdges:[Ti.UI.EXTEND_EDGE_BOTTOM, Ti.UI.EXTEND_EDGE_TOP],
+	extendEdges:[Ti.UI.EXTEND_EDGE_TOP, Ti.UI.EXTEND_EDGE_BOTTOM],
+	// tintColor: "#387584" 
 }

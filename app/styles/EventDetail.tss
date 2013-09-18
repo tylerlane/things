@@ -2,52 +2,7 @@
 	barColor: "#065365",
 	backgroundImage: "background.png",
 	top:20,
-	fullscreen: true,
-	includeOpaqueBars: true,
-	translucent: false,
-	extendEdges:[Ti.UI.EXTEND_EDGE_BOTTOM, Ti.UI.EXTEND_EDGE_TOP],
-}
-"#going": {
-	// backgroundColor: "#065365",
-	color: "white",
-	// image: "going.png",
-	top:150,
-	left:5,
-	// width:"250px",
-	// height:"82px",
-}
-"#notinterested": {
-	backgroundColor: "#065365",
-	color:"white",
-}
-
-"#label1": {
-	top: 10,
-	font: {fontSize: 36},
-	textAlign:"Ti.UI.TEXT_ALIGNMENT_LEFT",
-	left: 5,
-	width:"Ti.UI.SIZE",
-	height:"Ti.UI.SIZE",
-	color:"white",
-	shadowColor:"#A0A0A0" 
-}
-
-"#label2": {
-	color:"white",
-	textAlign:"Ti.UI.TEXT_ALIGNMENT_LEFT",
-	top:"25"
-}
-
-"#label3": {
-	 color:"black",
-	 top:"300"
-}
-
-"#going": {
-	 left:"10",
-	 backgroundImage:"going.png" 
-}
-
-"#notinterested":{
-	left:"150"
+	// fullscreen: true,
+	// extendEdges:[Ti.UI.EXTEND_EDGE_BOTTOM, Ti.UI.EXTEND_EDGE_TOP],
+	extendEdges:[Ti.UI.EXTEND_EDGE_TOP, Ti.UI.EXTEND_EDGE_BOTTOM]
 }
