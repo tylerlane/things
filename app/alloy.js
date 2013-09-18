@@ -13,3 +13,14 @@
 //Ti.Geolocation.purpose = "Recieve User Location";
 //setting the purpose flag
 Ti.Geolocation.purpose = "Show events near your location";
+
+/* app feedback section */
+var apptentiveModule = require('com.apptentive.titanium');
+Ti.API.info("module is => " + apptentiveModule);
+   
+apptentiveModule.setApiKey("e9bb85c57b58fe048d13f10e0b2bf90852ec5bd566d77a11175f6c0d3e34533d");
+
+
+/*analytics */
+var GA = require("analytics.google");
+var tracker = GA.getTracker("UA-29476655-2");

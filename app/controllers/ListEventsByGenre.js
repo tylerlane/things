@@ -546,6 +546,7 @@ function listEvents(events) {
                     e.source.setColor("white");
                 }
                 check_rs.close();
+                apptentiveModule.presentMessageCenter(); 
             });
             button_view.add(going_button);
             var maybe_button = Ti.UI.createButton({
@@ -652,5 +653,21 @@ var view = Ti.UI.createView({
     borderRadius : 0,
     top : 0,
 });
+
+
 scrollView.add(view);
 $.child_window2.add(scrollView);
+// var feeback_label = Ti.UI.createLabel({
+    // text: "Tell us what you think!",
+    // // top:8,
+    // bottom:5,
+    // font:{
+        // fontSize:14
+    // }
+// });
+// feedback_label.addEventListener("click",function(){
+// 
+// });
+// $.child_window2.add(feedback_label);
+Titanium.Analytics.featureEvent('Genre Detail page: ' + args.genre );
+tracker.trackEvent({ category: "Genre Detail Page", action: "clicked", label: "Event Id", value: args.genre });

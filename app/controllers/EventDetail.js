@@ -339,3 +339,5 @@ function eventDetail(event_detail) {
     description_view.add(description_text);
     view.add(description_view);
 }
+Titanium.Analytics.featureEvent('Event Detail: ' + args.eventid );
+tracker.trackEvent({ category: "Event Detail: ", action: "loaded", label: "Event ID", value: args.eventid });

@@ -6,6 +6,7 @@ Titanium.App.addEventListener('close', function (e) {
     {
         db.close();
     }
-    
-});     
+});  
 
+Titanium.Analytics.featureEvent('starting app');
+tracker.trackEvent({ category: "Index Page", action: "loaded"});

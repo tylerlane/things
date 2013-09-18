@@ -274,11 +274,42 @@ view.add(interested_wrapper);
 interested_wrapper.addEventListener("click", function(e) {
     Ti.API.info("click event received in reminder listing");
     Ti.API.info("source title = " + e.source.title);
-    var eventDetailController = Alloy.createController('EventDetail', {
-        eventid : e.source.eventID,
-        parentTab : $.tab_one
-    });
+    if( e.source.eventID != "undefined" )
+    {
+        var eventDetailController = Alloy.createController('EventDetail', {
+            eventid : e.source.eventID,
+            parentTab : $.tab_one
+        });
+    }
     $.tab_one.open(eventDetailController.getView());
 });
+var feedback  = Ti.UI.createLabel({
+    text: "Let us know how you like this app",
+    bottom: 5,
+    font:{
+        fontSize: 16
+    },
+    color: "white"
+});
+feedback.addEventListener("click",function(){
+    apptentiveModule.presentMessageCenter(); 
+});
+
+var survey = Ti.UI.createLabel({
+    text: "Survey",
+    bottom: 5,
+    font:{
+        fontSize: 16
+    },
+    color: "white"
+});
+survey.addEventListener("click",function(){
+    apptentiveModule.presentSurveyControllerWithNoTags();
+});
+view.add(feedback);
+view.add(survey);
 scrollView.add(view);
 $.my_things_win.add(scrollView); 
+
+Titanium.Analytics.featureEvent('My Things page loaded' );
+tracker.trackEvent({ category: "My Things Page", action: "loaded", label: "'I'm Going' Events", value: mythings_reminders.toString() });

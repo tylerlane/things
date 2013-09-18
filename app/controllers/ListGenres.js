@@ -316,3 +316,5 @@ $.tab_two_win.addEventListener("focus", function(e){
         };
     }
 });
+Titanium.Analytics.featureEvent('Genres page');
+tracker.trackEvent({ category: "Genres Page", action: "loaded"});
