@@ -26,3 +26,11 @@ Resources/alloy/controllers/MyThings.js
 Resources/alloy/controllers/index.js
 
 Resources/app.js
+
+.settings/com.appcelerator.titanium.mobile.prefs
+
+.settings/com.appcelerator.titanium.mobile.prefs
+
+Resources/alloy.js
+
+.settings/com.appcelerator.titanium.core.prefs
