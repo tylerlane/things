@@ -17,16 +17,16 @@ var scrollView = Ti.UI.createScrollView({
     contentHeight : "auto",
     showVerticalScrollIndicator : true,
     showHorizontalScrollIndicator : false,
-    height : Ti.UI.FILL,
-    width : Ti.UI.FILL,
+    height : 'auto',
+    width : 'auto',
 });
 var view = Ti.UI.createView({
     top : 0,
-    height : Ti.UI.FILL,
+    height : 'auto',
     width : Ti.UI.FILL,
     layout : "vertical",
-    borderWidth: 1,
-    borderColor: 'green'
+    // borderWidth: 1,
+    // borderColor: 'green'
 });
 
 scrollView.add(view);
@@ -107,7 +107,7 @@ function eventDetail(event_detail) {
         width : Ti.UI.FILL,
         height : Ti.UI.SIZE,
         right : 5,
-        left : 80,
+        left : 5,
         // backgroundColor: "yellow",
         // borderColor : "yellow",
         // borderWidth : 1,
@@ -333,8 +333,8 @@ function eventDetail(event_detail) {
             fontFamily: "Helvetica",
         },
         color: "white",
-        borderColor:"blue",
-        borderWidth:1
+        //borderColor:"blue",
+        //borderWidth:1
     });
     description_view.add(description_text);
     view.add(description_view);
