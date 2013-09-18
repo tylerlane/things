@@ -294,20 +294,26 @@ var feedback  = Ti.UI.createLabel({
 feedback.addEventListener("click",function(){
     apptentiveModule.presentMessageCenter(); 
 });
-
-var survey = Ti.UI.createLabel({
-    text: "Survey",
+if(apptentiveModule.hasSurveyAvailableWithNoTags() )
+{
+    var survey = Ti.UI.createLabel({
+    text: "Take a Survey?",
+    top: 5,
     bottom: 5,
     font:{
         fontSize: 16
     },
     color: "white"
-});
-survey.addEventListener("click",function(){
-    apptentiveModule.presentSurveyControllerWithNoTags();
-});
+    
+    });
+    survey.addEventListener("click",function(){
+        apptentiveModule.presentSurveyControllerWithNoTags();
+    });
+    view.add(survey);
+    
+}
 view.add(feedback);
-view.add(survey);
+
 scrollView.add(view);
 $.my_things_win.add(scrollView); 
 

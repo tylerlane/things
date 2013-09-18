@@ -31,7 +31,7 @@ var filterView =  Titanium.UI.createView({
     width:205,
     height:200,
     backgroundImage:"bubble_big.png",
-    top:0,
+    top:20,
     right:3,
     opacity:0,
     zIndex:100,
@@ -101,7 +101,7 @@ tableview.addEventListener('click',function(e){
    } 
    else if( e.source.itemid == "where" )
    {
-       if( where !=" wehere_anywhere")
+       if( where !=" where_anywhere")
        {
            Titanium.Geolocation.accuracy = Titanium.Geolocation.ACCURACY_BEST;
  
@@ -192,11 +192,11 @@ var filter_button_view = Ti.UI.createView({
 var reset_button = Ti.UI.createButton({
     title: "Reset",
     width : "35%",
-    height : "15",
+    height : "25",
     // bottom : 0,
     // left : 115,
     font : {
-        fontSize : 12,
+        fontSize : 16,
     },
     bubbleParent: false,
     style: 'none',
@@ -226,11 +226,11 @@ reset_button.addEventListener("click",function(e){
 var filter_button = Ti.UI.createButton({
     title: "Filter",
     width : "35%",
-    height : "15",
+    height : "25",
     // bottom : 0,
     left : 10,
     font : {
-        fontSize : 12,
+        fontSize : 16,
     },
     bubbleParent: false,
     style: 'none',
@@ -271,6 +271,7 @@ filter_button.addEventListener("click",function(e){
     });
     myRequest.open("GET", url );
     myRequest.send();  
+    menubutton.fireEvent("click");
 });
 filter_button_view.add(reset_button);
 filter_button_view.add(filter_button);

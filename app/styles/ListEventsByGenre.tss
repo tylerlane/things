@@ -1,6 +1,11 @@
 "#child_window2": {
 	barColor: "#065365",
 	backgroundImage: "background.png",
+	top:20,
+	fullscreen: true,
+	includeOpaqueBars: true,
+	translucent: false,
+	extendEdges:[Ti.UI.EXTEND_EDGE_BOTTOM, Ti.UI.EXTEND_EDGE_TOP],
 }
 "#tableview": {
 	font:{fontSize:18},

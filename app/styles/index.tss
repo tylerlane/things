@@ -1,5 +1,11 @@
 ".container": {
-	backgroundColor:"white"
+	backgroundColor:"white",
+	top:20,
+	fullscreen: true,
+	includeOpaqueBars: true,
+	translucent: false,
+	extendEdges:[Ti.UI.EXTEND_EDGE_BOTTOM, Ti.UI.EXTEND_EDGE_TOP],
+	
 },
 "Label": {
 	width: Ti.UI.SIZE,
