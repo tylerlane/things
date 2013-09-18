@@ -34,3 +34,7 @@ Resources/app.js
 Resources/alloy.js
 
 .settings/com.appcelerator.titanium.core.prefs
+
+Resources/alloy/controllers/EventDetail.js
+
+Resources/alloy/controllers/EventDetail.js
