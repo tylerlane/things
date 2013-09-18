@@ -1,11 +1,10 @@
 function Controller() {
     function eventDetail(event_detail) {
         var label = Ti.UI.createLabel({
-            text: event_detail["fields"]["name"].toUpperCase(),
+            text: event_detail["fields"]["name"],
             color: "white",
             font: {
-                fontSize: 20,
-                fontFamily: "Helvetica",
+                fontSize: 24,
                 fontWeight: "bold"
             },
             top: 5,
@@ -14,26 +13,29 @@ function Controller() {
         view.add(label);
         var outer_wrapper_view = Ti.UI.createView({
             layout: "vertical",
-            height: Ti.UI.FILL,
+            height: 400,
             width: Ti.UI.FILL,
-            height: 150,
+            top: 5,
+            bottom: 5,
+            left: 5,
+            right: 5,
+            borderRadius: 5,
             backgroundColor: "#065365"
         });
         view.add(outer_wrapper_view);
         var picture_view = Ti.UI.createView({
             width: Ti.UI.FILL,
-            layout: "horizontal",
+            layout: "vertical",
             height: Ti.UI.SIZE
         });
         outer_wrapper_view.add(picture_view);
         var image = Ti.UI.createImageView({
             image: "http://data-media.news-leader.com/" + event_detail["fields"]["main_photo"],
-            width: 125,
-            left: 10,
+            height: 175,
             top: 8,
             hires: true,
             backgroundColor: "white",
-            borderRadius: 3
+            borderRadius: 5
         });
         picture_view.add(image);
         var text_view = Ti.UI.createView({
@@ -41,7 +43,7 @@ function Controller() {
             width: Ti.UI.FILL,
             height: Ti.UI.SIZE,
             right: 5,
-            left: 10
+            left: 5
         });
         picture_view.add(text_view);
         var when = Ti.UI.createLabel({
@@ -52,7 +54,7 @@ function Controller() {
             top: 5,
             left: 5,
             font: {
-                fontSize: 12,
+                fontSize: 16,
                 fontFamily: "Helvetica",
                 fontWeight: "bold"
             }
@@ -61,7 +63,7 @@ function Controller() {
         var when_text = Ti.UI.createLabel({
             text: Date.parse(event_detail["fields"]["start_date"] + " " + event_detail["fields"]["start_time"]).toString("M/d/yy hh:ss tt"),
             font: {
-                fontSize: 10,
+                fontSize: 16,
                 fontFamily: "Helvetica",
                 fontWeight: "bold"
             },
@@ -75,7 +77,7 @@ function Controller() {
         var where = Ti.UI.createLabel({
             text: "WHERE",
             font: {
-                fontSize: 12,
+                fontSize: 16,
                 fontFamily: "Helvetica",
                 fontWeight: "bold"
             },
@@ -89,21 +91,21 @@ function Controller() {
         var where_text = Ti.UI.createLabel({
             text: event_detail["fields"]["contact_address"],
             font: {
-                fontSize: 10,
+                fontSize: 16,
                 fontFamily: "Helvetica",
                 fontWeight: "bold"
             },
             left: 5,
             top: -3,
             height: Ti.UI.SIZE,
-            width: Ti.UI.Fill,
+            width: Ti.UI.FILL,
             color: "white"
         });
         text_view.add(where_text);
         var cost = Ti.UI.createLabel({
             text: "COST",
             font: {
-                fontSize: 12,
+                fontSize: 16,
                 fontFamily: "Helvetica",
                 fontWeight: "bold"
             },
@@ -117,7 +119,7 @@ function Controller() {
         var cost_text = Ti.UI.createLabel({
             text: event_detail["fields"]["cost_description"],
             font: {
-                fontSize: 10,
+                fontSize: 16,
                 fontFamily: "Helvetica",
                 fontWeight: "bold"
             },
@@ -140,9 +142,9 @@ function Controller() {
             eventDate: event_detail["fields"]["start_date"] + " " + event_detail["fields"]["start_time"],
             title: "I'm Going!",
             width: "45%",
-            height: "25",
+            height: "30",
             font: {
-                fontSize: 15
+                fontSize: 16
             },
             bubbleParent: false,
             style: "none",
@@ -179,11 +181,11 @@ function Controller() {
             borderColor: "black",
             borderRadius: 5,
             color: "#065365",
-            height: "25",
+            height: "30",
             left: 5,
             width: "45%",
             font: {
-                fontSize: 15
+                fontSize: 16
             },
             bubbleParent: false,
             style: "none",
@@ -203,6 +205,15 @@ function Controller() {
         });
         button_view.add(maybe_button);
         outer_wrapper_view.add(button_view);
+        var description_view = Ti.UI.createView({
+            width: Ti.UI.FILL,
+            height: Ti.UI.SIZE,
+            layout: "horizontal",
+            top: 5,
+            bottom: 5,
+            left: 5,
+            bottom: 5
+        });
         var description_text = Ti.UI.createLabel({
             text: event_detail["fields"]["description"],
             height: Ti.UI.SIZE,
@@ -210,12 +221,13 @@ function Controller() {
             left: 10,
             right: 10,
             font: {
-                fontSize: 10,
+                fontSize: 16,
                 fontFamily: "Helvetica"
             },
             color: "white"
         });
-        view.add(description_text);
+        description_view.add(description_text);
+        view.add(description_view);
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "EventDetail";
@@ -245,13 +257,13 @@ function Controller() {
         contentHeight: "auto",
         showVerticalScrollIndicator: true,
         showHorizontalScrollIndicator: false,
-        height: "100%",
-        width: "100%"
+        height: "auto",
+        width: "auto"
     });
     var view = Ti.UI.createView({
         top: 0,
         height: "auto",
-        width: "auto",
+        width: Ti.UI.FILL,
         layout: "vertical"
     });
     scrollView.add(view);
