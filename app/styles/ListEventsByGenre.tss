@@ -2,24 +2,25 @@
 	barColor: "#065365",
 	backgroundImage: "background.png",
 	top:20,
-	// fullscreen: true,
+	fullscreen: true,
 	// includeOpaqueBars: true,
 	// translucent: false,
 	// extendEdges:[Ti.UI.EXTEND_EDGE_BOTTOM, Ti.UI.EXTEND_EDGE_TOP],
-	extendEdges:[Ti.UI.EXTEND_EDGE_TOP, Ti.UI.EXTEND_EDGE_BOTTOM]
+	extendEdges:[Ti.UI.EXTEND_EDGE_TOP, Ti.UI.EXTEND_EDGE_BOTTOM],
+	autoAdjustScrollViewInsets: true
 }
-"#tableview": {
-	font:{fontSize:18},
-	top:0,
-	
-}
+// "#tableview": {
+	// font:{fontSize:18},
+	// // top:0,
+// 	
+// }
 
 ".EventListing": {
-	backgroundColor: "#2a6970",	
+	// backgroundColor: "#2a6970",	
 }
-".listheader": {
-	font:{
-		fontSize:12,
-		fontFamily: "Helvetica Neue",
-		}
-}
+// ".listheader": {
+	// font:{
+		// fontSize:12,
+		// fontFamily: "Helvetica Neue",
+		// }
+// }

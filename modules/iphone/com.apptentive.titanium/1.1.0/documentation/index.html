@@ -1,0 +1,126 @@
+<h1>Apptentive module for Titanium</h1>
+<p>The Apptentive Titanium module allows you to add a quick and easy in-app-feedback mechanism to your Titanium applications. Feedback is sent to the Apptentive web service.</p>
+<h2>Available on the Titanium Marketplace</h2>
+<p>The module will soon be available through the <a href="https://marketplace.appcelerator.com/">Titanium Marketplace</a>.</p>
+<h2>Available as a packaged module</h2>
+<p>A packaged version of the Apptentive module can be found under the <a href="https://github.com/apptentive/apptentive-titanium/releases">Release</a> tab of this repository.</p>
+<p>The packaged module is released as a .zip file:</p>
+<pre><code>com.apptentive.titanium-iphone-1.0.zip
+</code></pre>
+<h3>Installing the packaged Apptentive module</h3>
+<p>The Apptentive module package (above) should be unzipped into your Titanium directory:</p>
+<pre><code>&gt; unzip -u -o com.apptentive.titanium-iphone-1.0.zip -d ~/Library/Application\ Support/Titanium/
+</code></pre>
+<p><strong>NOTE</strong>: Your Titanium SDK may be installed under <code>/Library</code> rather than <code>~/Library</code>. Adjust these commands accordingly.</p>
+<p>Then, in your Titanium app, edit the <code>tiapp.xml</code> file. Add the following near the end of the file:</p>
+<pre><code>&lt;modules&gt;
+    &lt;module version="1.0"&gt;com.apptentive.titanium&lt;/module&gt;
+&lt;/modules&gt;
+</code></pre>
+<p>Your final <code>tiapp.xml</code> file should look similar to the following:</p>
+<p><code>XML
+&lt;ti:app xmlns:ti="http://ti.appcelerator.org"&gt;
+  &lt;id&gt;com.example.test&lt;/id&gt;
+  &lt;name&gt;testapp&lt;/name&gt;
+  &lt;version&gt;1.0&lt;/version&gt;
+  &lt;publisher&gt;Your Company&lt;/publisher&gt;
+  &lt;url&gt;www.example.com&lt;/url&gt;
+  &lt;description&gt;Our cool Titanium app&lt;/description&gt;
+  &lt;copyright&gt;Copyright 2013&lt;/copyright&gt;
+  &lt;icon&gt;appicon.png&lt;/icon&gt;
+  &lt;guid&gt;c347a9a1-44bd-48c8-a6bf-7762f2582f50&lt;/guid&gt;
+  &lt;modules&gt;
+    &lt;module version="1.0"&gt;com.apptentive.titanium&lt;/module&gt;
+  &lt;/modules&gt;
+&lt;/ti:app&gt;</code></p>
+<h3>Test that the module is correctly installed</h3>
+<p>Test that you have installed the module correctly by editing <code>app.js</code> in your Titanium app's resource directory:</p>
+<pre><code>var apptentiveModule = require('com.apptentive.titanium');
+Ti.API.info("module is =&gt; " + apptentiveModule);
+</code></pre>
+<p>When you run your Titanium app, you should see the following:</p>
+<pre><code>Detected third-party module: com.Apptentive.Titanium/1.0
+
+[INFO] [object ComApptentiveTitaniumModule] loaded
+[INFO] module is =&gt; [object ComApptentiveTitaniumModule]
+</code></pre>
+<p>If you see these statements and no errors in the console, the Apptentive module has been installed and loaded correctly in your Titanium app.</p>
+<h2>Using the Apptentive module in your Titanium app</h2>
+<p>Once you have successfully installed the module, you can begin using Apptentive in your Titanium app.</p>
+<pre><code>var apptentiveModule = require('com.apptentive.titanium');
+apptentiveModule.setApiKey("GET_YOUR_API_KEY_FROM_APPTENTIVE.COM");
+</code></pre>
+<p>It is important that you set your Apptentive API key, which you can get by signing up <a href="http://www.apptentive.com/">on our website</a>.</p>
+<p>You can then begin using the features of Apptentive. For example, you could add a "Give Feedback" button to your interface that collects feedback via Apptentive's Message Center.</p>
+<p><code>JavaScript
+var messageCenterButton = Titanium.UI.createButton({
+   title: "Give Feedback",
+   width: 200,
+   height: 50
+});
+win.add(messageCenterButton);
+messageCenterButton.addEventListener('click',function(e)
+{
+   apptentiveModule.presentMessageCenter();
+});</code></p>
+<h2>Message Center</h2>
+<p>Get feedback from your customers with the Apptentive Message Center.</p>
+<pre><code>apptentiveModule.presentMessageCenter();
+</code></pre>
+<p>The first time you present the Message Center, the user will be presented with an email feedback form. Thereafter, they will be taken to the Message Center. If you reply to your customers' feedback via the Apptentive website, the replies will be pushed to their in-app Message Center. </p>
+<p>Check for the number of unread messages like so:</p>
+<pre><code>apptentiveModule.unreadMessageCount();
+</code></pre>
+<p>You can also listen for our <code>ATMessageCenterUnreadCountChangedNotification</code> notification:</p>
+<pre><code>apptentiveModule.addEventListener('ATMessageCenterUnreadCountChangedNotification', function(e) {
+    Ti.API.info('New unread Message Center messages! ' + e.type);
+});
+</code></pre>
+<h2>User info</h2>
+<p>You can pre-load Apptentive with information about the user, which makes their Message Center experience easier:</p>
+<pre><code>apptentiveModule.setInitialUserName("Peter");
+apptentiveModule.setInitialUserEmailAddress("peter@example.com");
+</code></pre>
+<p>You can also store arbitrary information about the user, which is then visible in your Message Center:</p>
+<pre><code>apptentiveModule.addCustomDataWithKey("data", "key");
+apptentiveModule.addCustomDataWithKey("Seattle", "city");
+</code></pre>
+<p>Similarly, you can remove custom data:</p>
+<pre><code>apptentiveModule.removeCustomDataWithKey("city");
+</code></pre>
+<h2>App Store Rating Flow</h2>
+<p>Apptentive also provides an App Store rating flow. A ratings dialog will be displayed based on the number of launches of your application, the amount of time the user has been using it, and the number of significant events the user has completed (for example, levels passed). All of these variables can be modified on Apptentive.com.</p>
+<p>Display the rating flow at a certain point in your code with:</p>
+<pre><code>apptentiveModule.showRatingFlowIfConditionsAreMet();
+</code></pre>
+<p>The rating flow will only be shown if all conditions (number of launches, significant events, etc.) have been met.</p>
+<p>Log significant events, such as completing a level, with:</p>
+<pre><code>apptentiveModule.logSignificantEvent();
+</code></pre>
+<h2>In-App Surveys</h2>
+<p>Surveys can be created on our website and presented, in-app, to users.</p>
+<p>You can check if there are any available surveys that have been downloaded from the server:</p>
+<pre><code>apptentiveModule.hasSurveyAvailableWithNoTags();
+//...or...//
+apptentiveModule.hasSurveyAvailableWithTags("testSurvey", "testTag");
+</code></pre>
+<p>You can also listen for our <code>ATSurveyNewSurveyAvailableNotification</code> notification:</p>
+<pre><code>apptentiveModule.addEventListener('ATSurveyNewSurveyAvailableNotification', function(e) {
+    Ti.API.info('New Apptentive Surveys! ' + e.type);
+});
+</code></pre>
+<p>If surveys are available, present the surveys in the app:</p>
+<pre><code>apptentiveModule.presentSurveyControllerWithNoTags();
+//...or...//
+apptentiveModule.presentSurveyControllerWithTags("testSurvey", "testTag");
+</code></pre>
+<p>We will then send a notification when the survey has been sent to Apptentive:</p>
+<pre><code>apptentiveModule.addEventListener('ATSurveySentNotification', function(e) {
+    Ti.API.info('Apptentive Survey was sent! ' + e.type);
+});
+</code></pre>
+<h2>Questions? Comments? Help using Apptentive?</h2>
+<p>Please let us know how we can improve this document or the Apptentive Titanium module!</p>
+<p>https://github.com/apptentive/apptentive-titanium/issues</p>
+<p>If you have any other questions, please contact us and we will get back to you quickly.</p>
+<p>http://www.apptentive.com/contact</p>

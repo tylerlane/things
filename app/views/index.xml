@@ -1,5 +1,5 @@
 <Alloy>
-	<TabGroup>
+	<TabGroup class="container">
 		<!-- tab included via require tag -->
 		<!-- Genres -->
 		<Require src="ListGenres" ></Require>

@@ -24,3 +24,7 @@ apptentiveModule.setApiKey("e9bb85c57b58fe048d13f10e0b2bf90852ec5bd566d77a11175f
 /*analytics */
 var GA = require("analytics.google");
 var tracker = GA.getTracker("UA-29476655-2");
+
+/*background color */
+// Ti.UI.setBackgroundColor('#065365');
+Ti.UI.setBackgroundColor('#17788E');

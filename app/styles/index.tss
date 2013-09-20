@@ -1,9 +1,9 @@
 ".container": {
 	backgroundColor:"white",
-	top:20,
+	// top:20,
 	fullscreen: true,
-	includeOpaqueBars: true,
-	translucent: false,
+	// includeOpaqueBars: true,
+	// translucent: false,
 	extendEdges:[Ti.UI.EXTEND_EDGE_BOTTOM, Ti.UI.EXTEND_EDGE_TOP],
 	
 },

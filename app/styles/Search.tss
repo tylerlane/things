@@ -1,11 +1,12 @@
-"#window": {
+".container": {
 	barColor: "#065365",
 	backgroundImage: "background.png",
 	top:20,
 	fullscreen: false,
-	includeOpaqueBars: true,
-	translucent: false,
+	// includeOpaqueBars: true,
+	// translucent: false,
 	extendEdges:[Ti.UI.EXTEND_EDGE_BOTTOM, Ti.UI.EXTEND_EDGE_TOP],
+	autoAdjustScrollViewInsets: true
 }
 
 ".Name_label": {

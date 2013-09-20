@@ -23,7 +23,7 @@ var scrollView = Ti.UI.createScrollView({
 var view = Ti.UI.createView({
     top : 0,
     height : 'auto',
-    width : Ti.UI.FILL,
+    width : 'auto',
     layout : "vertical",
     // borderWidth: 1,
     // borderColor: 'green'

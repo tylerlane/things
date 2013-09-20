@@ -7,9 +7,6 @@
 	// includeOpaqueBars: true,
 	// translucent: false,
 	// extendEdges:[Ti.UI.EXTEND_EDGE_BOTTOM, Ti.UI.EXTEND_EDGE_TOP],
-	extendEdges:[Ti.UI.EXTEND_EDGE_TOP, Ti.UI.EXTEND_EDGE_BOTTOM]
-}
-
-"#label":{
-	color: "white",
+	extendEdges:[Ti.UI.EXTEND_EDGE_TOP, Ti.UI.EXTEND_EDGE_BOTTOM],
+	autoAdjustScrollViewInsets: true
 }

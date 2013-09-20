@@ -44,7 +44,7 @@
 		<theme>default</theme>
 	</mobileweb>
 	<modules>
-		<module version="1.0">com.apptentive.titanium</module>
+		<module version="1.1.0">com.apptentive.titanium</module>
 		<module version="1.0">analytics.google</module>
 	</modules>
 	<deployment-targets>

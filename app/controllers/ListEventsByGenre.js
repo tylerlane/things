@@ -372,6 +372,7 @@ function listEvents(events) {
             id : "tableview",
             objName : 'tableview',
             maxRowHeight: 175,
+            top: 0,
             height: Ti.UI.Size,
             // search : search,
             // filterAttribute : title,
@@ -619,6 +620,7 @@ function listEvents(events) {
             objName : 'tableview',
             //maxRowHeight: 175,
             height: Ti.UI.Size,
+            top:0,
             // search : search,
             // filterAttribute : title,
             // separatorStyle: Titanium.UI.iPhone.TableViewSeparatorStyle.NONE
@@ -652,7 +654,7 @@ var scrollView = Ti.UI.createScrollView({
 var view = Ti.UI.createView({
     // backgroundColor:'#336699',
     borderRadius : 0,
-    top : 20,
+    //top : 0,
 });
 
 
@@ -670,5 +672,8 @@ $.child_window2.add(scrollView);
 // 
 // });
 // $.child_window2.add(feedback_label);
+$.child_window2.addEventListener("focus", function(e){
+    $.child_window2.setTop(20);
+});
 Titanium.Analytics.featureEvent('Genre Detail page: ' + args.genre );
 tracker.trackEvent({ category: "Genre Detail Page", action: "clicked", label: "Event Id", value: args.genre });
