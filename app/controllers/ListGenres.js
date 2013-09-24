@@ -26,7 +26,7 @@ var myRequest = Ti.Network.createHTTPClient({
 });
 myRequest.open("GET", "http://data.news-leader.com/things/genres");
 myRequest.send();
-
+$.tab_two_win.setTop(theTop);
 function loadGenres(genres) {
     if (genres_view != undefined )
     {   
@@ -139,7 +139,7 @@ var view = Ti.UI.createView({
 });
 var logo_view = Ti.UI.createView({
     layout : "vertical",
-    top : 20,
+    // top : 20,
     height : "auto",
     // borderWidth: 3,
     // borderColor: 'red'

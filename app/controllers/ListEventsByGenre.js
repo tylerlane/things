@@ -1,13 +1,16 @@
+require('datejs/date');
 //settings args and titles etc
 var args = arguments[0] || {};
 $.parentController = args.parentTab;
 if( args.genre != "undefined" )
 {
-    $.child_window2.title = args.genre;    
+    $.child_window2.title = args.genre;
+    $.child_window2.setTop(theTop);    
 }
 
 //require alloy
 var alloy = require('alloy');
+
 //open our db object
 var db = Ti.Database.open("Things");
 //db.execute("CREATE TABLE IF NOT EXISTS my_events(id INTEGER PRIMARY KEY UNIQUE, event_name TEXT, event_date TEXT,status TEXT);");
@@ -548,7 +551,70 @@ function listEvents(events) {
                     e.source.setColor("white");
                 }
                 check_rs.close();
-                apptentiveModule.presentMessageCenter(); 
+                //apptentiveModule.presentMessageCenter();
+                
+                // create and show the event dialog
+                var details = {
+                    title:e.source.eventTitle,  // optional
+                    begin:e.source.eventDate,   // optional
+                    end:e.source.eventDate,       // optional
+                    location:"My office",  // optional
+                    description:"A test event from Titanium",    // optional
+                };
+                
+                if(Ti.Calendar.eventsAuthorization == Ti.Calendar.AUTHORIZATION_AUTHORIZED) {
+                    var defCalendar = Ti.Calendar.defaultCalendar;
+                    var date1 = new Date(new Date().getTime() + 3000),
+                        date2 = new Date(new Date().getTime() + 900000);
+                    Ti.API.info('Date1 : '+ date1 + 'Date2 : '+ date2);
+                    var event1 = defCalendar.createEvent({
+                            title:e.source.eventTitle,  // optional
+                            // begin:Date.parse(e.source.eventDate),   // optional
+                            notes: 'This is a test event which has some values assigned to it.',
+                            location: 'Appcelerator Inc',
+                            begin: date1,
+                            end: date2,
+                            availability: Ti.Calendar.AVAILABILITY_BUSY,
+                            allDay: false,
+                    });
+                    
+                    var alert1 = event1.createAlert({
+                            absoluteDate: new Date(new Date().getTime() - (1000*60*20))
+                    });
+                    event1.save();
+                    Ti.API.info( "event1" + event1 );
+                    Ti.API.info( "event1: " + event1.getStatus() );
+                } else {
+                    Ti.Calendar.requestEventsAuthorization(function(e){
+                            if (e.success) {
+                                var defCalendar = Ti.Calendar.defaultCalendar;
+                                // var date1 = new Date(new Date().getTime() + 3000),
+                                    // date2 = new Date(new Date().getTime() + 900000);
+                                Ti.API.info('Date1 : '+ date1 + 'Date2 : '+ date2);
+                                var event1 = defCalendar.createEvent({
+                                        title:e.source.eventTitle,  // optional
+                                        //begin:Date.parse(e.source.eventDate),   // optional
+                                        notes: 'This is a test event which has some values assigned to it.',
+                                        location: 'Appcelerator Inc',
+                                        begin: Date().toDate(),
+                                        // end: date2,
+                                        availability: Ti.Calendar.AVAILABILITY_BUSY,
+                                        allDay: true,
+                                });
+                                
+                                var alert1 = event1.createAlert({
+                                        absoluteDate: new Date(new Date().getTime() - (1000*60*20))
+                                });
+                                event1.save(Ti.Calendar.SPAN_THISEVENT);
+                                Ti.API.info( "event1" + event1 );
+                                Ti.API.info( "event1: " + event1.getStatus() );
+                                
+                            } else {
+                                alert('Access to calendar is not allowed');
+                            }
+                        });
+                }
+                
             });
             button_view.add(going_button);
             var maybe_button = Ti.UI.createButton({
@@ -673,7 +739,7 @@ $.child_window2.add(scrollView);
 // });
 // $.child_window2.add(feedback_label);
 $.child_window2.addEventListener("focus", function(e){
-    $.child_window2.setTop(20);
+    $.child_window2.setTop(theTop);
 });
 Titanium.Analytics.featureEvent('Genre Detail page: ' + args.genre );
 tracker.trackEvent({ category: "Genre Detail Page", action: "clicked", label: "Event Id", value: args.genre });
