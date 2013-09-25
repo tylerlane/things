@@ -362,7 +362,11 @@ function listEvents(events) {
                 eventID : events[i]["pk"],
                 excitement : events[i]["fields"]["excitement"],
                 short_description : events[i]["fields"]["short_description"],
+                start_date : events[i]["fields"]["start_date"],
                 start_time : events[i]["fields"]["start_time"],
+                end_date : events[i]["fields"]["end_date"],
+                end_time : events[i]["fields"]["end_time"],
+                // location : events[i]["fields"]["contact_adress"],
                 cost: events[i]["fields"]["cost_description"],
                 resized : false
             };
@@ -403,6 +407,7 @@ function listEvents(events) {
             //setting up the di
             var pic = Titanium.UI.createImageView({
                 image : CustomData[i].pic,
+                defaultImage: "defaultImage.png",
                 backgoundColor: "white",
                 width : 100,
                 //height : 95,
@@ -458,7 +463,7 @@ function listEvents(events) {
             event_view.add(where);
              var when = Titanium.UI.createLabel({
                 // text: CustomData[i].date,
-                text: "When: " + Date.parse(CustomData[i].start_time).toString("MMM d, yyyy hh:ss tt"),
+                text: "When: " + Date.parse(CustomData[i].start_date + " " + CustomData[i].start_time).toString("MMM d, yyyy hh:ss tt"),
                 font: {
                     fontSize : 12,
                     // fontWeight : 'bold'
@@ -507,7 +512,13 @@ function listEvents(events) {
             var going_button = Ti.UI.createButton({
                 eventID : CustomData[i]["eventID"],
                 eventTitle: CustomData[i]["title"],
-                eventDate: CustomData[i]["start_time"],
+                eventStartDate: CustomData[i]["start_date"],
+                eventStartTime: CustomData[i]["start_time"],
+                eventEndDate: CustomData[i]["end_date"],
+                eventEndTime: CustomData[i]["end_time"],
+                eventDescription: CustomData[i]["description"],
+                eventLocation: CustomData[i]["contact_address"],
+                
                 title : "I'm Going!",
                 width : "45%",
                 height : "15",
@@ -543,7 +554,7 @@ function listEvents(events) {
                 else
                 {
                     //if the event is not already in the db, then we add it.    
-                    var query = "INSERT INTO my_events(id,event_name,event_date,status)VALUES('" +  e.source.eventID +"','" + e.source.eventTitle + "', '" + e.source.eventDate + "','going');";
+                    var query = "INSERT INTO my_events(id,event_name,event_date,status)VALUES('" +  e.source.eventID +"','" + e.source.eventTitle + "', '" + e.source.eventStartDate + "','going');";
                     // //Ti.API.info( "query = " + query);
                     db.execute(query);
                     //reversing the button colors if you hit i'm going.
@@ -556,64 +567,30 @@ function listEvents(events) {
                 // create and show the event dialog
                 var details = {
                     title:e.source.eventTitle,  // optional
-                    begin:e.source.eventDate,   // optional
-                    end:e.source.eventDate,       // optional
-                    location:"My office",  // optional
-                    description:"A test event from Titanium",    // optional
+                    begin:e.source.eventStartDate + " " + e.source.eventStartTime,   // optional
+                    end:e.source.eventEndDate + " " + e.source.eventEndTime,       // optional
+                    location:e.source.eventLocation,  // optional
+                    description:e.source.eventDescription,    // optional
                 };
-                
-                if(Ti.Calendar.eventsAuthorization == Ti.Calendar.AUTHORIZATION_AUTHORIZED) {
-                    var defCalendar = Ti.Calendar.defaultCalendar;
-                    var date1 = new Date(new Date().getTime() + 3000),
-                        date2 = new Date(new Date().getTime() + 900000);
-                    Ti.API.info('Date1 : '+ date1 + 'Date2 : '+ date2);
-                    var event1 = defCalendar.createEvent({
-                            title:e.source.eventTitle,  // optional
-                            // begin:Date.parse(e.source.eventDate),   // optional
-                            notes: 'This is a test event which has some values assigned to it.',
-                            location: 'Appcelerator Inc',
-                            begin: date1,
-                            end: date2,
-                            availability: Ti.Calendar.AVAILABILITY_BUSY,
-                            allDay: false,
-                    });
-                    
-                    var alert1 = event1.createAlert({
-                            absoluteDate: new Date(new Date().getTime() - (1000*60*20))
-                    });
-                    event1.save();
-                    Ti.API.info( "event1" + event1 );
-                    Ti.API.info( "event1: " + event1.getStatus() );
-                } else {
-                    Ti.Calendar.requestEventsAuthorization(function(e){
-                            if (e.success) {
-                                var defCalendar = Ti.Calendar.defaultCalendar;
-                                // var date1 = new Date(new Date().getTime() + 3000),
-                                    // date2 = new Date(new Date().getTime() + 900000);
-                                Ti.API.info('Date1 : '+ date1 + 'Date2 : '+ date2);
-                                var event1 = defCalendar.createEvent({
-                                        title:e.source.eventTitle,  // optional
-                                        //begin:Date.parse(e.source.eventDate),   // optional
-                                        notes: 'This is a test event which has some values assigned to it.',
-                                        location: 'Appcelerator Inc',
-                                        begin: Date().toDate(),
-                                        // end: date2,
-                                        availability: Ti.Calendar.AVAILABILITY_BUSY,
-                                        allDay: true,
-                                });
-                                
-                                var alert1 = event1.createAlert({
-                                        absoluteDate: new Date(new Date().getTime() - (1000*60*20))
-                                });
-                                event1.save(Ti.Calendar.SPAN_THISEVENT);
-                                Ti.API.info( "event1" + event1 );
-                                Ti.API.info( "event1: " + event1.getStatus() );
-                                
-                            } else {
-                                alert('Access to calendar is not allowed');
-                            }
-                        });
+                if(Ti.Calendar.eventsAuthorization == Ti.Calendar.AUTHORIZATION_AUTHORIZED) 
+                {
+                    //adding the event to the calendar
+                    addToCalendar(details);
                 }
+                else
+                {
+                    Ti.Calendar.requestEventsAuthorization(function(e){
+                        if (e.success)
+                        {
+                            //adding the event to the calendar
+                            addToCalendar(details);
+                        } else {
+                            Ti.API.info('Access to calendar is not allowed');
+                        }
+                    });
+                }
+                
+                
                 
             });
             button_view.add(going_button);

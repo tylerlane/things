@@ -293,26 +293,27 @@ var feedback  = Ti.UI.createLabel({
     color: "white"
 });
 feedback.addEventListener("click",function(){
-    apptentiveModule.presentMessageCenter(); 
+    // apptentiveModule.presentMessageCenter();
+    NappTestFlight.launchFeedback(); 
 });
-if(apptentiveModule.hasSurveyAvailableWithNoTags() )
-{
-    var survey = Ti.UI.createLabel({
-    text: "Take a Survey?",
-    top: 5,
-    bottom: 5,
-    font:{
-        fontSize: 16
-    },
-    color: "white"
-    
-    });
-    survey.addEventListener("click",function(){
-        apptentiveModule.presentSurveyControllerWithNoTags();
-    });
-    view.add(survey);
-    
-}
+// if(apptentiveModule.hasSurveyAvailableWithNoTags() )
+// {
+    // var survey = Ti.UI.createLabel({
+    // text: "Take a Survey?",
+    // top: 5,
+    // bottom: 5,
+    // font:{
+        // fontSize: 16
+    // },
+    // color: "white"
+//     
+    // });
+    // survey.addEventListener("click",function(){
+        // apptentiveModule.presentSurveyControllerWithNoTags();
+    // });
+    // view.add(survey);
+//     
+// }
 view.add(feedback);
 
 scrollView.add(view);

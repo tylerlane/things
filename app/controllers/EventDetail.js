@@ -3,10 +3,9 @@ require('alloy');
 //open our db object
 var db = Ti.Database.open("Things");
 db.execute("CREATE TABLE IF NOT EXISTS my_events(id INTEGER PRIMARY KEY UNIQUE, event_name TEXT, event_date TEXT,status TEXT);");
-if(Ti.Platform.name != "android" )
-{
+if (Ti.Platform.name != "android") {
     //apparently apple will reject apps backing up unnecessary files so setting the local db to not be backed up.
-    db.file.setRemoteBackup(false);    
+    db.file.setRemoteBackup(false);
 }
 
 var args = arguments[0] || {};
@@ -62,15 +61,15 @@ function eventDetail(event_detail) {
     });
     view.add(label);
     var outer_wrapper_view = Ti.UI.createView({
-        layout: "vertical",
+        layout : "vertical",
         // height: Ti.UI.FILL,
-        height: 400,
-        width: Ti.UI.FILL,
-        top: 5,
-        bottom:5,
-        left:5,
-        right: 5,
-        borderRadius: 5, 
+        height : 400,
+        width : Ti.UI.FILL,
+        top : 5,
+        bottom : 5,
+        left : 5,
+        right : 5,
+        borderRadius : 5,
         // borderColor: "blue",
         // borderWidth: 1,
         backgroundColor : "#065365",
@@ -84,19 +83,19 @@ function eventDetail(event_detail) {
         layout : "vertical",
         // borderColor: "orange",
         // borderWidth: 1,
-        height: Ti.UI.SIZE,
+        height : Ti.UI.SIZE,
     });
     outer_wrapper_view.add(picture_view);
     var image = Ti.UI.createImageView({// creates thumb
         image : "http://data-media.news-leader.com/" + event_detail["fields"]["main_photo"], // sets image to smaller version of image
         //largeImage:shots[i].image_url,
-        height:175, // sets height
+        height : 175, // sets height
         //width : 125, // sets width
         // left : 10,
         top : 8,
-        hires: true,
+        hires : true,
         // backgroundColor : "#61929d",
-        backgroundColor: "white",
+        backgroundColor : "white",
         borderRadius : 5,
         // borderColor: "green",
         // borderWidth: 1
@@ -194,10 +193,10 @@ function eventDetail(event_detail) {
         color : "yellow",
     });
     text_view.add(cost);
-    
+
     var cost_text = Ti.UI.createLabel({
-       text: event_detail["fields"]["cost_description"],
-       font : {
+        text : event_detail["fields"]["cost_description"],
+        font : {
             fontSize : 16,
             fontFamily : "Helvetica",
             fontWeight : "bold"
@@ -208,21 +207,26 @@ function eventDetail(event_detail) {
         width : Ti.UI.Fill,
         color : "white"
         // borderColor : "orange",
-        // borderWidth : 1, 
+        // borderWidth : 1,
     });
     text_view.add(cost_text);
     button_view = Ti.UI.createView({
-        layout: "horizontal",
-        width: Ti.UI.SIZE,
-        top: 3,
-        bottom:0,
+        layout : "horizontal",
+        width : Ti.UI.SIZE,
+        top : 3,
+        bottom : 0,
         // borderColor: "red",
         // borderWidth: 1
     });
     var going_button = Ti.UI.createButton({
         eventID : event_detail["pk"],
-        eventTitle: event_detail["fields"]["name"],
-        eventDate: event_detail["fields"]["start_date"] + " " + event_detail["fields"]['start_time'],
+        eventTitle : event_detail["fields"]["name"],
+        eventStartDate : event_detail["fields"]["start_date"],
+        eventStartTime : event_detail["fields"]["start_time"],
+        eventEndDate : event_detail["fields"]["end_date"],
+        eventEndTime : event_detail["fields"]["end_time"],
+        eventDescription : event_detail["fields"]["description"],
+        eventLocation : event_detail["fields"]["contact_address"],
         title : "I'm Going!",
         width : "45%",
         height : "30",
@@ -231,34 +235,31 @@ function eventDetail(event_detail) {
         font : {
             fontSize : 16,
         },
-        bubbleParent: false,
-        style: 'none',
-        borderWidth: 1,
-        borderColor: 'black',
-        borderRadius: 5,
-        color: "#065365",
-        backgroundColor: "white"
+        bubbleParent : false,
+        style : 'none',
+        borderWidth : 1,
+        borderColor : 'black',
+        borderRadius : 5,
+        color : "#065365",
+        backgroundColor : "white"
     });
-    
+
     going_button.addEventListener('click', function(e) {
         // //Ti.API.info("going button in event listing clicked");
-        
+
         var check_query = "SELECT * from my_events where id = '" + e.source.eventID + "'";
         //Ti.API.info( "check_query = " + check_query);
-        var check_rs = db.execute( check_query );
-        if( check_rs.isValidRow() )
-        {
+        var check_rs = db.execute(check_query);
+        if (check_rs.isValidRow()) {
             // //Ti.API.info("event already exists in my events");
-            var query = "DELETE FROM my_events where id='"+ e.source.eventID +"'";
+            var query = "DELETE FROM my_events where id='" + e.source.eventID + "'";
             db.execute(query);
             //reversing the button colors if you hit i'm going.
             e.source.setBackgroundColor("white");
             e.source.setColor("#065365");
-        }
-        else
-        {
-            //if the event is not already in the db, then we add it.    
-            var query = "INSERT INTO my_events(id,event_name,event_date,status)VALUES('" +  e.source.eventID +"','" + e.source.eventTitle + "', '" + e.source.eventDate + "','going');";
+        } else {
+            //if the event is not already in the db, then we add it.
+            var query = "INSERT INTO my_events(id,event_name,event_date,status)VALUES('" + e.source.eventID + "','" + e.source.eventTitle + "', '" + e.source.eventStartDate + "','going');";
             // //Ti.API.info( "query = " + query);
             db.execute(query);
             //reversing the button colors if you hit i'm going.
@@ -266,78 +267,102 @@ function eventDetail(event_detail) {
             e.source.setColor("white");
         }
         check_rs.close();
+        // create and show the event dialog
+        var details = {
+            title : e.source.eventTitle, // optional
+            begin : e.source.eventStartDate + " " + e.source.eventStartTime, // optional
+            end : e.source.eventEndDate + " " + e.source.eventEndTime, // optional
+            location : e.source.eventLocation, // optional
+            description : e.source.eventDescription,    // optional
+        };
+        if (Ti.Calendar.eventsAuthorization == Ti.Calendar.AUTHORIZATION_AUTHORIZED) {
+            //adding the event to the calendar
+            addToCalendar(details);
+        } else {
+            Ti.Calendar.requestEventsAuthorization(function(e) {
+                if (e.success) {
+                    //adding the event to the calendar
+                    addToCalendar(details);
+                } else {
+                    Ti.API.info('Access to calendar is not allowed');
+                }
+            });
+        }
     });
     button_view.add(going_button);
     var maybe_button = Ti.UI.createButton({
         title : "I'm Interested",
         eventID : event_detail["pk"],
-        eventTitle: event_detail["fields"]["name"],
-        eventDate: event_detail["fields"]["start_date"] + " " + event_detail["fields"]['start_time'],
-        style: 'none',
-        borderWidth: 1,
-        borderColor: 'black',
-        borderRadius: 5,
-        color: "#065365",
+        eventTitle : event_detail["fields"]["name"],
+        eventDate : event_detail["fields"]["start_date"] + " " + event_detail["fields"]['start_time'],
+        style : 'none',
+        borderWidth : 1,
+        borderColor : 'black',
+        borderRadius : 5,
+        color : "#065365",
         height : "30",
-        left: 5,
-        width: "45%",
+        left : 5,
+        width : "45%",
         font : {
             fontSize : 16,
         },
-        bubbleParent: false,
-        style: 'none',
-        backgroundColor: "white"
+        bubbleParent : false,
+        style : 'none',
+        backgroundColor : "white"
     });
     maybe_button.addEventListener('click', function(e) {
         //Ti.API.info("maybe button in event listing clicked");
         var check_query = "SELECT * from my_events where id = '" + e.source.eventID + "'";
-        
+
         //Ti.API.info( "check_query = " + check_query);
-        var check_rs = db.execute( check_query );
-        if( check_rs.isValidRow() )
-        {
+        var check_rs = db.execute(check_query);
+        if (check_rs.isValidRow()) {
             //Ti.API.info("event already exists in my events");
-            var query = "DELETE FROM my_events where id='"+ e.source.eventID +"'";
+            var query = "DELETE FROM my_events where id='" + e.source.eventID + "'";
             db.execute(query);
-        }
-        else
-        {
-            //if the event is not already in the db, then we add it.    
-            var query = "INSERT INTO my_events(id,event_name,event_date,status)VALUES('" +  e.source.eventID +"','" + e.source.eventTitle + "', '" + e.source.eventDate + "','interested');";
+        } else {
+            //if the event is not already in the db, then we add it.
+            var query = "INSERT INTO my_events(id,event_name,event_date,status)VALUES('" + e.source.eventID + "','" + e.source.eventTitle + "', '" + e.source.eventDate + "','interested');";
             //Ti.API.info( "query = " + query);
             db.execute(query);
         }
         check_rs.close();
-        
+
     });
     button_view.add(maybe_button);
     outer_wrapper_view.add(button_view);
     var description_view = Ti.UI.createView({
-       width: Ti.UI.FILL,
-       height: Ti.UI.SIZE,
-       layout: "horizontal",
-       top:5,
-       bottom:5,
-       left:5,
-       bottom:5 
+        width : Ti.UI.FILL,
+        height : Ti.UI.SIZE,
+        layout : "horizontal",
+        top : 5,
+        bottom : 5,
+        left : 5,
+        bottom : 5
     });
-    
+
     var description_text = Ti.UI.createLabel({
-        text: event_detail["fields"]["description"],
-        height: Ti.UI.SIZE,
-        width: Ti.UI.FILL,
-        left: 10,
-        right: 10,
-        font:{
-            fontSize: 16,
-            fontFamily: "Helvetica",
+        text : event_detail["fields"]["description"],
+        height : Ti.UI.SIZE,
+        width : Ti.UI.FILL,
+        left : 10,
+        right : 10,
+        font : {
+            fontSize : 16,
+            fontFamily : "Helvetica",
         },
-        color: "white",
+        color : "white",
         //borderColor:"blue",
         //borderWidth:1
     });
     description_view.add(description_text);
     view.add(description_view);
 }
-Titanium.Analytics.featureEvent('Event Detail: ' + args.eventid );
-tracker.trackEvent({ category: "Event Detail: ", action: "loaded", label: "Event ID", value: args.eventid });
+
+Titanium.Analytics.featureEvent('Event Detail: ' + args.eventid);
+tracker.trackEvent({
+    category : "Event Detail: ",
+    action : "loaded",
+    label : "Event ID",
+    value : args.eventid
+}); 

@@ -16,7 +16,6 @@ var myRequest = Ti.Network.createHTTPClient({
         // $.textArea.value= genres.length;
         // Ti.API.info( "fetched the genres: " + genres );
         loadGenres(genres);
-        
     },
     onerror : function(e) {
         Ti.API.info( "fetching error: " + e.error );
@@ -166,7 +165,7 @@ $.tab_two_win.add(scrollView);
 
 $.tab_two_win.addEventListener("focus", function(e){
     // put in code to check for reminders here.
-    var check_query = "SELECT * FROM my_events where status='going'";
+    var check_query = "SELECT * FROM my_events where status='going' order by event_date LIMIT 3";
     ////Ti.API.info( "check_query: " + check_query );
     var check_rs = db.execute(check_query);
     //Ti.API.info("check_rs: " + check_rs);
@@ -224,53 +223,67 @@ $.tab_two_win.addEventListener("focus", function(e){
                     $.tab_two.open(eventDetailController.getView());
                 });
             while (check_rs.isValidRow()) {
-                // Ti.API.info( "looping through check_rs");
-                var reminder_view = Ti.UI.createView({
-                    layout : "horizontal",
-                    width : Ti.UI.FILL,
-                    height : Ti.UI.SIZE,
-                    top : 0,
-                    left : 25,
-                    eventID : "2",
-                    // borderWidth: 3,
-                    // borderColor: 'yellow'
-                });
-                var reminder_label_text = Ti.UI.createLabel({
-                    text : check_rs.fieldByName('event_name'),
-                    eventID : check_rs.fieldByName('id'),
-                    left : 0,
-                    color : "white",
-                    width : "65%",
-                    font : {
-                        fontSize : 14,
-                        fontFamily : "Tall Dark and Handsome Condensed",
-                        fontWeight : "bold"
-                    }
-                });
-                // Ti.API.info( "adding label text to reminder_view");
-                reminder_view.add(reminder_label_text);
-                // Ti.API.info( "Date: " + Date.parse("9-30-13 5:00pm").toString("MMM ddd d, yy") );
-                var reminder_label_date = Ti.UI.createLabel({
-                    eventID : check_rs.fieldByName('id'),
-                    //text : check_rs.fieldByName('event_date'),
-                    text: Date.parse(check_rs.fieldByName('event_date')).toString("MMM d, yyyy"),
-                    right : 0,
-                    color : "white",
-                    width : "30%",
-                    textAlign : Ti.UI.TEXT_ALIGNMENT_RIGHT,
-                    font : {
-                        fontSize : 14,
-                        fontFamily : "Tall Dark and Handsome Condensed",
-                        fontWeight : "bold"
-                    }
-                });
-                // Ti.API.info( "adding label text to reminder_view");
-                reminder_view.add(reminder_label_date);
+                var today = Date.today();
+                var future = Date.today().addDays(3);
+                Ti.API.info( "today = " + today );
+                Ti.API.info( "future = " + future );
+                Ti.API.info( Date.parse(check_rs.fieldByName("event_date")).between(today,future) );
+                // if( Date.parse(check_rs.fieldByName("event_date")).between(today,future) )
+                // {
+                    Ti.API.info( "event is between today and 3 days from now");
+                    
+                    // Ti.API.info( "looping through check_rs");
+                    var reminder_view = Ti.UI.createView({
+                        layout : "horizontal",
+                        width : Ti.UI.FILL,
+                        height : Ti.UI.SIZE,
+                        top : 0,
+                        left : 25,
+                        eventID : "2",
+                        // borderWidth: 3,
+                        // borderColor: 'yellow'
+                    });
+                    var reminder_label_text = Ti.UI.createLabel({
+                        text : check_rs.fieldByName('event_name'),
+                        eventID : check_rs.fieldByName('id'),
+                        left : 0,
+                        color : "white",
+                        width : "65%",
+                        font : {
+                            fontSize : 14,
+                            fontFamily : "Tall Dark and Handsome Condensed",
+                            fontWeight : "bold"
+                        }
+                    });
+                    // Ti.API.info( "adding label text to reminder_view");
+                    reminder_view.add(reminder_label_text);
+                    var reminder_label_date = Ti.UI.createLabel({
+                        eventID : check_rs.fieldByName('id'),
+                        //text : check_rs.fieldByName('event_date'),
+                        text: Date.parse(check_rs.fieldByName('event_date')).toString("MMM d, yyyy"),
+                        right : 0,
+                        color : "white",
+                        width : "30%",
+                        textAlign : Ti.UI.TEXT_ALIGNMENT_RIGHT,
+                        font : {
+                            fontSize : 14,
+                            fontFamily : "Tall Dark and Handsome Condensed",
+                            fontWeight : "bold"
+                        }
+                    });
+                    // Ti.API.info( "adding label text to reminder_view");
+                    reminder_view.add(reminder_label_date);
+                // }                   
                 // Ti.API.info( "looping to next result in the set.");
                 check_rs.next();
-                // Ti.API.info( "adding reminder_view to reminder_wrapper");
-                reminder_wrapper.add(reminder_view);
-                // Ti.API.info( "reminder_wrapper = " + reminder_wrapper);
+                if( reminder_view != "undefined" )
+                {
+                    // Ti.API.info( "adding reminder_view to reminder_wrapper");
+                    reminder_wrapper.add(reminder_view);            
+                    // Ti.API.info( "reminder_wrapper = " + reminder_wrapper);
+                }
+                
+                
             }
             reminder_container.add(reminder_wrapper);
             //close result set and db
