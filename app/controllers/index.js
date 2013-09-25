@@ -13,6 +13,7 @@ Titanium.App.addEventListener('close', function (e) {
 Titanium.Analytics.featureEvent('starting app');
 tracker.trackEvent({ category: "Index Page", action: "loaded"});
 
+NappTestFlight.passCheckpoint("Index page");
 // var feedback_count = apptentiveModule.unreadMessageCount();
 // Ti.API.info( "feedback count = " + feedback_count );
 // if( feedback_count > 0 )

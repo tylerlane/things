@@ -296,6 +296,8 @@ feedback.addEventListener("click",function(){
     // apptentiveModule.presentMessageCenter();
     NappTestFlight.launchFeedback(); 
 });
+
+NappTestFlight.passCheckpoint("My Things page");
 // if(apptentiveModule.hasSurveyAvailableWithNoTags() )
 // {
     // var survey = Ti.UI.createLabel({
